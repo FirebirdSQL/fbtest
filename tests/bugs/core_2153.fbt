@@ -1,0 +1,38 @@
+{
+'id': 'bugs.core_2153',
+'qmid': None,
+'tracker_id': 'CORE-2153',
+'title': 'SIMILAR TO predicate hangs with "|" option',
+'description': '',
+'min_versions': '',
+'versions': [
+{
+ 'firebird_version': '2.5.0',
+ 'platform': 'All',
+ 'page_size': '4096',
+ 'test_type': 'ISQL',
+ 'test_script': """set count on ;
+
+select * from rdb$database
+where rdb$character_set_name similar to '%(av|ie){2,}%' ;
+
+select * from rdb$database
+where rdb$character_set_name similar to '%((av)|(ie)){2,}%' ;
+
+select * from rdb$database
+where rdb$character_set_name similar to '%(av)|{2,}%' ;
+""",
+ 'expected_stdout': """Records affected: 0
+Records affected: 0
+
+  RDB$DESCRIPTION RDB$RELATION_ID RDB$SECURITY_CLASS                                                                            RDB$CHARACTER_SET_NAME
+================= =============== =============================================================================== ===============================================================================
+""",
+ 'expected_stderr': """Statement failed, SQLSTATE = 42000
+
+Invalid SIMILAR TO pattern
+
+"""
+}
+]
+}

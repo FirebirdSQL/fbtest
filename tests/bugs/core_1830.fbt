@@ -1,0 +1,127 @@
+{
+'id': 'bugs.core_1830',
+'qmid': 'bugs.core_1830',
+'tracker_id': 'CORE-1830',
+'title': 'Possible index corruption with multiply updates of the same record in the same transaction and using of savepoints',
+'description': '',
+'versions': [
+{
+ 'firebird_version': '1.5.6',
+ 'platform': 'All',
+ 'init_script': """CREATE TABLE A
+(
+  ID CHAR(1), NAME VARCHAR(255)
+);
+
+CREATE INDEX IDX_A ON A (ID);
+CREATE EXCEPTION EX_PERM 'AAA';
+COMMIT ;
+
+INSERT INTO A (ID) VALUES ('1');
+COMMIT;""",
+ 'test_type': 'ISQL',
+ 'test_script': """SELECT * FROM A WHERE ID = '1';
+SET TERM ^;
+EXECUTE BLOCK AS
+BEGIN
+  UPDATE A SET NAME = 'xxx';
+  UPDATE A SET ID = '2';
+  EXCEPTION EX_PERM;
+END ^
+SET TERM ; ^
+SELECT * FROM A ;
+SELECT * FROM A WHERE ID = '1' ;
+
+COMMIT;
+SELECT * FROM A ;
+""",
+ 'expected_stdout': """
+ID     NAME
+====== ===============================================================================
+1      <null>
+
+
+ID     NAME
+====== ===============================================================================
+1      <null>
+
+
+ID     NAME
+====== ===============================================================================
+1      <null>
+
+
+ID     NAME
+====== ===============================================================================
+1      <null>
+
+""",
+ 'expected_stderr': """Statement failed, SQLCODE = -836
+exception 1
+-EX_PERM
+-AAA
+"""
+},
+{
+ 'firebird_version': '2.5',
+ 'platform': 'All',
+ 'init_script': """CREATE TABLE A
+(
+  ID CHAR(1), NAME VARCHAR(255)
+);
+
+CREATE INDEX IDX_A ON A (ID);
+CREATE EXCEPTION EX_PERM 'AAA';
+COMMIT ;
+
+INSERT INTO A (ID) VALUES ('1');
+COMMIT;""",
+ 'test_type': 'ISQL',
+ 'test_script': """SELECT * FROM A WHERE ID = '1';
+SET TERM ^;
+EXECUTE BLOCK AS
+BEGIN
+  UPDATE A SET NAME = 'xxx';
+  UPDATE A SET ID = '2';
+  EXCEPTION EX_PERM;
+END ^
+SET TERM ; ^
+SELECT * FROM A ;
+SELECT * FROM A WHERE ID = '1' ;
+
+COMMIT;
+SELECT * FROM A ;
+""",
+ 'expected_stdout': """
+ID     NAME
+====== ===============================================================================
+1      <null>
+
+
+ID     NAME
+====== ===============================================================================
+1      <null>
+
+
+ID     NAME
+====== ===============================================================================
+1      <null>
+
+
+ID     NAME
+====== ===============================================================================
+1      <null>
+
+""",
+ 'expected_stderr': """Statement failed, SQLSTATE = HY000
+
+exception 1
+
+-EX_PERM
+
+-AAA
+
+"""
+}
+]
+}

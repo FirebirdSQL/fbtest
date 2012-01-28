@@ -1,0 +1,41 @@
+{
+'id': 'bugs.core_1249',
+'qmid': 'bugs.core_1249',
+'tracker_id': 'CORE-1249',
+'title': "Full shutdown mode doesn't work on Classic if there are other connections to the database",
+'description': "This bug affects only Windows CS, but we'll test all platforms and architectures anyway.",
+'min_versions': None,
+'versions': [
+{
+ 'firebird_version': '2.0.2',
+ 'platform': 'All',
+ 'test_type': 'Python',
+ 'test_script': """cur1 = db_conn.cursor()
+db_conn.begin()
+cur1.execute('select * from rdb$database')
+print 'Operation performed before shutdown'
+db_conn.commit()
+
+runProgram('gfix',[dsn,'-user',user_name,'-pas',user_password,'-shut','full','-force','0'])
+
+try:
+  db_conn.begin()
+  cur1.execute('select * from rdb$database')
+  db_conn.commit()
+  print 'BUG! Operation allowed after shutdown!'
+except Exception, e:
+  print "Ok, we've got error.", e[0]
+
+# This is necessary to remove the database
+#db_conn.close()
+runProgram('gfix',[dsn,'-user',user_name,'-pas',user_password,'-online'])
+#db_conn = kdb.connect(dsn=dsn.encode(),user=user_name.encode(),password=user_password.encode())
+#db_conn.drop_database()
+
+""",
+ 'expected_stdout': """Operation performed before shutdown
+Ok, we've got error. -902
+"""
+}
+]
+}

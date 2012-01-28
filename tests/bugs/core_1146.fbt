@@ -1,0 +1,44 @@
+{
+'id': 'bugs.core_1146',
+'qmid': 'bugs.core_1146',
+'tracker_id': 'CORE-1146',
+'title': 'AV in rse\invalidate_child_rpbs for recursive queies',
+'description': 'This may crash the server with AV',
+'versions': [
+{
+ 'firebird_version': '2.1',
+ 'platform': 'All',
+ 'init_script': """CREATE TABLE C (
+    ID INTEGER,
+    NAME VARCHAR(100)
+);
+
+
+CREATE TABLE T (
+    ID INTEGER,
+    OWNERCODE INTEGER,
+    CODE INTEGER
+);
+
+COMMIT;
+""",
+ 'test_type': 'ISQL',
+ 'test_script': """WITH RECURSIVE X (ID, OWNERCODE, CODE, OWNCLASS, CLASS) AS
+(
+  SELECT T.ID, OWNERCODE, CODE, C2.NAME AS OWNCLASS, C1.NAME AS CLASS
+    FROM T INNER JOIN C C1 ON C1.ID = CODE
+           LEFT JOIN C C2 ON C2.ID = OWNERCODE
+    WHERE OWNERCODE = 0
+
+  UNION ALL
+
+  SELECT T.ID, OWNERCODE, CODE, C2.NAME AS OWNCLASS, C1.NAME AS CLASS
+    FROM T INNER JOIN C C1 ON C1.ID = CODE
+           LEFT JOIN C C2 ON C2.ID = OWNERCODE
+           INNER JOIN X ON T.OWNERCODE = X.CODE
+)
+SELECT * FROM X ;
+"""
+}
+]
+}

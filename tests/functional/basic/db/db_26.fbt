@@ -1,0 +1,185 @@
+{
+'id': 'functional.basic.db.db_26',
+'qmid': 'functional.basic.db.db_26',
+'tracker_id': '',
+'title': 'Empty DB - RDB$SECURITY_CLASSES',
+'description': 'Check for correct content of RDB$SECURITY_CLASSES in empty database.',
+'min_versions': None,
+'versions': [
+{
+ 'firebird_version': '1.0',
+ 'platform': 'All',
+ 'test_type': 'ISQL',
+ 'test_script': """set blob 3;
+select * from RDB$SECURITY_CLASSES;""",
+ 'expected_stdout': """RDB$SECURITY_CLASS                        RDB$ACL   RDB$DESCRIPTION
+=============================== ================= =================
+
+SQL$RDB$ROLES                                 9:0            <null>
+==============================================================================
+RDB$ACL:
+            ACL version 1
+            	person: SYSDBA, privileges: (PCDWR)
+            	all users: (*.*), privileges: (R)
+
+==============================================================================
+SQL$DEFAULT1                                  9:2            <null>
+==============================================================================
+RDB$ACL:
+            ACL version 1
+            	person: SYSDBA, privileges: (PCDWR)
+            	all users: (*.*), privileges: (R)
+
+==============================================================================
+
+"""
+},
+{
+ 'firebird_version': '2.0',
+ 'platform': 'All',
+ 'test_type': 'ISQL',
+ 'test_script': """set blob 3;
+select * from RDB$SECURITY_CLASSES;""",
+ 'expected_stdout': """
+RDB$SECURITY_CLASS                                                                                      RDB$ACL   RDB$DESCRIPTION
+=============================================================================== ================= =================
+SQL$RDB$ROLES                                                                                               9:0            <null>
+==============================================================================
+RDB$ACL:
+        	ACL version 1
+        		person: SYSDBA, privileges: (PCDWR)
+        		all users: (*.*), privileges: (R)
+
+==============================================================================
+SQL$DEFAULT1                                                                                                9:2            <null>
+==============================================================================
+RDB$ACL:
+        	ACL version 1
+        		person: SYSDBA, privileges: (PCDWR)
+        		all users: (*.*), privileges: (R)
+
+==============================================================================
+
+"""
+},
+{
+ 'firebird_version': '2.1',
+ 'platform': 'All',
+ 'test_type': 'ISQL',
+ 'test_script': """set blob 3;
+select * from RDB$SECURITY_CLASSES;""",
+ 'expected_stdout': """RDB$SECURITY_CLASS                                                                                      RDB$ACL   RDB$DESCRIPTION
+=============================================================================== ================= =================
+SQL$RDB$ROLES                                                                                               9:0            <null>
+==============================================================================
+RDB$ACL:
+        	ACL version 1
+        		person: SYSDBA, privileges: (PCDWR)
+        		all users: (*.*), privileges: (R)
+
+==============================================================================
+SQL$DEFAULT1                                                                                                9:2            <null>
+==============================================================================
+RDB$ACL:
+        	ACL version 1
+        		person: SYSDBA, privileges: (PCDWR)
+        		all users: (*.*), privileges: (R)
+
+==============================================================================
+SQL$RDB$PAGES                                                                                               9:4            <null>
+==============================================================================
+RDB$ACL:
+        	ACL version 1
+        		person: SYSDBA, privileges: (PCDWR)
+        		all users: (*.*), privileges: (R)
+
+==============================================================================
+SQL$DEFAULT2                                                                                                9:6            <null>
+==============================================================================
+RDB$ACL:
+        	ACL version 1
+        		person: SYSDBA, privileges: (PCDWR)
+        		all users: (*.*), privileges: (R)
+
+==============================================================================
+SQL$RDB$FORMATS                                                                                             9:8            <null>
+==============================================================================
+RDB$ACL:
+        	ACL version 1
+        		person: SYSDBA, privileges: (PCDWR)
+        		all users: (*.*), privileges: (R)
+
+==============================================================================
+SQL$DEFAULT3                                                                                                9:a            <null>
+==============================================================================
+RDB$ACL:
+        	ACL version 1
+        		person: SYSDBA, privileges: (PCDWR)
+        		all users: (*.*), privileges: (R)
+
+==============================================================================
+
+"""
+},
+{
+ 'firebird_version': '2.5',
+ 'platform': 'All',
+ 'test_type': 'ISQL',
+ 'test_script': """set blob 3;
+select * from RDB$SECURITY_CLASSES;""",
+ 'expected_stdout': """
+RDB$SECURITY_CLASS                                                                                      RDB$ACL   RDB$DESCRIPTION
+=============================================================================== ================= =================
+SQL$1                                                                                                       9:0            <null>
+==============================================================================
+RDB$ACL:
+        	ACL version 1
+        		person: SYSDBA, privileges: (PCDWR)
+        		all users: (*.*), privileges: (R)
+
+==============================================================================
+SQL$DEFAULT1                                                                                                9:2            <null>
+==============================================================================
+RDB$ACL:
+        	ACL version 1
+        		person: SYSDBA, privileges: (PCDWR)
+        		all users: (*.*), privileges: (R)
+
+==============================================================================
+SQL$2                                                                                                       9:4            <null>
+==============================================================================
+RDB$ACL:
+        	ACL version 1
+        		person: SYSDBA, privileges: (PCDWR)
+        		all users: (*.*), privileges: (R)
+
+==============================================================================
+SQL$DEFAULT2                                                                                                9:6            <null>
+==============================================================================
+RDB$ACL:
+        	ACL version 1
+        		person: SYSDBA, privileges: (PCDWR)
+        		all users: (*.*), privileges: (R)
+
+==============================================================================
+SQL$3                                                                                                       9:8            <null>
+==============================================================================
+RDB$ACL:
+        	ACL version 1
+        		person: SYSDBA, privileges: (PCDWR)
+        		all users: (*.*), privileges: (R)
+
+==============================================================================
+SQL$DEFAULT3                                                                                                9:a            <null>
+==============================================================================
+RDB$ACL:
+        	ACL version 1
+        		person: SYSDBA, privileges: (PCDWR)
+        		all users: (*.*), privileges: (R)
+
+==============================================================================
+
+"""
+}
+]
+}

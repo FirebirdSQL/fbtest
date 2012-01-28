@@ -1,0 +1,75 @@
+{
+'id': 'functional.trigger.database.transactionstart_02',
+'qmid': 'functional.trigger.database.transactionstart_02',
+'tracker_id': 'CORE-745',
+'title': 'Multiple triggers on start transaction',
+'description': 'This tests normal operation of database TRANSACTION START trigger hen there are more of them.',
+'versions': [
+{
+ 'firebird_version': '2.1',
+ 'platform': 'All',
+ 'init_script': """SET AUTODDL OFF;
+create table LOG (ID integer, MSG varchar(100));
+create generator LOGID;
+set term ^;
+create trigger LOG_BI for LOG active before insert position 0
+as
+begin
+  if (new.ID is null) then
+    new.ID = gen_id(LOGID,1);
+end ^
+
+create trigger ONTRANSSART1 on TRANSACTION START position 0
+as
+begin
+  insert into LOG (MSG) values ('Start transaction tg1');
+end ^
+
+create trigger ONTRANSSART2 on TRANSACTION START position 10
+as
+begin
+  insert into LOG (MSG) values ('Start transaction tg2');
+end ^
+
+
+set term ;^
+
+commit;
+""",
+ 'test_type': 'ISQL',
+ 'test_script': """SELECT * FROM LOG;
+ROLLBACK;
+SELECT * FROM LOG;
+COMMIT;
+SELECT * FROM LOG;
+""",
+ 'expected_stdout': """
+          ID MSG
+============ ===============================================================================
+           1 Start transaction tg1
+           2 Start transaction tg2
+
+
+          ID MSG
+============ ===============================================================================
+           5 Start transaction tg1
+           3 Start transaction tg1
+           4 Start transaction tg2
+           6 Start transaction tg2
+
+
+          ID MSG
+============ ===============================================================================
+           5 Start transaction tg1
+           3 Start transaction tg1
+           4 Start transaction tg2
+           6 Start transaction tg2
+           7 Start transaction tg1
+           8 Start transaction tg2
+           9 Start transaction tg1
+          10 Start transaction tg2
+
+"""
+}
+]
+}

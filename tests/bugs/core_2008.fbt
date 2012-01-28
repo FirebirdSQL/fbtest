@@ -1,0 +1,30 @@
+{
+'id': 'bugs.core_2008',
+'qmid': 'bugs.core_2008',
+'tracker_id': 'CORE-2008',
+'title': 'NOT NULL procedure parameters',
+'description': '',
+'versions': [
+{
+ 'firebird_version': '2.1.2',
+ 'platform': 'All',
+ 'init_script': """SET TERM !!;
+CREATE OR ALTER PROCEDURE TEST_PROCEDURE(
+  ID INTEGER NOT NULL)
+AS
+BEGIN
+END
+!!
+SET TERM ;!!""",
+ 'test_type': 'ISQL',
+ 'test_script': """SELECT RDB$PARAMETER_NAME, RDB$NULL_FLAG  FROM RDB$PROCEDURE_PARAMETERS WHERE RDB$PROCEDURE_NAME='TEST_PROCEDURE';
+""",
+ 'expected_stdout': """
+RDB$PARAMETER_NAME                                                                            RDB$NULL_FLAG
+=============================================================================== =============
+ID                                                                                                        1
+
+"""
+}
+]
+}

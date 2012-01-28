@@ -1,0 +1,74 @@
+{
+'id': 'bugs.core_883',
+'qmid': 'bugs.core_883',
+'tracker_id': 'CORE-883',
+'title': "The built-in BLR printer doesn't support all FB2 features",
+'description': '',
+'versions': [
+{
+ 'firebird_version': '2.0',
+ 'platform': 'All',
+ 'init_script': """SET TERM ^ ;
+
+CREATE PROCEDURE SP1
+as
+declare variable ctime time;
+declare variable ctimestamp timestamp;
+begin
+  CTIME = CURRENT_TIME (3);
+  CTIMESTAMP = CURRENT_TIMESTAMP(3);
+end^
+
+SET TERM ; ^""",
+ 'test_type': 'ISQL',
+ 'test_script': """set blob all;
+
+select rdb$procedure_blr from rdb$procedures where rdb$procedure_name = 'SP1' ;
+""",
+ 'expected_stdout': """
+RDB$PROCEDURE_BLR
+=================
+             1a:1
+==============================================================================
+RDB$PROCEDURE_BLR:
+        	blr_version5,
+        	blr_begin,
+        	   blr_message, 1, 1,0,
+        	      blr_short, 0,
+        	   blr_begin,
+        	      blr_declare, 0,0, blr_sql_time,
+        	      blr_assignment,
+        	         blr_null,
+        	         blr_variable, 0,0,
+        	      blr_declare, 1,0, blr_timestamp,
+        	      blr_assignment,
+        	         blr_null,
+        	         blr_variable, 1,0,
+        	      blr_stall,
+        	      blr_label, 0,
+        	         blr_begin,
+        	            blr_begin,
+        	               blr_assignment,
+        	                  blr_current_time2, 3,
+        	                  blr_variable, 0,0,
+        	               blr_assignment,
+        	                  blr_current_timestamp2, 3,
+        	                  blr_variable, 1,0,
+        	               blr_end,
+        	            blr_end,
+        	      blr_end,
+        	   blr_send, 1,
+        	      blr_begin,
+        	         blr_assignment,
+        	            blr_literal, blr_short, 0, 0,0,
+        	            blr_parameter, 1, 0,0,
+        	         blr_end,
+        	   blr_end,
+        	blr_eoc
+
+==============================================================================
+
+"""
+}
+]
+}

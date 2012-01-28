@@ -1,0 +1,143 @@
+{
+'id': 'functional.shadow.create_01',
+'qmid': 'functional.shadow.create.create_shadow_01',
+'tracker_id': '',
+'title': 'CREATE SHADOW',
+'description': """CREATE SHADOW
+
+Dependencies:
+CREATE DATABASE""",
+'min_versions': None,
+'versions': [
+{
+ 'firebird_version': '1.0',
+ 'platform': 'All',
+ 'test_type': 'ISQL',
+ 'test_script': """CREATE SHADOW 1 '$(DATABASE_LOCATION)TEST.SHD';
+SHOW DATABASE;""",
+ 'expected_stdout': """        Owner: SYSDBA
+ Shadow 1: "TEST.SHD" auto
+PAGE_SIZE 4096
+Number of DB pages allocated = 143
+Sweep interval = 20000
+Forced Writes are ON
+Transaction - oldest = 1
+Transaction - oldest active = 2
+Transaction - oldest snapshot = 2
+Transaction - Next = 5""",
+ 'substitutions': [('^.*TEST.SHD','TEST.SHD'),('^Forced Writes are.*','')]
+},
+{
+ 'firebird_version': '1.0.3',
+ 'platform': 'All',
+ 'test_type': 'ISQL',
+ 'test_script': """CREATE SHADOW 1 '$(DATABASE_LOCATION)TEST.SHD';
+SHOW DATABASE;""",
+ 'expected_stdout': """        Owner: SYSDBA
+ Shadow 1: "TEST.SHD" auto
+PAGE_SIZE 4096
+Number of DB pages allocated = 143
+Sweep interval = 20000
+Forced Writes are ON
+Transaction - oldest = 1
+Transaction - oldest active = 2
+Transaction - oldest snapshot = 2
+Transaction - Next = 5
+Default Character set: NONE""",
+ 'substitutions': [('^.*TEST.SHD','TEST.SHD'),('^Forced Writes are.*','')]
+},
+{
+ 'firebird_version': '1.5',
+ 'platform': 'All',
+ 'test_type': 'ISQL',
+ 'test_script': """CREATE SHADOW 1 '$(DATABASE_LOCATION)TEST.SHD';
+SHOW DATABASE;""",
+ 'expected_stdout': """        Owner: SYSDBA
+ Shadow 1: "TEST.SHD" auto
+PAGE_SIZE 4096
+Number of DB pages allocated = 147
+Sweep interval = 20000
+Forced Writes are ON
+Transaction - oldest = 1
+Transaction - oldest active = 2
+Transaction - oldest snapshot = 2
+Transaction - Next = 5
+Default Character set: NONE""",
+ 'substitutions': [('^.*TEST.SHD','TEST.SHD'),('^Forced Writes are.*','')]
+},
+{
+ 'firebird_version': '2.0',
+ 'platform': 'All',
+ 'test_type': 'ISQL',
+ 'test_script': """CREATE SHADOW 1 '$(DATABASE_LOCATION)TEST.SHD';
+SHOW DATABASE;""",
+ 'expected_stdout': """        Owner: SYSDBA
+ Shadow 1: "TEST.SHD" auto
+PAGE_SIZE 4096
+Number of DB pages allocated = 156
+Sweep interval = 20000
+Forced Writes are OFF
+Transaction - oldest = 1
+Transaction - oldest active = 2
+Transaction - oldest snapshot = 2
+Transaction - Next = 6
+ODS = 11.0
+Default Character set: NONE""",
+ 'substitutions': [('^.*TEST.SHD','TEST.SHD'),('^Forced Writes are.*',''),('^Transaction -.*','')]
+},
+{
+ 'firebird_version': '2.1',
+ 'platform': 'Windows',
+ 'test_type': 'ISQL',
+ 'test_script': """CREATE SHADOW 1 '$(DATABASE_LOCATION)TEST.SHD';
+SHOW DATABASE;""",
+ 'expected_stdout': """Owner: SYSDBA
+TEST.SHD" auto
+PAGE_SIZE 4096
+Number of DB pages allocated = 164
+Sweep interval = 20000
+ODS = 11.1
+Default Character set: NONE
+""",
+ 'substitutions': [('^.*TEST.SHD','TEST.SHD'),('^Forced Writes are.*',''),('^Transaction -.*','')]
+},
+{
+ 'firebird_version': '2.1',
+ 'platform': 'Linux:Solaris:FreeBSD:MacOS:HP-UX',
+ 'test_type': 'ISQL',
+ 'test_script': """CREATE SHADOW 1 '$(DATABASE_LOCATION)TEST.SHD';
+SHOW DATABASE;""",
+ 'expected_stdout': """Owner: SYSDBA
+TEST.SHD" auto
+PAGE_SIZE 4096
+Number of DB pages allocated = 162
+Sweep interval = 20000
+ODS = 11.1
+Default Character set: NONE
+""",
+ 'substitutions': [('^.*TEST.SHD','TEST.SHD'),('^Forced Writes are.*',''),('^Transaction -.*','')]
+},
+{
+ 'firebird_version': '2.5',
+ 'platform': 'All',
+ 'test_type': 'ISQL',
+ 'test_script': """CREATE SHADOW 1 '$(DATABASE_LOCATION)TEST.SHD';
+SHOW DATABASE;""",
+ 'expected_stdout': """Database: localhost:/home/job/qa/fbtest/tmp/functional.shadow.create_01.fdb
+        Owner: SYSDBA
+ Shadow 1: "/home/job/qa/fbtest/tmp/TEST.SHD" auto
+PAGE_SIZE 4096
+Number of DB pages allocated = 164
+Sweep interval = 20000
+Forced Writes are ON
+Transaction - oldest = 1
+Transaction - oldest active = 2
+Transaction - oldest snapshot = 2
+Transaction - Next = 5
+ODS = 11.2
+Default Character set: NONE
+""",
+ 'substitutions': [('^.*TEST.SHD','TEST.SHD'),('^Forced Writes are.*',''),('^Transaction -.*','')]
+}
+]
+}

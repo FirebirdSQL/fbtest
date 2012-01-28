@@ -1,0 +1,25 @@
+{
+'id': 'functional.intfunc.list.03',
+'qmid': 'functional.intfunc.list.list_03',
+'tracker_id': 'CORE-964',
+'title': 'List function with distinct option',
+'description': '',
+'versions': [
+{
+ 'firebird_version': '2.1',
+ 'platform': 'All',
+ 'test_type': 'ISQL',
+ 'test_script': 'SELECT RDB$SYSTEM_FLAG, LIST(DISTINCT TRIM(RDB$OWNER_NAME)) FROM RDB$RELATIONS WHERE RDB$SYSTEM_FLAG=1 GROUP BY 1;',
+ 'expected_stdout': """
+RDB$SYSTEM_FLAG              LIST
+=============== =================
+              1               0:1
+==============================================================================
+LIST:
+SYSDBA
+==============================================================================
+
+"""
+}
+]
+}

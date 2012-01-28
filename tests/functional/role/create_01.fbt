@@ -1,0 +1,58 @@
+{
+'id': 'functional.role.create.01',
+'qmid': 'functional.role.create.create_role_01',
+'tracker_id': '',
+'title': 'CREATE ROLE',
+'description': """CREATE ROLE
+Dependencies:
+CREATE DATABASE
+Basic SELECT
+""",
+'versions': [
+{
+ 'firebird_version': '1.0',
+ 'platform': 'All',
+ 'test_type': 'ISQL',
+ 'test_script': """CREATE ROLE test;
+COMMIT;
+SELECT * FROM RDB$ROLES;
+""",
+ 'expected_stdout': """RDB$ROLE_NAME                   RDB$OWNER_NAME
+=============================== ===============================
+
+TEST                            SYSDBA
+"""
+},
+{
+ 'firebird_version': '2.0',
+ 'platform': 'All',
+ 'test_type': 'ISQL',
+ 'test_script': """CREATE ROLE test;
+COMMIT;
+SELECT * FROM RDB$ROLES;
+""",
+ 'expected_stdout': """
+RDB$ROLE_NAME                                                                                 RDB$OWNER_NAME                                                                                  RDB$DESCRIPTION RDB$SYSTEM_FLAG
+=============================================================================== =============================================================================== ================= ===============
+TEST                                                                                          SYSDBA                                                                                                   <null>               0
+
+"""
+},
+{
+ 'firebird_version': '2.5',
+ 'platform': 'All',
+ 'test_type': 'ISQL',
+ 'test_script': """CREATE ROLE test;
+COMMIT;
+SELECT * FROM RDB$ROLES;
+""",
+ 'expected_stdout': """
+RDB$ROLE_NAME                                                                                 RDB$OWNER_NAME                                                                                  RDB$DESCRIPTION RDB$SYSTEM_FLAG
+=============================================================================== =============================================================================== ================= ===============
+RDB$ADMIN                                                                                     SYSDBA                                                                                                   <null>               4
+TEST                                                                                          SYSDBA                                                                                                   <null>               0
+
+"""
+}
+]
+}

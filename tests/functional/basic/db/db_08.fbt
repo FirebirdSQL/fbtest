@@ -1,0 +1,15 @@
+{
+'id': 'functional.basic.db.08',
+'qmid': 'functional.basic.db.db_08',
+'tracker_id': '',
+'title': 'Empty DB - RDB$FILES',
+'description': 'Check for correct content of RDB$FILES in empty database;',
+'versions': [
+{
+ 'firebird_version': '1.0',
+ 'platform': 'All',
+ 'test_type': 'ISQL',
+ 'test_script': 'select * from RDB$FILES;'
+}
+]
+}

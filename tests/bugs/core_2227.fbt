@@ -1,0 +1,32 @@
+{
+'id': 'bugs.core_2227',
+'qmid': None,
+'tracker_id': 'CORE-2227',
+'title': 'Problem with column names with Accents and triggers',
+'description': '',
+'min_versions': '',
+'versions': [
+{
+ 'firebird_version': '2.1.2',
+ 'platform': 'All',
+ 'database_character_set': 'ISO8859_1',
+ 'connection_character_set': 'ISO8859_1',
+ 'page_size': '4096',
+ 'init_script': """RECREATE TABLE TESTING (
+  "CÓDIGO" INTEGER
+);
+
+""",
+ 'test_type': 'ISQL',
+ 'test_script': """SET TERM ^;
+CREATE TRIGGER TESTING_I FOR TESTING
+ACTIVE BEFORE INSERT POSITION 0
+AS
+BEGIN
+  NEW."CÓDIGO" = 1;
+END ^
+
+"""
+}
+]
+}

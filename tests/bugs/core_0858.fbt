@@ -1,0 +1,43 @@
+{
+'id': 'bugs.core_858',
+'qmid': 'bugs.core_858',
+'tracker_id': 'CORE-858',
+'title': 'Server crash when using UDF',
+'description': '',
+'versions': [
+{
+ 'firebird_version': '2.0',
+ 'platform': 'All',
+ 'init_script': """declare external function sright
+varchar(100) by descriptor, smallint,
+varchar(100) by descriptor returns parameter 3
+entry_point 'right' module_name 'fbudf';
+commit;""",
+ 'test_type': 'ISQL',
+ 'test_script': """set term ^ ;
+Execute Block
+RETURNS (PDOKUMENTID VARCHAR(20))
+AS
+DECLARE VARIABLE AUFTRAGSJAHR VARCHAR(4);
+DECLARE VARIABLE DOKIDJAHR INTEGER;
+BEGIN
+
+  Auftragsjahr = '2005';
+  DokIdJahr = 2;
+  Auftragsjahr = SRIGHT(:Auftragsjahr, :DokIDJahr);
+
+  pdokumentid = :auftragsjahr;
+
+  suspend;
+END ^
+set term ; ^
+""",
+ 'expected_stdout': """
+PDOKUMENTID
+====================
+05
+
+"""
+}
+]
+}

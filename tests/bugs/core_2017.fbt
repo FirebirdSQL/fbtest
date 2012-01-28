@@ -1,0 +1,120 @@
+{
+'id': 'bugs.core_2017',
+'qmid': None,
+'tracker_id': 'CORE-2017',
+'title': 'I/O statistics for stored procedures are not accounted in monitoring tables',
+'description': '',
+'min_versions': '',
+'versions': [
+{
+ 'firebird_version': '2.1.2',
+ 'platform': 'All',
+ 'page_size': '4096',
+ 'init_script': """create table T (C integer);
+commit;
+
+set term ^ ;
+
+execute block
+as
+declare i int = 0;
+begin
+  while (i < 100000) do
+  begin
+    insert into T values (:i);
+    i = i + 1;
+  end
+end ^
+commit ^
+
+create procedure dummy
+returns (i bigint)
+as
+begin
+ select count(*)
+ from T
+ into :i;
+ suspend;
+end ^
+
+commit ^
+""",
+ 'test_type': 'Python',
+ 'test_script': """c = db_conn.cursor()
+c2 = db_conn.cursor()
+sql = "select * from dummy"
+
+c2.execute(sql)
+for row in c2:
+  pass
+db_conn.commit()
+c2.execute("select MON$STATEMENT_ID,MON$STAT_ID,MON$SQL_TEXT from mon$statements where mon$sql_text starts with '%s'" % sql)
+#printData(c)
+row = c2.fetchone()
+#print row
+c2.execute("select MON$PAGE_READS,MON$PAGE_WRITES,MON$PAGE_FETCHES,MON$PAGE_MARKS from mon$io_stats where mon$stat_id = %i" % row[1])
+printData(c2)
+
+""",
+ 'expected_stdout': """MON$PAGE_READS       MON$PAGE_WRITES      MON$PAGE_FETCHES     MON$PAGE_MARKS
+-------------------- -------------------- -------------------- --------------------
+1235                 0                    202472               0
+"""
+},
+{
+ 'firebird_version': '2.5.1',
+ 'platform': 'All',
+ 'page_size': '4096',
+ 'init_script': """create table T (C integer);
+commit;
+
+set term ^ ;
+
+execute block
+as
+declare i int = 0;
+begin
+  while (i < 100000) do
+  begin
+    insert into T values (:i);
+    i = i + 1;
+  end
+end ^
+commit ^
+
+create procedure dummy
+returns (i bigint)
+as
+begin
+ select count(*)
+ from T
+ into :i;
+ suspend;
+end ^
+
+commit ^
+""",
+ 'test_type': 'Python',
+ 'test_script': """c = db_conn.cursor()
+c2 = db_conn.cursor()
+sql = "select * from dummy"
+
+c2.execute(sql)
+for row in c2:
+  pass
+db_conn.commit()
+c2.execute("select MON$STATEMENT_ID,MON$STAT_ID,MON$SQL_TEXT from mon$statements where mon$sql_text starts with '%s'" % sql)
+#printData(c)
+row = c2.fetchone()
+#print row
+c2.execute("select MON$PAGE_READS,MON$PAGE_WRITES,MON$PAGE_FETCHES,MON$PAGE_MARKS from mon$io_stats where mon$stat_id = %i" % row[1])
+printData(c2)
+
+""",
+ 'expected_stdout': """MON$PAGE_READS       MON$PAGE_WRITES      MON$PAGE_FETCHES     MON$PAGE_MARKS
+-------------------- -------------------- -------------------- --------------------
+1234                 0                    202472               0
+"""
+}
+]
+}

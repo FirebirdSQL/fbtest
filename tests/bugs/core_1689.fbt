@@ -1,0 +1,36 @@
+{
+'id': 'bugs.core_1689',
+'qmid': None,
+'tracker_id': 'CORE-1689',
+'title': "'There are <n> dependencies' error message shows the wrong count of dependent objects.",
+'description': '',
+'min_versions': '',
+'versions': [
+{
+ 'firebird_version': '2.5.0',
+ 'platform': 'All',
+ 'page_size': '4096',
+ 'init_script': """set term ^;
+declare external function getExactTimestamp
+  timestamp
+  returns parameter 1
+  entry_point 'getExactTimestamp' module_name 'fbudf'^
+
+create table t(a int)^
+create trigger tad for t after delete as declare dummy timestamp; begin dummy = getexacttimestamp(); end^
+create view vudf(t) as select getexacttimestamp() from rdb$database^
+create table tudf(a int, c computed by(getexacttimestamp()))^
+create domain dud int check(value between extract(week from getexacttimestamp()) and 25)^
+""",
+ 'test_type': 'ISQL',
+ 'test_script': """drop external function getexacttimestamp;
+""",
+ 'expected_stderr': """Statement failed, SQLSTATE = 38000
+unsuccessful metadata update
+-cannot delete
+-UDF GETEXACTTIMESTAMP
+-there are 4 dependencies
+"""
+}
+]
+}

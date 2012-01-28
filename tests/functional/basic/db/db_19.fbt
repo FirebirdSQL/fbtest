@@ -1,0 +1,15 @@
+{
+'id': 'functional.basic.db.19',
+'qmid': 'functional.basic.db.db_19',
+'tracker_id': '',
+'title': 'Empty DB - RDB$PROCEDURE_PARAMETERS',
+'description': 'Check for correct content of RDB$PROCEDURE_PARAMETERS in empty database.',
+'versions': [
+{
+ 'firebird_version': '1.0',
+ 'platform': 'All',
+ 'test_type': 'ISQL',
+ 'test_script': 'select * from RDB$PROCEDURE_PARAMETERS;'
+}
+]
+}

@@ -1,0 +1,33 @@
+{
+'id': 'bugs.core_866',
+'qmid': 'bugs.core_866',
+'tracker_id': 'CORE-866',
+'title': 'Removing a NOT NULL constraint is not visible until reconnect',
+'description': '',
+'versions': [
+{
+ 'firebird_version': '2.1',
+ 'platform': 'All',
+ 'init_script': """CREATE TABLE TEST (
+    ID INTEGER NOT NULL,
+    COL VARCHAR(20) NOT NULL
+);
+
+INSERT INTO TEST (ID, COL) VALUES (1, 'TEST');
+
+COMMIT WORK;
+
+
+""",
+ 'test_type': 'ISQL',
+ 'test_script': """UPDATE RDB$RELATION_FIELDS
+  SET RDB$NULL_FLAG = NULL
+  WHERE (RDB$FIELD_NAME = 'COL') and (RDB$RELATION_NAME = 'TEST');
+
+COMMIT WORK;
+
+UPDATE TEST SET COL = NULL WHERE ID = 1;
+"""
+}
+]
+}

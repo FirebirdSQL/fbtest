@@ -1,0 +1,42 @@
+{
+'id': 'bugs.core_2026',
+'qmid': None,
+'tracker_id': 'CORE-2026',
+'title': 'Problem with a read-only marked database',
+'description': '',
+'min_versions': '',
+'versions': [
+{
+ 'firebird_version': '2.1.2',
+ 'platform': 'All',
+ 'database_character_set': 'ISO8859_1',
+ 'page_size': '4096',
+ 'init_script': """create table test (test integer default 0);
+""",
+ 'test_type': 'Python',
+ 'test_script': '''db_conn.close()
+runProgram('gfix',['-mode','read_only','-user',user_name,'-pas',user_password,dsn])
+
+script = """select RDB$FIELD_NAME, rdb$default_source from rdb$relation_fields where rdb$default_source is not null;
+"""
+runProgram('isql',['-ch','iso8859_1','-user',user_name,'-pas',user_password,dsn],script)
+
+#db_conn = kdb.connect(dsn=dsn,user=user_name,password=user_password,charset='iso8859_1')
+#c = db_conn.cursor()
+#c.execute("select RDB$FIELD_NAME, rdb$default_source from rdb$relation_fields where rdb$default_source is not null")
+#printData(c)
+#db_conn.close()
+''',
+ 'expected_stdout': """
+RDB$FIELD_NAME                  RDB$DEFAULT_SOURCE
+=============================== ==================
+TEST                                          0:3
+==============================================================================
+RDB$DEFAULT_SOURCE:
+default 0
+==============================================================================
+
+"""
+}
+]
+}

@@ -1,0 +1,56 @@
+{
+'id': 'functional.arno.indexes.timestamps_01',
+'qmid': 'functional.arno.indexes.timestamps_01',
+'tracker_id': '',
+'title': 'TIMESTAMP in index with values below julian date',
+'description': "Datetime values below the julian date (firebird base date '1858-11-17') should be stored in correct order.",
+'versions': [
+{
+ 'firebird_version': '2.0',
+ 'platform': 'All',
+ 'init_script': """CREATE TABLE Era (
+  BeginDateTime TIMESTAMP NOT NULL,
+  EndDateTime TIMESTAMP NOT NULL
+);
+
+COMMIT;
+
+INSERT INTO ERA (BeginDateTime, EndDateTime) VALUES ('1500-01-01', '1550-12-31');
+INSERT INTO ERA (BeginDateTime, EndDateTime) VALUES ('1858-11-17', '1858-11-17');
+INSERT INTO ERA (BeginDateTime, EndDateTime) VALUES ('1858-11-15 18:00', '1858-11-15 20:00');
+INSERT INTO ERA (BeginDateTime, EndDateTime) VALUES ('1858-11-16 12:00', '1858-11-16 13:00');
+INSERT INTO ERA (BeginDateTime, EndDateTime) VALUES ('1858-11-18 16:00', '1858-11-18 17:00');
+INSERT INTO ERA (BeginDateTime, EndDateTime) VALUES ('2004-04-08 02:00', '2004-04-08 02:09');
+
+COMMIT;
+
+CREATE UNIQUE ASC INDEX PK_BeginDateTime ON Era (BeginDateTime);
+CREATE UNIQUE ASC INDEX PK_EndDateTime ON Era (EndDateTime);
+
+COMMIT;""",
+ 'test_type': 'ISQL',
+ 'test_script': """SET PLAN ON;
+SELECT
+  e.BeginDateTime,
+  e.EndDateTime
+FROM
+  Era e
+WHERE
+  e.BeginDateTime >= '1700-01-01'
+ORDER BY
+  BeginDateTime ASC;
+""",
+ 'expected_stdout': """PLAN (E ORDER PK_BEGINDATETIME INDEX (PK_BEGINDATETIME))
+
+            BEGINDATETIME               ENDDATETIME
+========================= =========================
+
+1858-11-15 18:00:00.0000  1858-11-15 20:00:00.0000
+1858-11-16 12:00:00.0000  1858-11-16 13:00:00.0000
+1858-11-17 00:00:00.0000  1858-11-17 00:00:00.0000
+1858-11-18 16:00:00.0000  1858-11-18 17:00:00.0000
+2004-04-08 02:00:00.0000  2004-04-08 02:09:00.0000
+"""
+}
+]
+}

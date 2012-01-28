@@ -1,0 +1,76 @@
+{
+'id': 'functional.basic.db.13',
+'qmid': 'functional.basic.db.db_13',
+'tracker_id': '',
+'title': 'Empty DB - RDB$GENERATORS',
+'description': 'Check for correct content of RDB$GENERATORS in empty database;',
+'versions': [
+{
+ 'firebird_version': '1.0',
+ 'platform': 'All',
+ 'test_type': 'ISQL',
+ 'test_script': 'select * from RDB$GENERATORS;',
+ 'expected_stdout': """RDB$GENERATOR_NAME              RDB$GENERATOR_ID RDB$SYSTEM_FLAG
+=============================== ================ ===============
+
+RDB$SECURITY_CLASS                             1               1
+SQL$DEFAULT                                    2               1
+RDB$PROCEDURES                                 3               1
+RDB$EXCEPTIONS                                 4               1
+RDB$CONSTRAINT_NAME                            5               1
+RDB$FIELD_NAME                                 6               1
+RDB$INDEX_NAME                                 7               1
+RDB$TRIGGER_NAME                               8               1
+
+"""
+},
+{
+ 'firebird_version': '2.0',
+ 'platform': 'All',
+ 'test_type': 'ISQL',
+ 'test_script': 'select * from RDB$GENERATORS;',
+ 'expected_stdout': """
+RDB$GENERATOR_NAME                                                                            RDB$GENERATOR_ID RDB$SYSTEM_FLAG   RDB$DESCRIPTION
+=============================================================================== ================ =============== =================
+RDB$SECURITY_CLASS                                                                                           1               1            <null>
+SQL$DEFAULT                                                                                                  2               1            <null>
+RDB$PROCEDURES                                                                                               3               1              14:2
+==============================================================================
+RDB$DESCRIPTION:
+Procedure ID
+==============================================================================
+RDB$EXCEPTIONS                                                                                               4               1              14:4
+==============================================================================
+RDB$DESCRIPTION:
+Exception ID
+==============================================================================
+RDB$CONSTRAINT_NAME                                                                                          5               1              14:6
+==============================================================================
+RDB$DESCRIPTION:
+Implicit constraint name
+==============================================================================
+RDB$FIELD_NAME                                                                                               6               1              14:8
+==============================================================================
+RDB$DESCRIPTION:
+Implicit domain name
+==============================================================================
+RDB$INDEX_NAME                                                                                               7               1              14:a
+==============================================================================
+RDB$DESCRIPTION:
+Implicit index name
+==============================================================================
+RDB$TRIGGER_NAME                                                                                             8               1              14:c
+==============================================================================
+RDB$DESCRIPTION:
+Implicit trigger name
+==============================================================================
+RDB$BACKUP_HISTORY                                                                                           9               1              14:e
+==============================================================================
+RDB$DESCRIPTION:
+Nbackup technology
+==============================================================================
+
+"""
+}
+]
+}

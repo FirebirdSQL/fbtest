@@ -1,0 +1,131 @@
+{
+'id': 'functional.database.create.02',
+'qmid': 'functional.database.create.create_database_03',
+'tracker_id': '',
+'title': 'CREATE DATABASE - non sysdba user',
+'description': '',
+'versions': [
+{
+ 'firebird_version': '1.0',
+ 'platform': 'All',
+ 'user_name': 'test',
+ 'user_password': 'test',
+ 'test_type': 'ISQL',
+ 'test_script': 'SHOW DATABASE;',
+ 'expected_stdout': """        Owner: TEST
+PAGE_SIZE 4096
+Number of DB pages allocated = 142
+Sweep interval = 20000
+Transaction - oldest = 1
+Transaction - oldest active = 2
+Transaction - oldest snapshot = 2
+Transaction - Next = 5""",
+ 'resources': ['test_user'],
+ 'substitutions': [('^Forced Writes are.*','')]
+},
+{
+ 'firebird_version': '1.0.3',
+ 'platform': 'All',
+ 'user_name': 'test',
+ 'user_password': 'test',
+ 'test_type': 'ISQL',
+ 'test_script': 'SHOW DATABASE;',
+ 'expected_stdout': """        Owner: TEST
+PAGE_SIZE 4096
+Number of DB pages allocated = 142
+Sweep interval = 20000
+Transaction - oldest = 1
+Transaction - oldest active = 2
+Transaction - oldest snapshot = 2
+Transaction - Next = 5
+Default Character set: NONE""",
+ 'resources': ['test_user'],
+ 'substitutions': [('^Forced Writes are.*','')]
+},
+{
+ 'firebird_version': '1.5',
+ 'platform': 'All',
+ 'user_name': 'test',
+ 'user_password': 'test',
+ 'test_type': 'ISQL',
+ 'test_script': 'SHOW DATABASE;',
+ 'expected_stdout': """        Owner: TEST
+PAGE_SIZE 4096
+Number of DB pages allocated = 146
+Sweep interval = 20000
+Transaction - oldest = 1
+Transaction - oldest active = 2
+Transaction - oldest snapshot = 2
+Transaction - Next = 5
+Default Character set: NONE""",
+ 'resources': ['test_user'],
+ 'substitutions': [('^Forced Writes are.*',''),('^ODS.*',''),('^Number of DB pages.*','')]
+},
+{
+ 'firebird_version': '2.1',
+ 'platform': 'All',
+ 'user_name': 'test',
+ 'user_password': 'test',
+ 'test_type': 'ISQL',
+ 'test_script': 'SHOW DATABASE;',
+ 'expected_stdout': """Owner: TEST
+PAGE_SIZE 4096
+
+Sweep interval = 20000
+
+
+
+
+
+ODS = 11.1
+Default Character set: NONE
+""",
+ 'resources': ['test_user'],
+ 'substitutions': [('^Forced Writes are.*',''),('^Number of DB pages.*',''),('^Transaction.*','')]
+},
+{
+ 'firebird_version': '2.5',
+ 'platform': 'All',
+ 'user_name': 'test',
+ 'user_password': 'test',
+ 'test_type': 'ISQL',
+ 'test_script': 'SHOW DATABASE;',
+ 'expected_stdout': """        Owner: TEST
+PAGE_SIZE 4096
+
+Sweep interval = 20000
+
+
+
+
+
+ODS = 11.2
+Default Character set: NONE
+""",
+ 'resources': ['test_user'],
+ 'substitutions': [('^Forced Writes are.*',''),('^Number of DB pages.*',''),('^Transaction.*','')]
+},
+{
+ 'firebird_version': '2.0',
+ 'platform': 'All',
+ 'user_name': 'test',
+ 'user_password': 'test',
+ 'test_type': 'ISQL',
+ 'test_script': 'SHOW DATABASE;',
+ 'expected_stdout': """Owner: TEST
+PAGE_SIZE 4096
+Number of DB pages allocated = 155
+Sweep interval = 20000
+
+Transaction - oldest = 1
+Transaction - oldest active = 2
+Transaction - oldest snapshot = 2
+Transaction - Next = 6
+ODS = 11.0
+Default Character set: NONE
+""",
+ 'resources': ['test_user'],
+ 'substitutions': [('^Forced Writes are.*','')]
+}
+]
+}

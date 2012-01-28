@@ -1,0 +1,55 @@
+{
+'id': 'bugs.core_0856',
+'qmid': 'bugs.core_856',
+'tracker_id': 'CORE-856',
+'title': 'Unable to set FName, MName, LName fields in security to blank',
+'description': '',
+'min_versions': None,
+'versions': [
+{
+ 'firebird_version': '2.1',
+ 'platform': 'All',
+ 'test_type': 'Python',
+ 'test_script': '''commands = """add BLNKNMS -pw PWD -fname X -mname Y -lname Z
+display BLNKNMS
+modify BLNKNMS -pw PWD -fname -mname -lname
+display BLNKNMS
+delete BLNKNMS
+quit
+"""
+runProgram('gsec',['-user',user_name,'-pas',user_password],commands)
+''',
+ 'expected_stdout': """     user name                      uid   gid     full name
+------------------------------------------------------------------------------------------
+BLNKNMS                             0     0      X Y Z
+     user name                      uid   gid     full name
+------------------------------------------------------------------------------------------
+BLNKNMS                             0     0
+""",
+ 'substitutions': [('GSEC> ','')]
+},
+{
+ 'firebird_version': '2.5',
+ 'platform': 'All',
+ 'test_type': 'Python',
+ 'test_script': '''commands = """add BLNKNMS -pw PWD -fname X -mname Y -lname Z
+display BLNKNMS
+modify BLNKNMS -pw PWD -fname -mname -lname
+display BLNKNMS
+delete BLNKNMS
+quit
+"""
+runProgram('gsec',['-user',user_name,'-pas',user_password],commands)
+''',
+ 'expected_stdout': """     user name                    uid   gid admin     full name
+------------------------------------------------------------------------------------------------
+BLNKNMS                             0     0           X Y Z
+     user name                    uid   gid admin     full name
+------------------------------------------------------------------------------------------------
+BLNKNMS                             0     0
+""",
+ 'expected_stderr': """GSEC> GSEC> GSEC> GSEC> GSEC> GSEC>  
+"""
+}
+]
+}

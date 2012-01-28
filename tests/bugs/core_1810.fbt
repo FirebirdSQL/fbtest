@@ -1,0 +1,34 @@
+{
+'id': 'bugs.core_1810',
+'qmid': None,
+'tracker_id': 'CORE-1810',
+'title': "Usernames with '.' character",
+'description': '',
+'min_versions': '',
+'versions': [
+{
+ 'firebird_version': '2.5',
+ 'platform': 'All',
+ 'user_name': 'john.smith',
+ 'user_password': 'john',
+ 'page_size': '4096',
+ 'init_script': """create role repl_admin;
+""",
+ 'test_type': 'ISQL',
+ 'test_script': """-- grant repl_admin to john.smith;
+grant repl_admin to "john.smith";
+commit;
+
+select rdb$user from rdb$user_privileges where rdb$relation_name = 'REPL_ADMIN';
+
+""",
+ 'expected_stdout': """
+RDB$USER
+===============================================================================
+JOHN.SMITH
+
+""",
+ 'resources': ['dotname']
+}
+]
+}

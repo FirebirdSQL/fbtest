@@ -1,0 +1,15 @@
+{
+'id': 'functional.basic.db.06',
+'qmid': 'functional.basic.db.db_06',
+'tracker_id': '',
+'title': 'Empty DB - RDB$FIELD_DIMENSIONS',
+'description': 'Check for correct content of RDB$FIELD_DIMENSIONS in empty database.',
+'versions': [
+{
+ 'firebird_version': '1.0',
+ 'platform': 'All',
+ 'test_type': 'ISQL',
+ 'test_script': 'select * from RDB$FIELD_DIMENSIONS;'
+}
+]
+}

@@ -1,0 +1,106 @@
+{
+'id': 'bugs.core_2923',
+'qmid': None,
+'tracker_id': 'CORE-2923',
+'title': 'Problem with dependencies between a procedure and a view using that procedure',
+'description': '',
+'min_versions': '2.5.0',
+'versions': [
+{
+ 'firebird_version': '2.5.0',
+ 'platform': 'All',
+ 'database_character_set': 'UTF8',
+ 'connection_character_set': 'UTF8',
+ 'page_size': '4096',
+ 'init_script': """set term !!;
+recreate procedure p_deps returns (i int) as begin suspend; end!!
+commit!!
+
+recreate view v_deps as select i from p_deps!!
+commit!!
+set term ;!!
+create table t (n integer);
+create view v as select * from t;
+commit;
+create domain d integer;
+commit;""",
+ 'test_type': 'ISQL',
+ 'test_script': """set term !!;
+alter procedure p_deps returns (i int) as begin suspend; end!!
+set term ;!!
+commit;
+show procedure p_deps;
+commit;
+alter table t alter n type integer;
+commit;
+show table t;
+show view v;
+commit;
+""",
+ 'expected_stdout': """Procedure text:
+=============================================================================
+ begin suspend; end
+=============================================================================
+Parameters:
+I                                 OUTPUT INTEGER
+N                               INTEGER Nullable
+N                               INTEGER Nullable
+View Source:
+==== ======
+ select * from t
+"""
+},
+{
+ 'firebird_version': '3.0.0',
+ 'platform': 'All',
+ 'database_character_set': 'UTF8',
+ 'connection_character_set': 'UTF8',
+ 'page_size': '4096',
+ 'init_script': """set term !!;
+recreate procedure p_deps returns (i int) as begin suspend; end!!
+commit!!
+
+recreate view v_deps as select i from p_deps!!
+commit!!
+set term ;!!
+create table t (n integer);
+create view v as select * from t;
+commit;
+create domain d integer;
+commit;""",
+ 'test_type': 'ISQL',
+ 'test_script': """set term !!;
+alter procedure p_deps returns (i int) as begin suspend; end!!
+set term ;!!
+commit;
+show procedure p_deps;
+commit;
+alter table t alter n type integer;
+commit;
+show table t;
+show view v;
+commit;
+alter table t alter n type d;
+commit;
+--show table t;
+show view v;
+commit;
+""",
+ 'expected_stdout': """Procedure text:
+=============================================================================
+ begin suspend; end
+=============================================================================
+Parameters:
+I                                 OUTPUT INTEGER
+N                               INTEGER Nullable
+N                               INTEGER Nullable
+View Source:
+==== ======
+ select * from t
+View Source:
+==== ======
+ select * from t
+"""
+}
+]
+}

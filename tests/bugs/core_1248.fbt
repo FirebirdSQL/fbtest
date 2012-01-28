@@ -1,0 +1,32 @@
+{
+'id': 'bugs.core_1248',
+'qmid': 'bugs.core_1248-21',
+'tracker_id': '',
+'title': '',
+'description': '',
+'versions': [
+{
+ 'firebird_version': '2.1',
+ 'platform': 'Windows',
+ 'test_type': 'ISQL',
+ 'test_script': "SELECT CAST('04.05.2007' AS TIMESTAMP) - (-7) FROM RDB$DATABASE;",
+ 'expected_stdout': """SUBTRACT
+=========================
+2007-05-11 00:00:00.0000
+
+"""
+},
+{
+ 'firebird_version': '2.0.2',
+ 'platform': 'Windows',
+ 'test_type': 'ISQL',
+ 'test_script': "SELECT CAST('04.05.2007' AS TIMESTAMP) - (-7) FROM RDB$DATABASE;",
+ 'expected_stdout': """
+
+=========================
+2007-05-11 00:00:00.0000
+
+"""
+}
+]
+}

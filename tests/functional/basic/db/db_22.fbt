@@ -1,0 +1,15 @@
+{
+'id': 'functional.basic.db.22',
+'qmid': 'functional.basic.db.db_22',
+'tracker_id': '',
+'title': 'Empty DB - RDB$RELATION_CONSTRAINTS',
+'description': 'Check for correct content of RDB$RELATION_CONSTRAINTS in empty database.',
+'versions': [
+{
+ 'firebird_version': '1.0',
+ 'platform': 'All',
+ 'test_type': 'ISQL',
+ 'test_script': 'select * from RDB$RELATION_CONSTRAINTS;'
+}
+]
+}

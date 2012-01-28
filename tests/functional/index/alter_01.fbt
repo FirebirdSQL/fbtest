@@ -1,0 +1,48 @@
+{
+'id': 'functional.index.alter.01',
+'qmid': 'functional.index.alter.alter_index_01',
+'tracker_id': '',
+'title': 'ALTER INDEX - INACTIVE',
+'description': """ALTER INDEX - INACTIVE
+
+Dependencies:
+CREATE DATABASE
+CREATE TABLE
+CREATE INDEX
+Basic SELECT""",
+'versions': [
+{
+ 'firebird_version': '1.0',
+ 'platform': 'All',
+ 'init_script': """CREATE TABLE t( a INTEGER);
+CREATE INDEX i ON t(a);
+commit;
+""",
+ 'test_type': 'ISQL',
+ 'test_script': """ALTER INDEX i INACTIVE;
+COMMIT;
+SELECT RDB$INDEX_NAME, RDB$INDEX_INACTIVE FROM RDB$INDICES WHERE RDB$INDEX_NAME='I';""",
+ 'expected_stdout': """RDB$INDEX_NAME                  RDB$INDEX_INACTIVE
+=============================== ==================
+
+I                                                1
+"""
+},
+{
+ 'firebird_version': '2.0',
+ 'platform': 'All',
+ 'init_script': """CREATE TABLE t( a INTEGER);
+CREATE INDEX i ON t(a);
+commit;
+""",
+ 'test_type': 'ISQL',
+ 'test_script': """ALTER INDEX i INACTIVE;
+COMMIT;
+SELECT RDB$INDEX_NAME, RDB$INDEX_INACTIVE FROM RDB$INDICES WHERE RDB$INDEX_NAME='I';""",
+ 'expected_stdout': """RDB$INDEX_NAME                                                                                RDB$INDEX_INACTIVE
+=============================================================================== ==================
+I                                                                                                              1
+"""
+}
+]
+}

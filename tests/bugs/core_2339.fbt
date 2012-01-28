@@ -1,0 +1,24 @@
+{
+'id': 'bugs.core_2339',
+'qmid': None,
+'tracker_id': 'CORE-2339',
+'title': 'Incorrect result for the derived expression based on aggregate and computation',
+'description': '',
+'min_versions': '',
+'versions': [
+{
+ 'firebird_version': '2.5',
+ 'platform': 'All',
+ 'page_size': '4096',
+ 'test_type': 'ISQL',
+ 'test_script': """select * from (select sum(1)*1 as x from rdb$database);
+-- result is NULL instead of 1""",
+ 'expected_stdout': """
+                    X
+=====================
+                    1
+
+"""
+}
+]
+}

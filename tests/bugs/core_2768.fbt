@@ -1,0 +1,49 @@
+{
+'id': 'bugs.core_2768',
+'qmid': None,
+'tracker_id': 'CORE-2768',
+'title': 'ALTERING OR DROPPING PROCEDURE which has type of domain parameter leads to attempt to delete that domain',
+'description': '',
+'min_versions': '2.5.0',
+'versions': [
+{
+ 'firebird_version': '2.5.0',
+ 'platform': 'All',
+ 'database_character_set': 'UTF8',
+ 'connection_character_set': 'UTF8',
+ 'page_size': '4096',
+ 'init_script': """SET TERM !!;
+CREATE PROCEDURE proc1
+AS BEGIN
+    suspend;
+end!!
+
+commit!!
+
+""",
+ 'test_type': 'ISQL',
+ 'test_script': """SET TERM !!;
+
+alter procedure proc1(param1 type of rdb$description) as
+begin
+    suspend;
+end!!
+commit!!
+
+alter procedure proc1 as
+begin
+    suspend;
+end!!
+commit!!
+show procedure proc1!!
+""",
+ 'expected_stdout': """Procedure text:
+=============================================================================
+begin
+    suspend;
+end
+=============================================================================
+"""
+}
+]
+}

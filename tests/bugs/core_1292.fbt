@@ -1,0 +1,25 @@
+{
+'id': 'bugs.core_1292',
+'qmid': 'bugs.core_1292',
+'tracker_id': 'CORE-1292',
+'title': "Can't create table using long username and UTF8 as attachment charset",
+'description': '',
+'versions': [
+{
+ 'firebird_version': '2.0.2',
+ 'platform': 'All',
+ 'user_name': 'testtesttest',
+ 'user_password': 'firebirdqa',
+ 'database_character_set': 'UTF8',
+ 'connection_character_set': 'UTF8',
+ 'test_type': 'ISQL',
+ 'test_script': """create table t (n integer);
+
+show table t;
+""",
+ 'expected_stdout': """N                               INTEGER Nullable
+""",
+ 'resources': ['longname']
+}
+]
+}

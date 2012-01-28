@@ -1,0 +1,36 @@
+{
+'id': 'bugs.core_1492',
+'qmid': 'bugs.core_1492',
+'tracker_id': 'CORE-1492',
+'title': "BLOB isn't compatible with [VAR]CHAR in COALESCE",
+'description': '',
+'versions': [
+{
+ 'firebird_version': '2.1',
+ 'platform': 'All',
+ 'init_script': """create table t (b blob sub_type text);
+COMMIT;
+insert into t values (NULL);
+insert into t values ('test');
+COMMIT;""",
+ 'test_type': 'ISQL',
+ 'test_script': """select coalesce(b, '') from t;
+""",
+ 'expected_stdout': """
+         COALESCE
+=================
+              0:1
+==============================================================================
+COALESCE:
+
+==============================================================================
+             80:1
+==============================================================================
+COALESCE:
+test
+==============================================================================
+
+"""
+}
+]
+}

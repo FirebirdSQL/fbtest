@@ -1,0 +1,150 @@
+{
+'id': 'functional.database.create_07',
+'qmid': 'functional.database.create.create_database_08',
+'tracker_id': '',
+'title': 'CREATE DATABASE - PAGE SIZE 16384',
+'description': '',
+'min_versions': None,
+'versions': [
+{
+ 'firebird_version': '1.0',
+ 'platform': 'All',
+ 'page_size': '16384',
+ 'test_type': 'ISQL',
+ 'test_script': 'SHOW DATABASE;',
+ 'expected_stdout': """        Owner: SYSDBA
+PAGE_SIZE 16384
+Number of DB pages allocated = 127
+Sweep interval = 20000
+Transaction - oldest = 1
+Transaction - oldest active = 2
+Transaction - oldest snapshot = 2
+Transaction - Next = 5""",
+ 'substitutions': [('^Forced Writes are.*','')]
+},
+{
+ 'firebird_version': '1.0.3',
+ 'platform': 'All',
+ 'page_size': '16384',
+ 'test_type': 'ISQL',
+ 'test_script': 'SHOW DATABASE;',
+ 'expected_stdout': """        Owner: SYSDBA
+PAGE_SIZE 16384
+Number of DB pages allocated = 127
+Sweep interval = 20000
+Transaction - oldest = 1
+Transaction - oldest active = 2
+Transaction - oldest snapshot = 2
+Transaction - Next = 5
+Default Character set: NONE""",
+ 'substitutions': [('^Forced Writes are.*','')]
+},
+{
+ 'firebird_version': '1.5',
+ 'platform': 'All',
+ 'page_size': '16384',
+ 'test_type': 'ISQL',
+ 'test_script': 'SHOW DATABASE;',
+ 'expected_stdout': """        Owner: SYSDBA
+PAGE_SIZE 16384
+Number of DB pages allocated = 130
+Sweep interval = 20000
+Transaction - oldest = 1
+Transaction - oldest active = 2
+Transaction - oldest snapshot = 2
+Transaction - Next = 5
+Default Character set: NONE""",
+ 'substitutions': [('^Forced Writes are.*','')]
+},
+{
+ 'firebird_version': '2.0',
+ 'platform': 'All',
+ 'page_size': '16384',
+ 'test_type': 'ISQL',
+ 'test_script': 'SHOW DATABASE;',
+ 'expected_stdout': """        Owner: SYSDBA
+PAGE_SIZE 16384
+Number of DB pages allocated = 135
+Sweep interval = 20000
+Forced Writes are OFF
+Transaction - oldest = 1
+Transaction - oldest active = 2
+Transaction - oldest snapshot = 2
+Transaction - Next = 5
+ODS = 11.0
+Default Character set: NONE""",
+ 'substitutions': [('^Forced Writes are.*',''),('^Transaction -.*','')]
+},
+{
+ 'firebird_version': '2.1',
+ 'platform': 'Windows',
+ 'page_size': '16384',
+ 'test_type': 'ISQL',
+ 'test_script': 'SHOW DATABASE;',
+ 'expected_stdout': """Owner: SYSDBA
+PAGE_SIZE 16384
+Number of DB pages allocated = 154
+Sweep interval = 20000
+ODS = 11.1
+Default Character set: NONE
+""",
+ 'substitutions': [('^Forced Writes are.*',''),('^Transaction -.*','')]
+},
+{
+ 'firebird_version': '2.1',
+ 'platform': 'Linux:Solaris:FreeBSD:MacOS:HP-UX',
+ 'page_size': '16384',
+ 'test_type': 'ISQL',
+ 'test_script': 'SHOW DATABASE;',
+ 'expected_stdout': """Owner: SYSDBA
+PAGE_SIZE 16384
+Number of DB pages allocated = 144
+Sweep interval = 20000
+ODS = 11.1
+Default Character set: NONE
+""",
+ 'substitutions': [('^Forced Writes are.*',''),('^Transaction -.*','')]
+},
+{
+ 'firebird_version': '2.5',
+ 'platform': 'Windows',
+ 'page_size': '16384',
+ 'test_type': 'ISQL',
+ 'test_script': 'SHOW DATABASE;',
+ 'expected_stdout': """        Owner: SYSDBA
+PAGE_SIZE 16384
+Number of DB pages allocated = 154
+Sweep interval = 20000
+Forced Writes are ON
+Transaction - oldest = 1
+Transaction - oldest active = 2
+Transaction - oldest snapshot = 2
+Transaction - Next = 5
+ODS = 11.2
+Default Character set: NONE
+""",
+ 'substitutions': [('^Forced Writes are.*',''),('^Transaction -.*','')]
+},
+{
+ 'firebird_version': '2.5',
+ 'platform': 'Linux:MacOS:Solaris:FreeBSD:HP-UX',
+ 'page_size': '16384',
+ 'test_type': 'ISQL',
+ 'test_script': 'SHOW DATABASE;',
+ 'expected_stdout': """Database: localhost:/home/job/qa/fbtest/tmp/functional.database.create_07.fdb
+        Owner: SYSDBA
+PAGE_SIZE 16384
+Number of DB pages allocated = 144
+Sweep interval = 20000
+Forced Writes are ON
+Transaction - oldest = 1
+Transaction - oldest active = 2
+Transaction - oldest snapshot = 2
+Transaction - Next = 5
+ODS = 11.2
+Default Character set: NONE
+""",
+ 'substitutions': [('^Forced Writes are.*',''),('^Transaction -.*','')]
+}
+]
+}

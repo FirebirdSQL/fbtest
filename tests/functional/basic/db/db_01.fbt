@@ -1,0 +1,45 @@
+{
+'id': 'functional.basic.db.01',
+'qmid': 'functional.basic.db.db_01',
+'tracker_id': '',
+'title': 'Empty DB - RDB$DATABASE content',
+'description': 'Check the correct content of RDB$DATABASE for freh, empty database.',
+'versions': [
+{
+ 'firebird_version': '1.0',
+ 'platform': 'All',
+ 'test_type': 'ISQL',
+ 'test_script': 'select * from RDB$DATABASE;',
+ 'expected_stdout': """  RDB$DESCRIPTION RDB$RELATION_ID RDB$SECURITY_CLASS              RDB$CHARACTER_SET_NAME
+================= =============== =============================== ===============================
+
+           <null>             128 <null>                          <null>
+
+"""
+},
+{
+ 'firebird_version': '1.0.3',
+ 'platform': 'All',
+ 'test_type': 'ISQL',
+ 'test_script': 'select * from RDB$DATABASE;',
+ 'expected_stdout': """  RDB$DESCRIPTION RDB$RELATION_ID RDB$SECURITY_CLASS              RDB$CHARACTER_SET_NAME
+================= =============== =============================== ===============================
+
+           <null>             128 <null>                          NONE
+
+"""
+},
+{
+ 'firebird_version': '2.0',
+ 'platform': 'All',
+ 'test_type': 'ISQL',
+ 'test_script': 'select * from RDB$DATABASE;',
+ 'expected_stdout': """
+  RDB$DESCRIPTION RDB$RELATION_ID RDB$SECURITY_CLASS                                                                            RDB$CHARACTER_SET_NAME
+================= =============== =============================================================================== ===============================================================================
+           <null>             128 <null>                                                                                        NONE
+
+"""
+}
+]
+}

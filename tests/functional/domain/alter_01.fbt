@@ -1,0 +1,91 @@
+{
+'id': 'functional.domain.alter_01',
+'qmid': 'functional.domain.alter.alter_domain_01',
+'tracker_id': '',
+'title': 'ALTER DOMAIN - SET DEFAULT',
+'description': '',
+'versions': [
+{
+ 'firebird_version': '1.0',
+ 'platform': 'All',
+ 'init_script': """CREATE DOMAIN test VARCHAR(63);
+""",
+ 'test_type': 'ISQL',
+ 'test_script': """ALTER DOMAIN test SET DEFAULT 'test string';
+COMMIT;
+SELECT RDB$FIELD_NAME, RDB$DEFAULT_SOURCE FROM rdb$fields WHERE RDB$FIELD_NAME='TEST';
+""",
+ 'expected_stdout': """RDB$FIELD_NAME                  RDB$DEFAULT_SOURCE
+=============================== ==================
+
+TEST                                        2:119
+==============================================================================
+RDB$DEFAULT_SOURCE:
+DEFAULT 'test string'
+==============================================================================
+"""
+},
+{
+ 'firebird_version': '2.0',
+ 'platform': 'All',
+ 'init_script': """CREATE DOMAIN test VARCHAR(63);
+""",
+ 'test_type': 'ISQL',
+ 'test_script': """ALTER DOMAIN test SET DEFAULT 'test string';
+COMMIT;
+SELECT RDB$FIELD_NAME, RDB$DEFAULT_SOURCE FROM rdb$fields WHERE RDB$FIELD_NAME='TEST';
+""",
+ 'expected_stdout': """RDB$FIELD_NAME                                                                                RDB$DEFAULT_SOURCE
+=============================================================================== ==================
+TEST                                                                                                      2:11e
+==============================================================================
+RDB$DEFAULT_SOURCE:
+DEFAULT 'test string'
+==============================================================================
+
+"""
+},
+{
+ 'firebird_version': '2.1',
+ 'platform': 'All',
+ 'init_script': """CREATE DOMAIN test VARCHAR(63);
+""",
+ 'test_type': 'ISQL',
+ 'test_script': """ALTER DOMAIN test SET DEFAULT 'test string';
+COMMIT;
+SELECT RDB$FIELD_NAME, RDB$DEFAULT_SOURCE FROM rdb$fields WHERE RDB$FIELD_NAME='TEST';
+""",
+ 'expected_stdout': """
+RDB$FIELD_NAME                                                                                RDB$DEFAULT_SOURCE
+=============================================================================== ==================
+TEST                                                                                                      2:1f2
+==============================================================================
+RDB$DEFAULT_SOURCE:
+DEFAULT 'test string'
+==============================================================================
+
+"""
+},
+{
+ 'firebird_version': '2.5',
+ 'platform': 'All',
+ 'init_script': """CREATE DOMAIN test VARCHAR(63);
+""",
+ 'test_type': 'ISQL',
+ 'test_script': """ALTER DOMAIN test SET DEFAULT 'test string';
+COMMIT;
+SELECT RDB$FIELD_NAME, RDB$DEFAULT_SOURCE FROM rdb$fields WHERE RDB$FIELD_NAME='TEST';
+""",
+ 'expected_stdout': """
+RDB$FIELD_NAME                                                                                RDB$DEFAULT_SOURCE
+=============================================================================== ==================
+TEST                                                                                                      2:1f6
+==============================================================================
+RDB$DEFAULT_SOURCE:
+DEFAULT 'test string'
+==============================================================================
+
+"""
+}
+]
+}

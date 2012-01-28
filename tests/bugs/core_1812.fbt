@@ -1,0 +1,28 @@
+{
+'id': 'bugs.core_1812',
+'qmid': 'bugs.core_1812',
+'tracker_id': 'CORE-1812',
+'title': 'Index is not used for some date/time expressions in dialect 1',
+'description': '',
+'versions': [
+{
+ 'firebird_version': '2.1.1',
+ 'platform': 'All',
+ 'sql_dialect': 1,
+ 'init_script': """create table t (col timestamp) ;
+create index it on t (col) ;
+commit ;
+""",
+ 'test_type': 'ISQL',
+ 'test_script': """SET PLAN ON;
+select * from t where col > timestamp 'now' - 7 ;
+select * from t where col > 'now' - 7 ;
+""",
+ 'expected_stdout': """
+PLAN (T INDEX (IT))
+
+PLAN (T INDEX (IT))
+"""
+}
+]
+}

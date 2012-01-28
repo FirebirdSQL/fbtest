@@ -1,0 +1,66 @@
+{
+'id': 'bugs.core_1894',
+'qmid': None,
+'tracker_id': 'CORE-1894',
+'title': 'Circular dependencies between computed fields crashs the engine',
+'description': '',
+'min_versions': '2.5.2',
+'versions': [
+{
+ 'firebird_version': '2.5.2',
+ 'platform': 'All',
+ 'page_size': '4096',
+ 'init_script': """create table t (
+    n integer,
+    n1 computed by (n),
+    n2 computed by (n1)
+);
+
+create table t2 (
+    n integer,
+    c1 computed by (1),
+    c2 computed by (c1)
+);
+
+""",
+ 'test_type': 'ISQL',
+ 'test_script': """alter table t alter n1 computed by (n2);
+
+set autoddl off;
+alter table t2 drop c1;
+alter table t2 add c1 computed by (c2);
+commit;
+
+select * from t;
+select * from t2;
+""",
+ 'expected_stderr': """Statement failed, SQLSTATE = 42000
+
+unsuccessful metadata update
+
+-Cannot have circular dependencies with computed fields
+
+Statement failed, SQLSTATE = 42000
+
+unsuccessful metadata update
+
+-cannot delete
+
+-COLUMN T2.C1
+
+-there are 1 dependencies
+
+Statement failed, SQLSTATE = 42000
+
+unsuccessful metadata update
+
+-cannot delete
+
+-COLUMN T2.C1
+
+-there are 1 dependencies
+
+"""
+}
+]
+}

@@ -1,0 +1,180 @@
+{
+'id': 'bugs.core_0959',
+'qmid': 'bugs.core_959-21',
+'tracker_id': 'CORE-959',
+'title': 'GSTAT does not work using the localhost connection string',
+'description': "",
+'min_versions': None,
+'versions': [
+{
+ 'firebird_version': '2.1',
+ 'platform': 'Windows:Linux:Solaris:FreeBSD:HP-UX',
+ 'test_type': 'Python',
+ 'test_script': "runProgram('gstat',['-a','-user',user_name,'-pa',user_password,dsn])",
+ 'expected_stdout': """
+Database "c:\db\qaug.fdb"
+Database header page information:
+	Flags			0
+	Checksum		12345
+	Generation		6
+	Page size		4096
+	ODS version		11.0
+	Oldest transaction	1
+	Oldest active		0
+	Oldest snapshot		0
+	Next transaction	1
+	Bumped transaction	1
+	Sequence number		0
+	Next attachment ID	0
+	Implementation ID	16
+	Shadow count		0
+	Page buffers		0
+	Next header page	0
+	Database dialect	3
+	Creation date		Jul 5, 2007 16:54:18
+	Attributes		force write
+
+    Variable header data:
+	*END*
+
+
+Database file sequence:
+File c:\db\qaug.fdb is the only file
+
+Analyzing database pages ...
+""",
+ 'substitutions': [('^Database ".*',''),('Page size.*',''),('ODS version.*',''),('Oldest.*',''),('Next.*',''),('Bumped.*',''),('Creation date.*',''),('Attributes.*',''),('File .*',''),('Implementation.*',''),('Generation.*','')]
+},
+{
+ 'firebird_version': '2.1',
+ 'platform': 'MacOS',
+ 'test_type': 'Python',
+ 'test_script': "runProgram('gstat',['-a','-user',user_name,'-pa',user_password,dsn])",
+ 'expected_stdout': """Permission denied
+""",
+ 'substitutions': [('^Database ".*',''),('Page size.*',''),('ODS version.*',''),('Oldest.*',''),('Next.*',''),('Bumped.*',''),('Creation date.*',''),('Attributes.*',''),('File .*',''),('Implementation.*',''),('Generation.*','')]
+},
+{
+ 'firebird_version': '2.0.1',
+ 'platform': 'Windows:Linux:Solaris:FreeBSD:HP-UX',
+ 'test_type': 'Python',
+ 'test_script': "runProgram('gstat',['-a','-user',user_name,'-pa',user_password,dsn])",
+ 'expected_stdout': """
+Database "c:\db\qaug.fdb"
+Database header page information:
+	Flags			0
+	Checksum		12345
+	Generation		2
+	Page size		4096
+	ODS version		11.0
+	Oldest transaction	1
+	Oldest active		0
+	Oldest snapshot		0
+	Next transaction	1
+	Bumped transaction	1
+	Sequence number		0
+	Next attachment ID	0
+	Implementation ID	16
+	Shadow count		0
+	Page buffers		0
+	Next header page	0
+	Database dialect	3
+	Creation date		Jul 5, 2007 16:54:18
+	Attributes		force write
+
+    Variable header data:
+	*END*
+
+
+Database file sequence:
+File c:\db\qaug.fdb is the only file
+
+Analyzing database pages ...
+""",
+ 'substitutions': [('^Database ".*',''),('Page size.*',''),('ODS version.*',''),('Oldest.*',''),('Next.*',''),('Bumped.*',''),('Creation date.*',''),('Attributes.*',''),('File .*',''),('Implementation.*',''),('Generation.*','')]
+},
+{
+ 'firebird_version': '2.0.1',
+ 'platform': 'MacOS',
+ 'test_type': 'Python',
+ 'test_script': "runProgram('gstat',['-a','-user',user_name,'-pa',user_password,dsn])",
+ 'expected_stdout': """Permission denied
+""",
+ 'substitutions': [('^Database ".*',''),('Page size.*',''),('ODS version.*',''),('Oldest.*',''),('Next.*',''),('Bumped.*',''),('Creation date.*',''),('Attributes.*',''),('File .*',''),('Implementation.*',''),('Generation.*','')]
+},
+{
+ 'firebird_version': '2.1.3',
+ 'platform': 'Windows:Linux:Solaris:FreeBSD:HP-UX',
+ 'test_type': 'Python',
+ 'test_script': "runProgram('gstat',['-a','-user',user_name,'-pa',user_password,dsn])",
+ 'expected_stdout': """
+Database "c:\job\qabtest	mpugs.core_0959.fdb"
+Database header page information:
+	Flags			0
+	Checksum		12345
+	Generation		5
+	Page size		4096
+	ODS version		11.1
+	Oldest transaction	1
+	Oldest active		1
+	Oldest snapshot		1
+	Next transaction	3
+	Bumped transaction	1
+	Sequence number		0
+	Next attachment ID	2
+	Implementation ID	16
+	Shadow count		0
+	Page buffers		0
+	Next header page	0
+	Database dialect	3
+	Creation date		Sep 29, 2009 11:17:41
+	Attributes		force write
+
+    Variable header data:
+	*END*
+
+
+Database file sequence:
+File c:\job\qabtest	mpugs.core_0959.fdb is the only file
+
+Analyzing database pages ...
+""",
+ 'substitutions': [('^Database ".*',''),('Page size.*',''),('ODS version.*',''),('Oldest.*',''),('Next.*',''),('Bumped.*',''),('Creation date.*',''),('Attributes.*',''),('File .*',''),('Implementation.*',''),('Generation.*','')]
+},
+{
+ 'firebird_version': '2.5',
+ 'platform': 'All',
+ 'test_type': 'Python',
+ 'test_script': "runProgram('gstat',['-a','-user',user_name,'-pa',user_password,dsn])",
+ 'expected_stdout': """Database header page information:
+	Flags			0
+	Checksum		12345
+	Generation		3
+	Page size		4096
+	ODS version		11.2
+	Oldest transaction	1
+	Oldest active		0
+	Oldest snapshot		0
+	Next transaction	1
+	Bumped transaction	1
+	Sequence number		0
+	Next attachment ID	1
+	Implementation ID	16
+	Shadow count		0
+	Page buffers		0
+	Next header page	0
+	Database dialect	3
+	Creation date		Sep 29, 2009 12:41:18
+	Attributes		force write
+
+    Variable header data:
+	*END*
+
+Database file sequence:
+
+Analyzing database pages ...
+""",
+ 'substitutions': [('^Database ".*',''),('Page size.*',''),('ODS version.*',''),('Oldest.*',''),('Next.*',''),('Bumped.*',''),('Creation date.*',''),('Attributes.*',''),('File .*',''),('Implementation.*',''),('Generation.*','')]
+}
+]
+}

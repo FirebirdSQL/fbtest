@@ -1,0 +1,41 @@
+{
+'id': 'functional.basic.db.12',
+'qmid': 'functional.basic.db.db_12',
+'tracker_id': '',
+'title': 'Empty DB - RDB$FUNCTIONS',
+'description': 'Check for correct content of RDB$FUNCTIONS in empty database.',
+'versions': [
+{
+ 'firebird_version': '1.0',
+ 'platform': 'All',
+ 'test_type': 'ISQL',
+ 'test_script': 'select * from RDB$FUNCTIONS;'
+},
+{
+ 'firebird_version': '2.0',
+ 'platform': 'All',
+ 'test_type': 'ISQL',
+ 'test_script': 'select * from RDB$FUNCTIONS;',
+ 'expected_stdout': """
+RDB$FUNCTION_NAME                                                                             RDB$FUNCTION_TYPE RDB$QUERY_NAME                                                                                  RDB$DESCRIPTION RDB$MODULE_NAME                                                                                                                                                                                                                                               RDB$ENTRYPOINT                  RDB$RETURN_ARGUMENT RDB$SYSTEM_FLAG
+=============================================================================== ================= =============================================================================== ================= =============================================================================== =============================== =================== ===============
+RDB$GET_CONTEXT                                                                                          <null> <null>                                                                                                   <null> system_module                                                                                                                                                                                                                                                 get_context                                       0               1
+RDB$SET_CONTEXT                                                                                          <null> <null>                                                                                                   <null> system_module                                                                                                                                                                                                                                                 set_context                                       0               1
+
+"""
+},
+{
+ 'firebird_version': '2.5.0',
+ 'platform': 'All',
+ 'test_type': 'ISQL',
+ 'test_script': 'select * from RDB$FUNCTIONS;',
+ 'expected_stdout': """
+RDB$FUNCTION_NAME                                                                             RDB$FUNCTION_TYPE RDB$QUERY_NAME                                                                                  RDB$DESCRIPTION RDB$MODULE_NAME                                                                                                                                                                                                                                                 RDB$ENTRYPOINT                  RDB$RETURN_ARGUMENT RDB$SYSTEM_FLAG
+=============================================================================== ================= =============================================================================== ================= =============================================================================== =============================== =================== ===============
+RDB$GET_CONTEXT                                                                                          <null> <null>                                                                                                   <null> system_module                                                                                                                                                                                                                                                   get_context                                       0               1
+RDB$SET_CONTEXT                                                                                          <null> <null>                                                                                                   <null> system_module                                                                                                                                                                                                                                                   set_context                                       0               1
+
+"""
+}
+]
+}

@@ -1,0 +1,54 @@
+{
+'id': 'bugs.core_1083',
+'qmid': 'bugs.core_1083',
+'tracker_id': 'CORE-1083',
+'title': "User (not SYSDBA) what have privileges with grant option, can't revoke privileges, granted by other user or SYSDBA",
+'description': '',
+'versions': [
+{
+ 'firebird_version': '2.1.0',
+ 'platform': 'All',
+ 'init_script': """CREATE TABLE TAB1 (COL1 INTEGER, COL2 INTEGER);
+COMMIT;
+CREATE ROLE ROLE1;
+GRANT UPDATE (COL1) ON TAB1 TO TEST WITH GRANT OPTION;
+GRANT UPDATE (COL2) ON TAB1 TO ROLE1;
+COMMIT;
+""",
+ 'test_type': 'Python',
+ 'test_script': """con_1 = kdb.connect(dsn=dsn.encode(),user='TEST',password='test')
+con_1.begin()
+c1 = con_1.cursor()
+try:
+   c1.execute("GRANT UPDATE(COL1) ON TAB1 TO ROLE1")
+   con_1.commit()
+   print 'sucess'
+except Exception, e:
+   print e[1]
+con_1.begin()
+try:
+   c1.execute("REVOKE UPDATE (COL1) ON TAB1 FROM ROLE1")
+   con_1.commit()
+   print 'sucess'
+except Exception, e:
+   print e[1]
+con_1.begin()
+try:
+   c1.execute("REVOKE UPDATE (COL2) ON TAB1 FROM ROLE1")
+   con_1.commit()
+   print 'sucess'
+except Exception, e:
+   print e[1]
+
+
+""",
+ 'expected_stdout': """sucess
+sucess
+isc_dsql_execute:
+  unsuccessful metadata update
+  TEST is not grantor of Update on TAB1 to ROLE1.
+""",
+ 'resources': ['test_user']
+}
+]
+}

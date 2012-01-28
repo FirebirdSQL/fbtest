@@ -1,0 +1,75 @@
+{
+'id': 'bugs.core_0932',
+'qmid': 'bugs.core_932p',
+'tracker_id': 'CORE-932',
+'title': 'Comment in create database',
+'description': 'Accept comment in Create database',
+'versions': [
+{
+ 'firebird_version': '2.1',
+ 'platform': 'Linux:Solaris:FreeBSD:MacOS:HP-UX',
+ 'test_type': 'ISQL',
+ 'test_script': """commit;
+create database /* waw */ '$(DATABASE_LOCATION)trucks';
+show database;
+drop database;""",
+ 'expected_stdout': """Owner: SYSDBA
+PAGE_SIZE 4096
+Number of DB pages allocated = 161
+Sweep interval = 20000
+Forced Writes are ON
+Transaction - oldest = 1
+Transaction - oldest active = 2
+Transaction - oldest snapshot = 2
+Transaction - Next = 5
+ODS = 11.1
+Default Character set: NONE
+""",
+ 'substitutions': [('Number of DB pages.*',''),('Forced Writes.*','')]
+},
+{
+ 'firebird_version': '2.1',
+ 'platform': 'Windows',
+ 'test_type': 'ISQL',
+ 'test_script': """commit;
+create database /* waw */ '$(DATABASE_LOCATION)trucks';
+show database;
+drop database;""",
+ 'expected_stdout': """Owner: SYSDBA
+PAGE_SIZE 4096
+Number of DB pages allocated = 164
+Sweep interval = 20000
+Forced Writes are ON
+Transaction - oldest = 1
+Transaction - oldest active = 2
+Transaction - oldest snapshot = 2
+Transaction - Next = 5
+ODS = 11.1
+Default Character set: NONE
+""",
+ 'substitutions': [('Number of DB pages.*',''),('Forced Writes.*','')]
+},
+{
+ 'firebird_version': '2.5',
+ 'platform': 'All',
+ 'test_type': 'ISQL',
+ 'test_script': """commit;
+create database /* waw */ '$(DATABASE_LOCATION)trucks';
+show database;
+drop database;""",
+ 'expected_stdout': """        Owner: SYSDBA
+PAGE_SIZE 4096
+Number of DB pages allocated = 196
+Sweep interval = 20000
+Forced Writes are ON
+Transaction - oldest = 1
+Transaction - oldest active = 2
+Transaction - oldest snapshot = 2
+Transaction - Next = 5
+ODS = 11.2
+Default Character set: NONE
+""",
+ 'substitutions': [('Number of DB pages.*',''),('Forced Writes.*','')]
+}
+]
+}

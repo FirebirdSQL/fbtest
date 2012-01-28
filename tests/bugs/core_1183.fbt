@@ -1,0 +1,42 @@
+{
+'id': 'bugs.core_1183',
+'qmid': 'bugs.core_1183',
+'tracker_id': 'CORE-1183',
+'title': 'View cannot be created if its WHERE clause contains IN <subquery> with a procedure reference',
+'description': '',
+'versions': [
+{
+ 'firebird_version': '2.0.2',
+ 'platform': 'All',
+ 'init_script': """set term ^;
+
+create procedure p
+  returns (col int)
+as
+begin
+  col = 1;
+  suspend;
+end^
+
+set term ;^
+
+commit;""",
+ 'test_type': 'ISQL',
+ 'test_script': """create view v
+as
+  select * from rdb$database
+  where 1 in ( select col from p );
+
+commit;
+
+select * from v;
+""",
+ 'expected_stdout': """
+  RDB$DESCRIPTION RDB$RELATION_ID RDB$SECURITY_CLASS                                                                            RDB$CHARACTER_SET_NAME
+================= =============== =============================================================================== ===============================================================================
+           <null>             129 <null>                                                                                        NONE
+
+"""
+}
+]
+}

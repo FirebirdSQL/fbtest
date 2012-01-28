@@ -1,0 +1,107 @@
+{
+'id': 'functional.basic.db.28',
+'qmid': 'functional.basic.db.db_28',
+'tracker_id': '',
+'title': 'Empty DB - RDB$TRIGGER_MESSAGES',
+'description': 'Check for correct content of RDB$TRIGGER_MESSAGES in empty database.',
+'versions': [
+{
+ 'firebird_version': '1.0',
+ 'platform': 'All',
+ 'test_type': 'ISQL',
+ 'test_script': 'select * from RDB$TRIGGER_MESSAGES;',
+ 'expected_stdout': """RDB$TRIGGER_NAME                RDB$MESSAGE_NUMBER RDB$MESSAGE
+=============================== ================== ==============================================================================
+
+RDB$TRIGGER_9                                    0 grant_obj_notfound
+RDB$TRIGGER_9                                    1 grant_fld_notfound
+RDB$TRIGGER_9                                    2 grant_nopriv
+RDB$TRIGGER_9                                    3 nonsql_security_rel
+RDB$TRIGGER_9                                    4 nonsql_security_fld
+RDB$TRIGGER_9                                    5 grant_nopriv_on_base
+RDB$TRIGGER_1                                    0 existing_priv_mod
+RDB$TRIGGER_2                                    0 systrig_update
+RDB$TRIGGER_3                                    0 systrig_update
+RDB$TRIGGER_5                                    0 not_rel_owner
+RDB$TRIGGER_24                                   1 cnstrnt_fld_rename
+RDB$TRIGGER_23                                   1 cnstrnt_fld_del
+RDB$TRIGGER_22                                   1 check_trig_update
+RDB$TRIGGER_21                                   1 check_trig_del
+RDB$TRIGGER_20                                   1 integ_index_mod
+RDB$TRIGGER_20                                   2 integ_index_deactivate
+RDB$TRIGGER_20                                   3 integ_deactivate_primary
+RDB$TRIGGER_19                                   1 integ_index_del
+RDB$TRIGGER_18                                   1 integ_index_seg_mod
+RDB$TRIGGER_17                                   1 integ_index_seg_del
+
+RDB$TRIGGER_NAME                RDB$MESSAGE_NUMBER RDB$MESSAGE
+=============================== ================== ==============================================================================
+RDB$TRIGGER_15                                   1 check_cnstrnt_del
+RDB$TRIGGER_14                                   1 check_cnstrnt_update
+RDB$TRIGGER_13                                   1 ref_cnstrnt_update
+RDB$TRIGGER_12                                   1 ref_cnstrnt_notfound
+RDB$TRIGGER_12                                   2 foreign_key_notfound
+RDB$TRIGGER_10                                   1 primary_key_ref
+RDB$TRIGGER_10                                   2 primary_key_notnull
+RDB$TRIGGER_25                                   1 rel_cnstrnt_update
+RDB$TRIGGER_26                                   1 constaint_on_view
+RDB$TRIGGER_26                                   2 invld_cnstrnt_type
+RDB$TRIGGER_26                                   3 primary_key_exists
+RDB$TRIGGER_31                                   0 no_write_user_priv
+RDB$TRIGGER_32                                   0 no_write_user_priv
+RDB$TRIGGER_33                                   0 no_write_user_priv
+
+"""
+},
+{
+ 'firebird_version': '2.0',
+ 'platform': 'All',
+ 'test_type': 'ISQL',
+ 'test_script': 'select * from RDB$TRIGGER_MESSAGES;',
+ 'expected_stdout': """
+RDB$TRIGGER_NAME                                                                              RDB$MESSAGE_NUMBER RDB$MESSAGE
+=============================================================================== ================== ===============================================================================
+RDB$TRIGGER_9                                                                                                  0 grant_obj_notfound
+RDB$TRIGGER_9                                                                                                  1 grant_fld_notfound
+RDB$TRIGGER_9                                                                                                  2 grant_nopriv
+RDB$TRIGGER_9                                                                                                  3 nonsql_security_rel
+RDB$TRIGGER_9                                                                                                  4 nonsql_security_fld
+RDB$TRIGGER_9                                                                                                  5 grant_nopriv_on_base
+RDB$TRIGGER_1                                                                                                  0 existing_priv_mod
+RDB$TRIGGER_2                                                                                                  0 systrig_update
+RDB$TRIGGER_3                                                                                                  0 systrig_update
+RDB$TRIGGER_5                                                                                                  0 not_rel_owner
+RDB$TRIGGER_24                                                                                                 1 cnstrnt_fld_rename
+RDB$TRIGGER_23                                                                                                 1 cnstrnt_fld_del
+RDB$TRIGGER_22                                                                                                 1 check_trig_update
+RDB$TRIGGER_21                                                                                                 1 check_trig_del
+RDB$TRIGGER_20                                                                                                 1 integ_index_mod
+RDB$TRIGGER_20                                                                                                 2 integ_index_deactivate
+RDB$TRIGGER_20                                                                                                 3 integ_deactivate_primary
+RDB$TRIGGER_19                                                                                                 1 integ_index_del
+RDB$TRIGGER_18                                                                                                 1 integ_index_seg_mod
+RDB$TRIGGER_17                                                                                                 1 integ_index_seg_del
+
+RDB$TRIGGER_NAME                                                                              RDB$MESSAGE_NUMBER RDB$MESSAGE
+=============================================================================== ================== ===============================================================================
+RDB$TRIGGER_15                                                                                                 1 check_cnstrnt_del
+RDB$TRIGGER_14                                                                                                 1 check_cnstrnt_update
+RDB$TRIGGER_13                                                                                                 1 ref_cnstrnt_update
+RDB$TRIGGER_12                                                                                                 1 ref_cnstrnt_notfound
+RDB$TRIGGER_12                                                                                                 2 foreign_key_notfound
+RDB$TRIGGER_10                                                                                                 1 primary_key_ref
+RDB$TRIGGER_10                                                                                                 2 primary_key_notnull
+RDB$TRIGGER_25                                                                                                 1 rel_cnstrnt_update
+RDB$TRIGGER_26                                                                                                 1 constaint_on_view
+RDB$TRIGGER_26                                                                                                 2 invld_cnstrnt_type
+RDB$TRIGGER_26                                                                                                 3 primary_key_exists
+RDB$TRIGGER_31                                                                                                 0 no_write_user_priv
+RDB$TRIGGER_32                                                                                                 0 no_write_user_priv
+RDB$TRIGGER_33                                                                                                 0 no_write_user_priv
+RDB$TRIGGER_24                                                                                                 2 integ_index_seg_mod
+RDB$TRIGGER_36                                                                                                 1 integ_index_seg_mod
+
+"""
+}
+]
+}

@@ -1,0 +1,36 @@
+{
+'id': 'functional.intfunc.string.rpad_01',
+'qmid': 'functional.intfunc.string.rpad_01',
+'tracker_id': '',
+'title': 'test for RPAD function',
+'description': """  RPAD( <string1>, <length> [, <string2> ] )
+
+Appends <string2> to the end of <string1>
+
+until the length of the result string becomes equal to <length>.""",
+'versions': [
+{
+ 'firebird_version': '2.1',
+ 'platform': 'All',
+ 'connection_character_set': 'ISO8859_1',
+ 'test_type': 'ISQL',
+ 'test_script': " select RPAD('il fait trés beau ', 31,'dans le nord ') from rdb$database;",
+ 'expected_stdout': """      RPAD
+      ===============================================================================
+      il fait trés beau dans le nord"""
+},
+{
+ 'firebird_version': '2.5',
+ 'platform': 'All',
+ 'connection_character_set': 'ISO8859_1',
+ 'test_type': 'ISQL',
+ 'test_script': " select RPAD('il fait trés beau ', 31,'dans le nord ') from rdb$database;",
+ 'expected_stdout': """
+RPAD
+===============================
+il fait trés beau dans le nord
+
+"""
+}
+]
+}

@@ -1,0 +1,66 @@
+{
+'id': 'bugs.core_2118',
+'qmid': None,
+'tracker_id': 'CORE-2118',
+'title': "UPDATE OR INSERT with subquery used in the MATCHING part doesn't insert record",
+'description': '',
+'min_versions': '',
+'versions': [
+{
+ 'firebird_version': '2.1.2',
+ 'platform': 'All',
+ 'database_character_set': 'UTF8',
+ 'connection_character_set': 'UTF8',
+ 'page_size': '4096',
+ 'init_script': """CREATE GENERATOR GEN_MACRO_ID;
+
+CREATE TABLE MACRO (
+    ID INTEGER NOT NULL,
+    T1 INTEGER,
+    CODE VARCHAR(50)
+);
+
+CREATE TABLE PARAM (
+    ID INTEGER NOT NULL,
+    P1 INTEGER
+);
+
+COMMIT;
+ALTER TABLE MACRO ADD CONSTRAINT PK_MACRO PRIMARY KEY (ID);
+ALTER TABLE PARAM ADD CONSTRAINT PK_PARAM PRIMARY KEY (ID);
+COMMIT;
+ALTER TABLE MACRO ADD CONSTRAINT FK_MACRO_1 FOREIGN KEY (T1) REFERENCES PARAM (ID);
+COMMIT;
+
+SET TERM ^ ;
+
+CREATE TRIGGER MACRO_BI FOR MACRO
+ACTIVE BEFORE INSERT POSITION 0
+AS
+BEGIN
+  IF (NEW.ID IS NULL) THEN
+    NEW.ID = GEN_ID(GEN_MACRO_ID,1);
+END
+^
+
+SET TERM ; ^
+COMMIT;
+
+INSERT INTO PARAM (ID, P1) VALUES (2, 11);
+COMMIT;""",
+ 'test_type': 'ISQL',
+ 'test_script': """update or insert into MACRO (T1, CODE)
+values ( (select ID from PARAM where P1 = 11), 'fsdfdsf')
+matching (T1);
+COMMIT;
+SELECT ID, T1, CODE FROM MACRO;
+""",
+ 'expected_stdout': """
+          ID           T1 CODE
+============ ============ ===============================================================================
+           1            2 fsdfdsf
+
+"""
+}
+]
+}

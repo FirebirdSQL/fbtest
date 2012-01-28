@@ -1,0 +1,47 @@
+{
+'id': 'bugs.core_1549',
+'qmid': 'bugs.core_1549',
+'tracker_id': 'CORE-1549',
+'title': 'Subquery-based predicates are not evaluated early in the join order',
+'description': '',
+'versions': [
+{
+ 'firebird_version': '2.0.4',
+ 'platform': 'All',
+ 'init_script': """create table TEST(ID integer not null);
+alter table test add constraint PK_TEST primary key (ID);
+create generator GEN_TEST;
+commit work;
+
+insert into TEST(id) values (gen_id(GEN_TEST, 1));
+insert into TEST(id) values (gen_id(GEN_TEST, 1));
+commit work;
+
+insert into TEST (id) select gen_id(GEN_TEST, 1) from TEST where gen_id(GEN_TEST, 0) < 2000;
+commit work;
+""",
+ 'test_type': 'ISQL',
+ 'test_script': """SET STATS ON;
+select 1 AS CONSTANT
+from TEST T1 join TEST T2 on T2.ID >= T1.ID
+where not exists (select * from TEST T where T.ID = T1.ID - 1)
+  and not exists (select * from TEST T where T.ID = T2.ID + 1);
+""",
+ 'expected_stdout': """
+    CONSTANT
+============
+           1
+
+
+
+
+
+
+
+
+Fetches = 28217
+""",
+ 'substitutions': [('Current*.*',''),('Delta*.*',''),('Max*.*',''),('Elapsed*.*',''),('Buffers*.*',''),('Reads*.*',''),('Write*.*',''),('Cpu*.*',''),('28[0-9][0-9][0-9]','28000')]
+}
+]
+}

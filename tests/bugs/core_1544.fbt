@@ -1,0 +1,31 @@
+{
+'id': 'bugs.core_1544',
+'qmid': None,
+'tracker_id': 'CORE-1544',
+'title': 'CORE-1544',
+'description': '',
+'min_versions': '',
+'versions': [
+{
+ 'firebird_version': '2.5',
+ 'platform': 'All',
+ 'page_size': '4096',
+ 'test_type': 'ISQL',
+ 'test_script': """set generator rdb$procedures to 32839;
+
+set term ^ ;
+
+create procedure T1
+as
+  begin
+  end ^
+
+create procedure T2
+as
+  begin
+  end ^
+
+"""
+}
+]
+}

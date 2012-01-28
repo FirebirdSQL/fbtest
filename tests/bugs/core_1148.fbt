@@ -1,0 +1,35 @@
+{
+'id': 'bugs.core_1148',
+'qmid': 'bugs.core_1148',
+'tracker_id': 'CORE-1148',
+'title': 'Every user can view server log using services API',
+'description': 'Ordinary user has access to server log, which is minor security problem.',
+'versions': [
+{
+ 'firebird_version': '2.0.2',
+ 'platform': 'All',
+ 'test_type': 'Python',
+ 'test_script': """from kinterbasdb import services
+con = services.connect(host='localhost', user=user_name.encode(), password=user_password.encode())
+try:
+   con.getLog()
+   print 'sucess'
+except Exception, e:
+   print e[1]
+con = services.connect(host='localhost', user='TEST', password='test')
+try:
+   con.getLog()
+   print 'sucess'
+except Exception, e:
+   print e[1]
+
+
+""",
+ 'expected_stdout': """sucess
+Unable to perform the requested Services API action:
+  Unable to perform operation.  You must be either SYSDBA or owner of the database
+""",
+ 'resources': ['test_user']
+}
+]
+}

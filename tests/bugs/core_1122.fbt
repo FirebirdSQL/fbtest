@@ -1,0 +1,99 @@
+{
+'id': 'bugs.core_1122',
+'qmid': 'bugs.core_1122',
+'tracker_id': 'CORE-1122',
+'title': 'Recursive Query bug in FB2.1',
+'description': '',
+'versions': [
+{
+ 'firebird_version': '2.1',
+ 'platform': 'All',
+ 'init_script': """CREATE TABLE TB_MENUS
+   (RECORD_ID INTEGER,
+    PARENT_ID INTEGER,
+    ORDER_ITEM INTEGER NOT NULL,
+    MENU_NAME VARCHAR(120),
+    APP_NAME VARCHAR(80),
+    MENU_ICON BLOB SUB_TYPE 0 SEGMENT SIZE 80
+);
+
+commit;
+
+
+INSERT INTO TB_MENUS VALUES (0, NULL, 1, 'M1', NULL, NULL);
+INSERT INTO TB_MENUS VALUES (1, 0, 1, 'M1 - Sub1', 'APP1.EXE', NULL);
+INSERT INTO TB_MENUS VALUES (2, 0, 1, 'M1 - Sub2', 'APP2.EXE', NULL);
+
+commit;
+""",
+ 'test_type': 'ISQL',
+ 'test_script': """/* Test case 1 */
+
+WITH RECURSIVE
+  MENUS_LIST AS (
+    SELECT
+      PARENT_ID,
+      RECORD_ID,
+      ORDER_ITEM,
+      MENU_NAME,
+      APP_NAME,
+      MENU_ICON,
+      CAST('' AS VARCHAR(255)) IDENT
+    FROM
+      TB_MENUS
+    WHERE
+      (PARENT_ID IS NULL)
+
+UNION ALL
+
+SELECT
+      M.PARENT_ID,
+      M.RECORD_ID,
+      M.ORDER_ITEM,
+      M.MENU_NAME,
+      M.APP_NAME,
+      MENU_ICON,
+      H.IDENT || ' ' IDENT
+    FROM
+      TB_MENUS M INNER JOIN MENUS_LIST H
+      ON (M.PARENT_ID = H.RECORD_ID)
+  )
+SELECT
+  PARENT_ID,
+  RECORD_ID,
+  ORDER_ITEM,
+  (IDENT || MENU_NAME) "Menu Name",
+  APP_NAME,
+  MENU_ICON
+FROM
+  MENUS_LIST;
+
+/* Test case 2 */
+
+SELECT MENU_ICON
+  FROM TB_MENUS
+
+UNION ALL
+
+SELECT MENU_ICON
+  FROM TB_MENUS;
+""",
+ 'expected_stdout': """PARENT_ID    RECORD_ID   ORDER_ITEM Menu Name                                                                                                                                                                                                                                                                                                                                                                                APP_NAME                                                                                 MENU_ICON
+============ ============ ============ =============================================================================== =============================================================================== =================
+      <null>            0            1 M1                                                                                                                                                                                                                                                                                                                                                                                       <null>                                                                                      <null>
+           0            1            1  M1 - Sub1                                                                                                                                                                                                                                                                                                                                                                               APP1.EXE                                                                                    <null>
+           0            2            1  M1 - Sub2                                                                                                                                                                                                                                                                                                                                                                               APP2.EXE                                                                                    <null>
+
+MENU_ICON
+=================
+           <null>
+           <null>
+           <null>
+           <null>
+           <null>
+           <null>
+
+"""
+}
+]
+}

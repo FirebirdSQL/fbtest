@@ -1,0 +1,36 @@
+{
+'id': 'bugs.core_1750',
+'qmid': None,
+'tracker_id': 'CORE-1750',
+'title': 'Include information about context variables into the monitoring tables',
+'description': '',
+'min_versions': '2.5.0',
+'versions': [
+{
+ 'firebird_version': '2.5.0',
+ 'platform': 'All',
+ 'connection_character_set': 'UTF8',
+ 'page_size': '4096',
+ 'test_type': 'ISQL',
+ 'test_script': """SELECT MON$VARIABLE_NAME, MON$VARIABLE_VALUE FROM MON$CONTEXT_VARIABLES;
+commit;
+select rdb$set_context('USER_SESSION', 'MyVar', 493) from rdb$database;
+commit;
+SELECT MON$VARIABLE_NAME, MON$VARIABLE_VALUE FROM MON$CONTEXT_VARIABLES;
+
+""",
+ 'expected_stdout': """Database:  localhost:C:\fbtest2\tmp\bugs.core_1750.fdb, User: SYSDBA
+SQL> SQL> SQL>
+RDB$SET_CONTEXT
+===============
+              0
+
+SQL> SQL>
+MON$VARIABLE_NAME                                                                MON$VARIABLE_VALUE
+=============================================================================== ===============================================================================
+MyVar                                                                            493
+
+SQL> SQL>"""
+}
+]
+}

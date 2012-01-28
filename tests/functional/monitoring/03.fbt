@@ -1,0 +1,29 @@
+{
+'id': 'functional.monitoring.03',
+'qmid': 'functional.monitoring.monitoring_03',
+'tracker_id': 'CORE-2233',
+'title': 'Allow non-SYSDBA users to monitor not only their current attachment but other their attachments as well',
+'description': 'Check if non-privileged database users are allowed to see other attachments authenticated using the same user name',
+'versions': [
+{
+ 'firebird_version': '2.1.2',
+ 'platform': 'All',
+ 'test_type': 'Python',
+ 'test_script': """c = db_conn.cursor()
+con_1 = kdb.connect(dsn=dsn.encode(),user='TEST',password='test')
+con_1.begin()
+con_2 = kdb.connect(dsn=dsn.encode(),user='TEST',password='test')
+con_2.begin()
+c2 = con_2.cursor()
+c2.execute("select MON$ATTACHMENT_ID,TRIM(MON$USER) from MON$ATTACHMENTS ORDER BY 1")
+print c2.fetchall()
+c.execute("select MON$ATTACHMENT_ID,TRIM(MON$USER) from MON$ATTACHMENTS ORDER BY 1")
+print c.fetchall()
+""",
+ 'expected_stdout': """[(3, u'TEST'), (4, u'TEST')]
+[(2, u'SYSDBA'), (3, u'TEST'), (4, u'TEST')]
+""",
+ 'resources': ['test_user']
+}
+]
+}
