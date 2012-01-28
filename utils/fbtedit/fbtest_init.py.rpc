@@ -1,0 +1,15 @@
+import rpyc
+
+try:
+    fbtest = rpyc.connect_by_service('fbtest')
+except rpyc.utils.factory.DiscoveryError:
+    fbtest = rpyc.connect('localhost',18861)
+
+r = fbtest.root
+repository = r.get_repository()
+runner = r.get_runner()
+Test = r.get_Test()
+TestVersion = r.get_TestVersion()
+Resource = r.get_Resource()
+Result = r.get_Result()
+
