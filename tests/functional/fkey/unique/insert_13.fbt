@@ -11,6 +11,7 @@ Master table has one primary key field and one unique field.
 4 Master transaction modifies unique field.
 Detail transaction inserts record in detail_table record.
 Expected: referential integrity error""",
+'min_versions': None,
 'versions': [
 {
  'firebird_version': '2.5',
@@ -32,14 +33,14 @@ INSERT INTO MASTER_TABLE (ID, UF, INT_F) VALUES (1, 1, 10);
 commit;""",
  'test_type': 'Python',
  'test_script': """TPB_master = (
-      kdb.isc_tpb_write
-    + kdb.isc_tpb_read_committed + kdb.isc_tpb_rec_version
-    + kdb.isc_tpb_nowait
+      chr(kdb.isc_tpb_write)
+    + chr(kdb.isc_tpb_read_committed) + chr(kdb.isc_tpb_rec_version)
+    + chr(kdb.isc_tpb_nowait)
                   )
 TPB_detail = (
-      kdb.isc_tpb_write
-    + kdb.isc_tpb_read_committed + kdb.isc_tpb_rec_version
-    + kdb.isc_tpb_nowait
+      chr(kdb.isc_tpb_write)
+    + chr(kdb.isc_tpb_read_committed) + chr(kdb.isc_tpb_rec_version)
+    + chr(kdb.isc_tpb_nowait)
                   )
 
 db_conn.begin(tpb=TPB_master)

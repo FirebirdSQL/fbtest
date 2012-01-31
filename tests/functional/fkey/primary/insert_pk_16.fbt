@@ -1,5 +1,5 @@
 {
-'id': 'functional.fkey.primary.insert_pk_15',
+'id': 'functional.fkey.primary.insert_pk_16',
 'qmid': 'functional.fkey.primary.ins_16',
 'tracker_id': '',
 'title': 'Check correct work fix with foreign key',
@@ -7,6 +7,7 @@
 Master transaction inserts record into master_table and commit.
 Detail transaction inserts record in detail_table.
 Expected: no errors.""",
+'min_versions': None,
 'versions': [
 {
  'firebird_version': '2.1',
@@ -25,14 +26,14 @@ ALTER TABLE DETAIL_TABLE ADD CONSTRAINT FK_DETAIL_TABLE FOREIGN KEY (FKEY) REFER
 COMMIT;""",
  'test_type': 'Python',
  'test_script': """TPB_master = (
-      kdb.isc_tpb_write
-    + kdb.isc_tpb_read_committed + kdb.isc_tpb_rec_version
-    + kdb.isc_tpb_nowait
+      chr(kdb.isc_tpb_write)
+    + chr(kdb.isc_tpb_read_committed) + chr(kdb.isc_tpb_rec_version)
+    + chr(kdb.isc_tpb_nowait)
                   )
 TPB_detail = (
-      kdb.isc_tpb_write
-    + kdb.isc_tpb_read_committed + kdb.isc_tpb_rec_version
-    + kdb.isc_tpb_nowait
+      chr(kdb.isc_tpb_write)
+    + chr(kdb.isc_tpb_read_committed) + chr(kdb.isc_tpb_rec_version)
+    + chr(kdb.isc_tpb_nowait)
                   )
 db_conn.begin(tpb=TPB_master)
 cm_1 = db_conn.cursor()

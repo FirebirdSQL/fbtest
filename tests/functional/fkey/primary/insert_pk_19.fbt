@@ -11,6 +11,7 @@ Master transaction:
  4) rollback to savepoint
 Detail transaction insert in detail_table record.
 Expected: no errors""",
+'min_versions': None,
 'versions': [
 {
  'firebird_version': '2.5',
@@ -31,14 +32,14 @@ INSERT INTO MASTER_TABLE (ID, INT_F) VALUES (1, 10);
 commit;""",
  'test_type': 'Python',
  'test_script': """TPB_master = (
-      kdb.isc_tpb_write
-    + kdb.isc_tpb_read_committed + kdb.isc_tpb_rec_version
-    + kdb.isc_tpb_nowait
+      chr(kdb.isc_tpb_write)
+    + chr(kdb.isc_tpb_read_committed) + chr(kdb.isc_tpb_rec_version)
+    + chr(kdb.isc_tpb_nowait)
                   )
 TPB_detail = (
-      kdb.isc_tpb_write
-    + kdb.isc_tpb_read_committed + kdb.isc_tpb_rec_version
-    + kdb.isc_tpb_nowait
+      chr(kdb.isc_tpb_write)
+    + chr(kdb.isc_tpb_read_committed) + chr(kdb.isc_tpb_rec_version)
+    + chr(kdb.isc_tpb_nowait)
                   )
 
 db_conn.begin(tpb=TPB_master)

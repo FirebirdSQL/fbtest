@@ -137,7 +137,7 @@ Transaction - Next = 5
 ODS = 11.2
 Default Character set: NONE
 """,
- 'substitutions': [('^.*TEST.SHD','TEST.SHD'),('^Forced Writes are.*',''),('^Transaction -.*','')]
+ 'substitutions': [('^.*TEST.SHD','TEST.SHD'),('^Forced Writes are.*',''),('^Transaction -.*',''),('^Number of DB pages allocated.*','')]
 }
 ]
 }

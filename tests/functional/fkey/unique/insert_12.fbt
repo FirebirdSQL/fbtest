@@ -32,14 +32,14 @@ INSERT INTO MASTER_TABLE (ID, UF, INT_F) VALUES (1, 1, 10);
 commit;""",
  'test_type': 'Python',
  'test_script': """TPB_master = (
-      kdb.isc_tpb_write
-    + kdb.isc_tpb_read_committed + kdb.isc_tpb_rec_version
-    + kdb.isc_tpb_nowait
+      chr(kdb.isc_tpb_write)
+    + chr(kdb.isc_tpb_read_committed) + chr(kdb.isc_tpb_rec_version)
+    + chr(kdb.isc_tpb_nowait)
                   )
 TPB_detail = (
-      kdb.isc_tpb_write
-    + kdb.isc_tpb_read_committed + kdb.isc_tpb_rec_version
-    + kdb.isc_tpb_nowait
+      chr(kdb.isc_tpb_write)
+    + chr(kdb.isc_tpb_read_committed) + chr(kdb.isc_tpb_rec_version)
+    + chr(kdb.isc_tpb_nowait)
                   )
 
 db_conn.begin(tpb=TPB_master)
@@ -69,7 +69,7 @@ except Exception, e:
   lock conflict on no wait transaction
   violation of FOREIGN KEY constraint "FK_DETAIL_TABLE" on table "DETAIL_TABLE"
   Foreign key references are present for the record""",
- 'substitutions': [('lock.*',''),]
+ 'substitutions': [('lock.*','')]
 }
 ]
 }

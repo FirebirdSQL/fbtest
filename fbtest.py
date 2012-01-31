@@ -37,11 +37,9 @@ import pickle
 import weakref
 import traceback
 from StringIO import StringIO
-import kinterbasdb as kdb
-if not kdb.initialized:
-    kdb.init(type_conv=300)
-import kinterbasdb.services as fbservice
-from kinterbasdb.typeconv_text_unicode import DB_CHAR_SET_NAME_TO_PYTHON_ENCODING_MAP
+import fdb as kdb
+import fdb.services as fbservice
+from fdb.ibase import DB_CHAR_SET_NAME_TO_PYTHON_ENCODING_MAP
 
 try:
     from subprocess import Popen, PIPE
@@ -560,10 +558,10 @@ class TestVersion(object):
                     except  UnicodeDecodeError:
                         result.note_exception(cause="Exception raised while processing stderr from Python test script.")
     
-                    stdout_e_stripped= string_strip(self.expected_stdout, isql=False)
-                    stdout_a_stripped= string_strip(stdout_a, isql=False)
-                    stderr_e_stripped= string_strip(self.expected_stderr, isql=False)
-                    stderr_a_stripped= string_strip(stderr_a, isql=False)
+                    stdout_e_stripped= string_strip(self.expected_stdout)
+                    stdout_a_stripped= string_strip(stdout_a)
+                    stderr_e_stripped= string_strip(self.expected_stderr)
+                    stderr_a_stripped= string_strip(stderr_a)
                     if stderr_a_stripped != stderr_e_stripped: # if error outputs do not match
                         annotate_error_diff("Python", 
                                           self.expected_stderr, stderr_a,
@@ -1430,6 +1428,7 @@ class Runner(object):
         else:
             self.server_location = ''
             svc = fbservice.connect(password=password)
+        
         version = svc.getServerVersion()
         fbarch = svc.getArchitecture().lower()
         self.version = version[4:version.index(' ')]
