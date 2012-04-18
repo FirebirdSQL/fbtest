@@ -4,9 +4,10 @@
 'tracker_id': 'CORE-859',
 'title': 'Sorting is allowed for blobs and arrays',
 'description': "This one is supposed to fail for now, as we restored the legacy behavior until we're able to implement DISTINCT for blobs properly",
+'min_versions': None,
 'versions': [
 {
- 'firebird_version': '2.1',
+ 'firebird_version': '3.1',
  'platform': 'All',
  'init_script': """create table t (i integer, b blob sub_type text, a integer [5]);
 """,

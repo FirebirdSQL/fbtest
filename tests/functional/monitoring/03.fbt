@@ -4,6 +4,7 @@
 'tracker_id': 'CORE-2233',
 'title': 'Allow non-SYSDBA users to monitor not only their current attachment but other their attachments as well',
 'description': 'Check if non-privileged database users are allowed to see other attachments authenticated using the same user name',
+'min_versions': None,
 'versions': [
 {
  'firebird_version': '2.1.2',
@@ -20,8 +21,8 @@ print c2.fetchall()
 c.execute("select MON$ATTACHMENT_ID,TRIM(MON$USER) from MON$ATTACHMENTS ORDER BY 1")
 print c.fetchall()
 """,
- 'expected_stdout': """[(3, u'TEST'), (4, u'TEST')]
-[(2, u'SYSDBA'), (3, u'TEST'), (4, u'TEST')]
+ 'expected_stdout': """[(3, 'TEST'), (4, 'TEST')]
+[(2, 'SYSDBA'), (3, 'TEST'), (4, 'TEST')]
 """,
  'resources': ['test_user']
 }

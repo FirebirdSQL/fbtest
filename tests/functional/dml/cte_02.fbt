@@ -88,15 +88,13 @@ on C.ID_TYPE_PRODUCT = T.id_type_product;
 
 
 """,
- 'expected_stdout': """
-ID_TYPE_PRODUCT NAME                        COUNT_P
+ 'expected_stdout': """ID_TYPE_PRODUCT NAME                        COUNT_P
 =============== ====================== ============
               1 + DVD                             6
               3  - FILM SF                        3
               4  - FILM ACTION                    1
               5  - FILM ROMANCE                   2
-              2 + BOOK                       <null>
-
+              2 + BOOK                            0
 """
 }
 ]

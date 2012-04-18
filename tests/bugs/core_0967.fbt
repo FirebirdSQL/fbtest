@@ -1,9 +1,10 @@
 {
-'id': 'bugs.core_967',
+'id': 'bugs.core_0967',
 'qmid': 'bugs.core_967',
 'tracker_id': 'CORE-967',
 'title': 'SQL with incorrect characters (outside the ASCII range) may be processed wrongly',
 'description': '',
+'min_versions': None,
 'versions': [
 {
  'firebird_version': '2.1',
@@ -23,7 +24,7 @@ else:
   c.execute('select * from t')
   printData(c)
 """,
- 'expected_stdout': """(-104, 'isc_dsql_prepare: \\n  Dynamic SQL Error\\n  SQL error code = -104\\n  Token unknown - line 1, column 17\\n  \\xee')
+ 'expected_stdout': """('Error while preparing SQL statement:\\n- SQLCODE: -104\\n- Invalid token\\n- Dynamic SQL Error', -104, 335544569)
 """
 }
 ]

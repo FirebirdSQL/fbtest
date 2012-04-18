@@ -58,7 +58,7 @@ WHERE
 """,
  'expected_stdout': """Database:  localhost:c:\jobbtest	mpunctional.arno.optimizer.opt_left_join_08.fdb, User: SYSDBA
 SQL> SQL> CON> CON> CON> CON> CON> CON> CON> CON> CON>
-PLAN JOIN (F INDEX (FK_FLOWERS_COLORS),C INDEX (PK_COLORS))
+PLAN JOIN (F INDEX (FK_FLOWERS_COLORS), C INDEX (PK_COLORS))
 
      COLORID      COLORID
 ============ ============

@@ -7,7 +7,7 @@
 'min_versions': '',
 'versions': [
 {
- 'firebird_version': '2.1.0',
+ 'firebird_version': '2.5.0',
  'platform': 'All',
  'page_size': '4096',
  'init_script': """CREATE GENERATOR LOGID;

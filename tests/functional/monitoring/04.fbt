@@ -4,6 +4,7 @@
 'tracker_id': '',
 'title': '',
 'description': '',
+'min_versions': None,
 'versions': [
 {
  'firebird_version': '2.1.0',
@@ -21,8 +22,8 @@ c1.execute("SELECT TRIM(T2.MON$USER), T1.MON$ISOLATION_MODE FROM MON$TRANSACTION
 print c1.fetchall()
 
 """,
- 'expected_stdout': """[(u'TEST', 2)]
-[(u'SYSDBA', 2), (u'TEST', 2)]
+ 'expected_stdout': """[('TEST', 2)]
+[('SYSDBA', 2), ('TEST', 2)]
 """,
  'resources': ['test_user']
 }

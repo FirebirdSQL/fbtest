@@ -58,7 +58,7 @@ printData(c2)
 """,
  'expected_stdout': """MON$PAGE_READS       MON$PAGE_WRITES      MON$PAGE_FETCHES     MON$PAGE_MARKS
 -------------------- -------------------- -------------------- --------------------
-1235                 0                    202472               0
+1234                 0                    202472               0
 """
 },
 {
