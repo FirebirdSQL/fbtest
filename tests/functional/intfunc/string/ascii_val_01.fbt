@@ -48,6 +48,14 @@ except Exception,e:
 else:
   pass
 try:
+  c.execute("select ascii_val(NULL) from rdb$database")
+  print c.fetchall()
+except Exception,e:
+  print "Test Failed for ascii_val(NULL)"
+  print e
+else:
+  pass
+try:
   c.execute("select ascii_val('') from rdb$database")
   print c.fetchall()
 except Exception,e:
@@ -55,11 +63,11 @@ except Exception,e:
   print e
 else:
   pass
-
 """,
  'expected_stdout': """[(65,)]
 [(65,)]
-[(0,)]"""
+[(None,)]
+"""
 }
 ]
 }

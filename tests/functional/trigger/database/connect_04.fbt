@@ -4,6 +4,7 @@
 'tracker_id': 'CORE-745',
 'title': 'Error handling in trigger on database connect - multiple triggers.',
 'description': 'This test verifies the proper error handling. Uncaught exceptions in trigger roll back the transaction, disconnect the attachment and are returned to the client. Because this test is implemented in Python, our test support class creates a database connection for our test code (db_conn) that attach to the database without role specification. We verify that this connection was properly logged for convenience.',
+'min_versions': None,
 'versions': [
 {
  'firebird_version': '2.1',
@@ -56,13 +57,15 @@ c.execute('select * from LOG')
 printData(c)
 
 """,
- 'expected_stdout': """-836
-isc_attach_database:
-exception 1
-  CONNECTERROR
-  Exception in ON CONNECT trigger
-SQL traceback (most recent call last):
-  At trigger 'ONCONNECT_2' line: 5, col: 29
+ 'expected_stdout': """Error while connecting to database:
+- SQLCODE: -836
+- exception
+- exception 1
+- CONNECTERROR
+- Exception in ON CONNECT trigger
+- At trigger 'ONCONNECT_2' line: 5, col: 29
+-836
+335544517
 ID          MSG
 ----------- ----------------------------------------------------------------------------------------------------
 1           Connect T1 as NONE

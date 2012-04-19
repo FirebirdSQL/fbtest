@@ -55,7 +55,7 @@ try:
   c.execute("INSERT INTO DETAIL_TABLE (ID, FKEY) VALUES (1,1)")
   con_detail.commit()
 except Exception, e:
-  print e[1]"""
+  print e[0]"""
 }
 ]
 }

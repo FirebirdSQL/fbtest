@@ -68,6 +68,7 @@ except Exception, e:
 - SQLCODE: -530
 - violation of FOREIGN KEY constraint ""
 - violation of FOREIGN KEY constraint "FK_DETAIL_TABLE" on table "DETAIL_TABLE"
+- Foreign key references are present for the record
 """
 }
 ]

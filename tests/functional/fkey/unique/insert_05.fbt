@@ -58,7 +58,7 @@ try:
   con_detail.commit()
 except Exception, e:
   #for msg in e: print msg
-  print e[1]"""
+  print e[0]"""
 }
 ]
 }

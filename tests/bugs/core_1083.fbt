@@ -4,6 +4,7 @@
 'tracker_id': 'CORE-1083',
 'title': "User (not SYSDBA) what have privileges with grant option, can't revoke privileges, granted by other user or SYSDBA",
 'description': '',
+'min_versions': None,
 'versions': [
 {
  'firebird_version': '2.1.0',
@@ -24,29 +25,31 @@ try:
    con_1.commit()
    print 'sucess'
 except Exception, e:
-   print e[1]
+   print e[0]
 con_1.begin()
 try:
    c1.execute("REVOKE UPDATE (COL1) ON TAB1 FROM ROLE1")
    con_1.commit()
    print 'sucess'
 except Exception, e:
-   print e[1]
+   print e[0]
 con_1.begin()
 try:
    c1.execute("REVOKE UPDATE (COL2) ON TAB1 FROM ROLE1")
    con_1.commit()
    print 'sucess'
 except Exception, e:
-   print e[1]
+   print e[0]
 
 
 """,
  'expected_stdout': """sucess
 sucess
-isc_dsql_execute:
-  unsuccessful metadata update
-  TEST is not grantor of Update on TAB1 to ROLE1.
+Error while executing SQL statement:
+- SQLCODE: -607
+- This operation is not defined for system tables.
+- unsuccessful metadata update
+- TEST is not grantor of Update on TAB1 to ROLE1.
 """,
  'resources': ['test_user']
 }

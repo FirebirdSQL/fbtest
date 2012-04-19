@@ -58,10 +58,13 @@ try:
    con_detail.commit()
 except Exception, e:
   #for msg in e: print msg
-  print e[1]""",
- 'expected_stdout': """isc_dsql_execute:
-  violation of FOREIGN KEY constraint "FK_DETAIL_TABLE" on table "DETAIL_TABLE"
-  Foreign key reference target does not exist"""
+  print e[0]""",
+ 'expected_stdout': """Error while executing SQL statement:
+- SQLCODE: -530
+- violation of FOREIGN KEY constraint ""
+- violation of FOREIGN KEY constraint "FK_DETAIL_TABLE" on table "DETAIL_TABLE"
+- Foreign key reference target does not exist
+"""
 }
 ]
 }

@@ -4,6 +4,7 @@
 'tracker_id': 'CORE-745',
 'title': 'Error handling in trigger on database connect',
 'description': 'This test verifies the proper error handling. Uncaught exceptions in trigger roll back the transaction, disconnect the attachment and are returned to the client.',
+'min_versions': None,
 'versions': [
 {
  'firebird_version': '2.1',
@@ -40,13 +41,15 @@ except Exception,e:
   for msg in e: print msg
 
 """,
- 'expected_stdout': """-836
-isc_attach_database:
-exception 1
-  CONNECTERROR
-  Exception in ON CONNECT trigger
-SQL traceback (most recent call last):
-  At trigger 'ONCONNECT' line: 5, col: 29
+ 'expected_stdout': """Error while connecting to database:
+- SQLCODE: -836
+- exception
+- exception 1
+- CONNECTERROR
+- Exception in ON CONNECT trigger
+- At trigger 'ONCONNECT' line: 5, col: 29
+-836
+335544517
 """
 }
 ]
