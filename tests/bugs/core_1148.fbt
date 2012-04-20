@@ -9,7 +9,7 @@
  'firebird_version': '2.0.2',
  'platform': 'All',
  'test_type': 'Python',
- 'test_script': """from kinterbasdb import services
+ 'test_script': """from fdb import services
 con = services.connect(host='localhost', user=user_name.encode(), password=user_password.encode())
 try:
    con.getLog()
