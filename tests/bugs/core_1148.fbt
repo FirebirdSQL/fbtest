@@ -4,6 +4,7 @@
 'tracker_id': 'CORE-1148',
 'title': 'Every user can view server log using services API',
 'description': 'Ordinary user has access to server log, which is minor security problem.',
+'min_versions': None,
 'versions': [
 {
  'firebird_version': '2.0.2',
@@ -15,19 +16,21 @@ try:
    con.getLog()
    print 'sucess'
 except Exception, e:
-   print e[1]
+   print e[0]
 con = services.connect(host='localhost', user='TEST', password='test')
 try:
    con.getLog()
    print 'sucess'
 except Exception, e:
-   print e[1]
+   print e[0]
 
 
 """,
  'expected_stdout': """sucess
-Unable to perform the requested Services API action:
-  Unable to perform operation.  You must be either SYSDBA or owner of the database
+Unable to perform the requested Service API action:
+- SQLCODE: -901
+- Unsuccessful execution caused by system error that does not preclude successful execution of subsequent statements
+- Unable to perform operation.  You must be either SYSDBA or owner of the database
 """,
  'resources': ['test_user']
 }
