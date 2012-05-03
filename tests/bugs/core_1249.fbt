@@ -36,8 +36,7 @@ runProgram('gfix',[dsn,'-user',user_name,'-pas',user_password,'-online'])
  'expected_stdout': """Operation performed before shutdown
 Ok, we've got error. Error while starting transaction:
 - SQLCODE: -902
-- Unsuccessful execution caused by a system error that precludes
-successful execution of subsequent statements
+- Unsuccessful execution caused by a system error that precludes successful execution of subsequent statements
 - database C:\JOB\QA\FBTEST\TMP\BUGS.CORE_1249.FDB shutdown
 """,
  'substitutions': [('^.*shutdown','shutdown')]

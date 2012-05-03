@@ -23,7 +23,7 @@ try:
   c.execute(cmd,[10])
   printData(c)
 except kdb.ProgrammingError,e:
-  print e
+  print e[0]
 else:
   print 'Test Failed'
 """,
@@ -32,7 +32,10 @@ else:
 1
 Y
 -----------
-(-625, 'fetch: \n  validation error for CAST, value "10"')
+Cursor.fetchone: Unknown status returned by fetch operation:
+- SQLCODE: -625
+- The insert failed because a column definition includes validation constraints.
+- validation error for CAST, value "10"
 """
 }
 ]
