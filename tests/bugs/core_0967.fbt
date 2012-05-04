@@ -19,12 +19,12 @@ commit;
 try:
   c.execute('update t set i=1'+chr(238)+' where 1=0')
 except Exception,e:
-  print repr(e)
+  print repr(e[0])
 else:
   c.execute('select * from t')
   printData(c)
 """,
- 'expected_stdout': """DatabaseError('Error while preparing SQL statement:\\n- SQLCODE: -104\\n- Invalid token\\n- Dynamic SQL Error\\n- SQL error code = -104\\n- Token unknown - line 1, column 17\\n- \\xee', -104, 335544569)
+ 'expected_stdout': """'Error while preparing SQL statement:\\n- SQLCODE: -104\\n- Invalid token\\n- Dynamic SQL Error\\n- SQL error code = -104\\n- Token unknown - line 1, column 17\\n- \\xee'
 """
 }
 ]
