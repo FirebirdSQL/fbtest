@@ -65,10 +65,12 @@ try:
   c.execute("update master_table set UF=10 WHERE ID=1")
 except Exception, e:
   print e[0]""",
- 'expected_stdout': """isc_dsql_execute:
-  lock conflict on no wait transaction
-  violation of FOREIGN KEY constraint "FK_DETAIL_TABLE" on table "DETAIL_TABLE"
-  Foreign key references are present for the record""",
+ 'expected_stdout': """Error while executing SQL statement:
+- SQLCODE: -530
+- violation of FOREIGN KEY constraint ""
+- violation of FOREIGN KEY constraint "FK_DETAIL_TABLE" on table "DETAIL_TABLE"
+- Foreign key references are present for the record
+""",
  'substitutions': [('lock.*','')]
 }
 ]

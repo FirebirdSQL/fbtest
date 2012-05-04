@@ -68,6 +68,59 @@ else:
 [(65,)]
 [(None,)]
 """
+},
+{
+ 'firebird_version': '2.5',
+ 'platform': 'All',
+ 'database_character_set': 'UTF8',
+ 'connection_character_set': 'UTF8',
+ 'test_type': 'Python',
+ 'test_script': """c = db_conn.cursor()
+try:
+  c.execute("select ascii_val( 'A' ) from rdb$database")
+  print c.fetchall()
+except Exception,e:
+  print "Test Failed for ascii_val( 'A' )"
+  print e
+else:
+  pass
+try:
+  c.execute("select ascii_val( 'Ã' ) from rdb$database")
+  print c.fetchall()
+except:
+  pass
+else:
+  print "Test Failed for ascii_val( 'Ã' )"
+try:
+  c.execute("select ascii_val(cast('A' as BLOB)) from rdb$database")
+  print c.fetchall()
+except Exception,e:
+  print "Test Failed for ascii_val(CAST('A' AS BLOB))"
+  print e
+else:
+  pass
+try:
+  c.execute("select ascii_val(NULL) from rdb$database")
+  print c.fetchall()
+except Exception,e:
+  print "Test Failed for ascii_val(NULL)"
+  print e
+else:
+  pass
+try:
+  c.execute("select ascii_val('') from rdb$database")
+  print c.fetchall()
+except Exception,e:
+  print "Test Failed for ascii_val('')"
+  print e
+else:
+  pass
+""",
+ 'expected_stdout': """[(65,)]
+[(65,)]
+[(None,)]
+[(0,)]
+"""
 }
 ]
 }
