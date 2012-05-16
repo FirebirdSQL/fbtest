@@ -1,0 +1,35 @@
+{
+'id': 'bugs.core_3418',
+'qmid': None,
+'tracker_id': 'CORE-3418',
+'title': 'Database trigger created as INACTIVE is active',
+'description': '',
+'min_versions': '2.1.5',
+'versions': [
+{
+ 'firebird_version': '2.1.5',
+ 'platform': 'All',
+ 'page_size': '4096',
+ 'init_script': """SET TERM ^ ;
+CREATE OR ALTER TRIGGER TRG$START
+  INACTIVE ON TRANSACTION START POSITION 0
+AS
+BEGIN
+    RDB$SET_CONTEXT('USER_SESSION', 'TRANS_ID', CURRENT_TRANSACTION);
+END
+^
+SET TERM ; ^
+COMMIT;""",
+ 'test_type': 'ISQL',
+ 'test_script': """SELECT RDB$GET_CONTEXT('USER_SESSION', 'TRANS_ID') FROM RDB$DATABASE;
+""",
+ 'expected_stdout': """Database:  localhost:C:\fbtestnew\tmp\bugs.core_3418.fdb, User: SYSDBA
+SQL>
+RDB$GET_CONTEXT
+===============================================================================
+<null>
+
+SQL>"""
+}
+]
+}
