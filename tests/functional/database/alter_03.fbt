@@ -32,6 +32,7 @@ except:
 cursor.execute("ALTER DATABASE ADD FILE '$(DATABASE_LOCATION)TEST.G00' STARTING 10000")
 db_conn.commit()
 try:
+  cursor=db_conn.cursor()
   cursor.execute("ALTER DATABASE ADD FILE '$(DATABASE_LOCATION)TEST.G00' STARTING 20000")
   db_conn.commit()
 except kdb.DatabaseError, e:

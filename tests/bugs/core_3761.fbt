@@ -28,6 +28,29 @@ exception 1
 -CHECK_EXCEPTION
 -WORD
 """
+},
+{
+ 'firebird_version': '2.5.2',
+ 'platform': 'All',
+ 'page_size': '4096',
+ 'init_script': """CREATE EXCEPTION CHECK_EXCEPTION 'Check exception';
+COMMIT;
+""",
+ 'test_type': 'ISQL',
+ 'test_script': """SET TERM ^^;
+EXECUTE BLOCK
+AS
+BEGIN
+ EXCEPTION CHECK_EXCEPTION
+  CAST ('WORD' AS BLOB SUB_TYPE TEXT);
+END^^
+SET TERM ;^^
+""",
+ 'expected_stderr': """Statement failed, SQLSTATE = HY000
+exception 1
+-CHECK_EXCEPTION
+-WORD
+"""
 }
 ]
 }

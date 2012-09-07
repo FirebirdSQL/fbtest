@@ -145,6 +145,49 @@ Default Character set: NONE
 """,
  'substitutions': [('^Forced Writes are.*',''),("""
 Transaction -.*""",'')]
+},
+{
+ 'firebird_version': '2.5.2',
+ 'platform': 'Windows',
+ 'page_size': '2048',
+ 'test_type': 'ISQL',
+ 'test_script': 'SHOW DATABASE;',
+ 'expected_stdout': """        Owner: SYSDBA
+PAGE_SIZE 4096
+Number of DB pages allocated = 196
+Sweep interval = 20000
+Forced Writes are ON
+Transaction - oldest = 1
+Transaction - oldest active = 2
+Transaction - oldest snapshot = 2
+Transaction - Next = 5
+ODS = 11.2
+Default Character set: NONE
+""",
+ 'substitutions': [('^Forced Writes are.*',''),("""
+Transaction -.*""",'')]
+},
+{
+ 'firebird_version': '2.5.2',
+ 'platform': 'Linux:MacOS:Solaris:FreeBSD:HP-UX',
+ 'page_size': '2048',
+ 'test_type': 'ISQL',
+ 'test_script': 'SHOW DATABASE;',
+ 'expected_stdout': """Database: localhost:/home/job/qa/fbtest/tmp/functional.database.create_04.fdb
+        Owner: SYSDBA
+PAGE_SIZE 4096
+Number of DB pages allocated = 165
+Sweep interval = 20000
+Forced Writes are ON
+Transaction - oldest = 1
+Transaction - oldest active = 2
+Transaction - oldest snapshot = 2
+Transaction - Next = 5
+ODS = 11.2
+Default Character set: NONE
+""",
+ 'substitutions': [('^Forced Writes are.*',''),("""
+Transaction -.*""",'')]
 }
 ]
 }

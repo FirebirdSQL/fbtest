@@ -109,6 +109,19 @@ RDB$GET_CONTEXT
 2.1.5
 
 """
+},
+{
+ 'firebird_version': '2.5.2',
+ 'platform': 'All',
+ 'test_type': 'ISQL',
+ 'test_script': """select rdb$get_context('SYSTEM', 'ENGINE_VERSION') from rdb$database;
+""",
+ 'expected_stdout': """
+RDB$GET_CONTEXT
+===============================================================================
+2.5.2
+
+"""
 }
 ]
 }
