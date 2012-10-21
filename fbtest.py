@@ -1429,10 +1429,10 @@ class Runner(object):
             self.server_location = ''
             svc = fbservice.connect(password=password)
         
-        version = svc.getServerVersion()
-        fbarch = svc.getArchitecture().lower()
+        version = svc.get_server_version()
+        fbarch = svc.get_architecture().lower()
         self.version = version[4:version.index(' ')]
-        fbdir = svc.getHomeDir()
+        fbdir = svc.get_home_directory()
         self.fbdir = fbdir
         ext = ''
         if fbarch.find('windows') != -1:
