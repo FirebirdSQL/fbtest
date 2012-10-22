@@ -1459,7 +1459,7 @@ class Runner(object):
             self.gstat_path = os.path.join(fbdir,'bin','gstat'+ext)
             self.gfix_path = os.path.join(fbdir,'bin','gfix'+ext)
             self.gpre_path = os.path.join(fbdir,'bin','gpre'+ext)
-        self.security_db = svc.getSecurityDatabasePath()
+        self.security_db = svc.get_security_database_path()
 
         self.run_description = '%s%s %s' % (self.platform,self.cpuarch,self.arch)
         cntx = dict()
