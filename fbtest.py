@@ -407,7 +407,7 @@ class TestVersion(object):
                 if context.server_location:
                     dsn = context.server_location + dsn
                 params = {'dsn':dsn,'user':self.user_name,'password':self.user_password,
-                          'dialect':self.sql_dialect}
+                          'sql_dialect':self.sql_dialect}
                 if self.connection_character_set:
                     params['charset'] = self.connection_character_set
                 try:
