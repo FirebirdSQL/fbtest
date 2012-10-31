@@ -498,7 +498,7 @@ class TestVersion(object):
                 # test is written in Python
                 if not connection and self.database != None:
                     params = {'dsn':dsn,'user':self.user_name.encode('ascii'),'password':self.user_password.encode('ascii'),
-                              'dialect':self.sql_dialect}
+                              'sql_dialect':self.sql_dialect}
                     if self.connection_character_set:
                         params['charset'] = self.connection_character_set
                     try:
