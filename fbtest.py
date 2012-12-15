@@ -41,6 +41,8 @@ import fdb as kdb
 import fdb.services as fbservice
 from fdb.ibase import DB_CHAR_SET_NAME_TO_PYTHON_ENCODING_MAP
 
+__version__ = "0.9"
+
 try:
     from subprocess import Popen, PIPE
 except ImportError:
@@ -70,7 +72,7 @@ def trim_value(value):
     """Return string with trailing whitespaces from each line removed."""
     return '\n'.join((row.rstrip() for row in value.split('\n')))
 def quote(value):
-    """Return properly quoted string according it's content."""
+    """Return properly quoted string according its content."""
     single = value.find("'")
     double = value.find('"')
     multiline = value.find('\n') != -1
@@ -148,6 +150,8 @@ def runProgram(args,environment,stdin=None,**kwargs):
 class TestVersion(object):
     """Recipe for test execution against specific Firebird version and OS platform.
     """
+    
+    #: List of attribute names that should be included in :meth:`as_expression` returned string.
     FIELDS = ['id','qmid','firebird_version','platform','database','database_name',
               'backup_file','user_name','user_password','database_character_set',
               'connection_character_set','page_size','sql_dialect','init_script',
@@ -155,12 +159,34 @@ class TestVersion(object):
               'resources','substitutions']
     
     def __init__(self, id, platform, firebird_version, test_type,
-                  test_script, database=DB_NEW, expected_stdout='', expected_stderr = '',
-                  database_name = None, backup_file = None, user_name = 'SYSDBA', 
-                  user_password = 'masterkey', database_character_set = None,
-                  connection_character_set = None, page_size = None, 
-                  sql_dialect = 3, init_script = '', resources= None,
-                  substitutions = None,qmid=None):
+                 test_script, database=DB_NEW, expected_stdout='', expected_stderr = '',
+                 database_name = None, backup_file = None, user_name = 'SYSDBA', 
+                 user_password = 'masterkey', database_character_set = None,
+                 connection_character_set = None, page_size = None, 
+                 sql_dialect = 3, init_script = '', resources= None,
+                 substitutions = None,qmid=None):
+        """
+        :param string id: Test ID (dot-separated name).
+        :param string platform: List of platform names separated by colon.
+        :param string firebird_version: First Firebird version this test version is designed for.
+        :param string test_type: Test implemetation method: "ISQL" or "Python".
+        :param string test_script: Test code.
+        :param string database: Database usage specification: None, "New", "Existing" or "Restore".
+        :param string expected_stdout: Expected STDOUT content.
+        :param string expected_stderr: Expected STDERR content.
+        :param string database_name: Database file name.
+        :param string backup_file: Backup file name.
+        :param string user_name: User name.
+        :param string user_password: User password.
+        :param string database_character_set: Character set for database.
+        :param string connection_character_set: Character set for connection.
+        :param string page_size: Page size for database.
+        :param integer sql_dialect: SQL dialect for database.
+        :param string init_script: Test initialization script.
+        :param list resources: List of :class:`Resource` names.
+        :param list substitutions: List of substitution specifications.
+        :param string qmid: Test ID from old system (QMTest).
+        """
 
         assert database_character_set in CHARACTER_SETS
         assert connection_character_set in CHARACTER_SETS
@@ -195,6 +221,9 @@ class TestVersion(object):
                                            as_unicode(replacement)))
 
     def get_platforms(self):
+        """Returns platforms supported by this test version as list of platform 
+        names.
+        """
         if self.platform == 'All':
             return PLATFORMS
         else:
@@ -202,8 +231,10 @@ class TestVersion(object):
     def run(self,context,result):
         """Execute the recipe.
         
-        :context: :class:`Runner` instance.
-        :result:  :class:`result` instance.
+        .. important:: Test run outcome is stored in :class:`Result` instance.
+        
+        :param context: :class:`Runner` instance.
+        :param result:  :class:`Result` instance.
         """
 
         def fb15bandaid(self):
@@ -589,8 +620,10 @@ class TestVersion(object):
     def as_expression(self):
         """Return recipe data as string definition of Python dictionary.
         This string could be evaluated back to Python dictionary and passed to
-        TestVersion constructor to recreate the test version instance.
+        :class:`TestVersion` constructor to recreate the test version instance.
         String is encoded in UTF-8 if necessary.
+        
+        .. note:: Only attributes that haven't DEFAULT values are included.
         """
         def store(attr,value):
             if value and attr in ['firebird_version','platform','init_script',
@@ -1051,6 +1084,7 @@ class Repository(object):
         """Store collection of results to the archive.
         Archive is structured in subdirectories. Each directory is after Firebird
         version and contains result collection dump (pickle) files with name::
+        
             <platform><cpuarch>-<fbarch>-<person-id><sequence>.trf
         """
         path = os.path.join(self.result_archive,results.version)
@@ -1479,6 +1513,7 @@ class Runner(object):
         """Run tests.
         
         paremeters:
+        
         :test_list:  List of :class:`Test` objects to run. If not specified, runs
                      all tests in repository.
         
