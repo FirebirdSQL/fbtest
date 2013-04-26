@@ -550,7 +550,11 @@ class TestVersion(object):
             fieldIndices = range(len(cur.description))
             for row in cur:
                 for fieldIndex in fieldIndices:
-                    fieldValue = str(row[fieldIndex])
+                    fieldValue = row[fieldIndex]
+                    if not isinstance(fieldValue,types.StringTypes):
+                        fieldValue = str(fieldValue)
+                    if isinstance(fieldValue,types.UnicodeType):
+                        fieldValue = fieldValue.encode('utf8')
                     fieldMaxWidth = max((len(cur.description[fieldIndex][kdb.DESCRIPTION_NAME]),cur.description[fieldIndex][kdb.DESCRIPTION_DISPLAY_SIZE]))
                     print (fieldValue.ljust(fieldMaxWidth),end=' ')
                 print('')
