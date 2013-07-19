@@ -1,4 +1,5 @@
 #!/usr/bin/python
+## -*- coding: utf-8 -*-
 #
 #   PROGRAM/MODULE: 
 #   FILE:           fbtest.py
@@ -172,7 +173,7 @@ td { padding: 2px 0.5em 0 0.5em;}
 </html>
 """
 
-template_detail = """<%inherit file="base.mako"/>\
+template_detail = """<%inherit file="base.mako"/>
 <H1>Details for test ${test_id}</H1>
 %for group in test_detail:
 <% 
@@ -264,7 +265,9 @@ ${result.outcome[:1]}
 """
 
 
-makolookup = TemplateLookup(output_encoding='utf-8', encoding_errors='replace')
+makolookup = TemplateLookup(output_encoding='utf-8', input_encoding='utf-8',
+                            encoding_errors='replace')
+makolookup.template_args['default_filters']=['decode.utf8']
 makolookup.put_string('base.mako',template_base)
 makolookup.put_string('main.mako',template_main)
 makolookup.put_string('detail.mako',template_detail)
@@ -616,7 +619,7 @@ class TestVersion(object):
             db_name = self.database_name
         else:
             db_name = self.id + '.fdb'
-        dsn = os.path.join(context.tempdir, db_name)
+        dsn = db_filename = os.path.join(context.tempdir, db_name)
         if context.server_location:
             dsn = context.server_location + dsn
         context.environment['DSN'] = dsn
@@ -675,7 +678,7 @@ class TestVersion(object):
                     else:
                         cleanup_db = dsn
             elif self.database == DB_EXISTING:
-                dsn = os.path.join(context.repository.suite_database_location, db_name)
+                dsn = db_filename = os.path.join(context.repository.suite_database_location, db_name)
                 if context.server_location:
                     dsn = context.server_location + dsn
                 params = {'dsn':dsn,'user':self.user_name,'password':self.user_password,
@@ -790,6 +793,7 @@ class TestVersion(object):
                     'runProgram'        : run_program_from_python_test,
                     'sys'               : sys,
                     'dsn'               : dsn,
+                    'db_filename'       : db_filename,
                     'user_name'         : self.user_name.encode('ascii'),
                     'user_password'     : self.user_password.encode('ascii'),
                     'page_size'         : self.page_size,
@@ -1939,7 +1943,7 @@ class Runner(object):
     def set_target(self,arch,host,bin_dir=None,password='masterkey'):
         """Configures the QA environment to run on specified Firebird installation.
         
-        :param string arch:     Firebird architecture (SS,CS or SC).
+        :param string arch:     Firebird architecture (SS,CS, SC or EM).
         :param string host:     'LOCAL' or Firebird host machine identification.
         :param string password: Password for Firebird access (default 'masterkey').
         """
@@ -2424,6 +2428,8 @@ class ScriptRunner(object):
             try:
                 f.write(detail_template.render(version=version,test_id=test_id,
                                        test_detail=test_detail,diffs_only=diffs_only))
+            except:
+                f.write("Error while processing output.")
             finally:
                 f.close()
     def annotation_filter(self,annotations):
@@ -2833,7 +2839,7 @@ def run_tests():
     parser.add_argument('-w','--password',help="SYSDBA password")
     parser.add_argument('-o','--host',help="Remote Firebird or fbtest host machine identification")
     parser.add_argument('-p','--person',help="QA person name")
-    parser.add_argument('-a','--arch',help="Firebird architecture: SS, CS, SC")
+    parser.add_argument('-a','--arch',help="Firebird architecture: SS, CS, SC, EM")
     parser.add_argument('-s','--sequence',type=int,help="Run sequence number for this target")
     parser.add_argument('-k','--skip',help="Suite or test name or name of file with suite/test names to skip")
     parser.set_defaults(rerun=False,update=False,server=False,register=False,
