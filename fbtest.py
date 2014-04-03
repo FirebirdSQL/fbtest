@@ -1803,14 +1803,19 @@ class RunResults(object):
                 f.write('<testcase classname="Test" name="%s" time="%.3f">' % (
                 result.id,result.get_run_time()))
                 if result.outcome == Result.ERROR:
-                    e = result[Result.EXCEPTION]
-                    exc = e[:e.find(':')]
-                    msg = e[e.find(':')+2:]
-                    exc = exc[exc.find("'")+1:exc.rfind("'")]
-                    msg = msg.lstrip()
-                    f.write('<error type=%s message=%s>' % (self._quoteattr(exc),
-                                                            self._quoteattr(msg)))
-                    f.write('</error>')
+                    if result.has_key(Result.EXCEPTION):
+                        e = result[Result.EXCEPTION]
+                        exc = e[:e.find(':')]
+                        msg = e[e.find(':')+2:]
+                        exc = exc[exc.find("'")+1:exc.rfind("'")]
+                        msg = msg.lstrip()
+                        f.write('<error type=%s message=%s>' % (self._quoteattr(exc),
+                                                                self._quoteattr(msg)))
+                        f.write('</error>')
+                    else:
+                        msg = result.get_cause()
+                        f.write('<error type="error" message=%s>' % (self._quoteattr(msg)))
+                        f.write('</error>')
                 elif result.outcome == Result.FAIL:
                     for key in ['ISQL_stripped_diff','Python_stripped_diff',
                                 'ISQL_stderr_stripped_diff',
