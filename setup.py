@@ -14,9 +14,9 @@ classifiers = [
     'Intended Audience :: Developers ',
 ]
 
-setup(name='fbtest', 
-      version='1.0',
-      description = 'Firebird QA tools.', 
+setup(name='fbtest',
+      version='1.0.1',
+      description = 'Firebird QA tools.',
       url='http://www.firebirdsql.org/en/quality-assurance-status/',
       classifiers=classifiers,
       keywords=['Firebird','QA'],
