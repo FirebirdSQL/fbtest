@@ -1,7 +1,7 @@
 #!/usr/bin/python
 ## -*- coding: utf-8 -*-
 #
-#   PROGRAM/MODULE: 
+#   PROGRAM/MODULE:
 #   FILE:           fbtest.py
 #   DESCRIPTION:    Firebird QA system
 #   CREATED:        22.6.2009
@@ -64,17 +64,17 @@ except ImportError:
 
 PYTHON_MAJOR_VER = sys.version_info[0]
 
-#: Test Repository Subversion path 
+#: Test Repository Subversion path
 svn_repository = 'https://svn.code.sf.net/p/firebird/code/qa/fbt-repository/trunk/'
 #: Constant
 DB_NEW            = 'New'
-#: 
+#:
 DB_EXISTING       = 'Existing'
-#: 
+#:
 DB_RESTORE        = 'Restore'
-#: 
+#:
 DB_ACCESS         = [None, DB_NEW, DB_EXISTING, DB_RESTORE]
-#: 
+#:
 CHARACTER_SETS    = [None, 'NONE','ASCII','BIG_5','CYRL','DOS437','DOS737','DOS775',
                     'DOS850','DOS852','DOS857','DOS858','DOS860','DOS861','DOS862',
                     'DOS863','DOS864','DOS865','DOS866','DOS869','EUCJ_0208','GBK',
@@ -84,17 +84,17 @@ CHARACTER_SETS    = [None, 'NONE','ASCII','BIG_5','CYRL','DOS437','DOS737','DOS7
                     'SJIS_0208','TIS620','UNICODE_FSS','UTF8','WIN1250','WIN1251',
                     'WIN1252','WIN1253','WIN1254','WIN1255','WIN1256','WIN1257',
                     'WIN1258','LATIN2']
-#: 
+#:
 PAGE_SIZES        = [None,'1024','2048','4096','8192','16384']
-#: 
+#:
 TYPE_ISQL         = 'ISQL'
-#: 
+#:
 TYPE_PYTHON       = 'Python'
-#: 
+#:
 TEST_TYPES        = [TYPE_ISQL,TYPE_PYTHON]
-#: 
+#:
 PLATFORMS         = ['Windows','Linux','MacOS','FreeBSD','Solaris','HP-UX']
-#: 
+#:
 UNKNOWN           = 'Unknown'
 
 # Invalid XML characters, control characters 0-31 sans \t, \n and \r
@@ -108,12 +108,12 @@ template_base = """<%def name="title()">Firebird QA Analysis</%def>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <style type="text/css" media="screen" title="Normal Text">
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, 
-blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, 
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
+blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em,
 font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var,
-dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, 
-tbody, tfoot, thead, tr, th, td { margin: 0; padding: 0; border: 0; outline: 0; 
-  font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; 
+dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption,
+tbody, tfoot, thead, tr, th, td { margin: 0; padding: 0; border: 0; outline: 0;
+  font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit;
   vertical-align: baseline;}
 :focus { outline: 0; }
 body { line-height: 1; color: black; background: white; }
@@ -176,7 +176,7 @@ td { padding: 2px 0.5em 0 0.5em;}
 template_detail = """<%inherit file="base.mako"/>
 <H1>Details for test ${test_id}</H1>
 %for group in test_detail:
-<% 
+<%
 result = group[0]
 i = 1
 has_diffs = diffs_only and len([key for key in result.annotations.keys() if key.endswith('diff')]) > 0
@@ -339,17 +339,17 @@ def as_utf8(value):
         return value.encode('utf-8')
     else:
         return value
-    
+
 def runProgram(args,environment,stdin=None,**kwargs):
-    """Run external program using :class:`~subprocess.Popen` from subprocess 
+    """Run external program using :class:`~subprocess.Popen` from subprocess
     module and capture `stdin` and `stderr`.
-    
+
     :param list args: List of arguments for :class:`subprocess.Popen`. First item
         must be specification of program to run.
     :param dict environment: Dictionary of environment variables. Ignored in this version.
     :param string stdin: String to be passed as stdin to external program.
     :param dict kwarg: Dictionary of additional keyword arguments for Popen.
-    
+
     :returns: Tuple of (returncode, stdout, stderr)
     """
     if stdin:
@@ -361,19 +361,19 @@ def runProgram(args,environment,stdin=None,**kwargs):
 class TestVersion(object):
     """Recipe for test execution against specific Firebird version and OS platform.
     """
-    
+
     #: List of attribute names that should be included in :meth:`as_expression` returned string.
     FIELDS = ['id','qmid','firebird_version','platform','database','database_name',
               'backup_file','user_name','user_password','database_character_set',
               'connection_character_set','page_size','sql_dialect','init_script',
               'test_type','test_script','expected_stdout','expected_stderr',
               'resources','substitutions']
-    
+
     def __init__(self, id, platform, firebird_version, test_type,
                  test_script, database=DB_NEW, expected_stdout='', expected_stderr = '',
-                 database_name = None, backup_file = None, user_name = 'SYSDBA', 
+                 database_name = None, backup_file = None, user_name = 'SYSDBA',
                  user_password = 'masterkey', database_character_set = None,
-                 connection_character_set = None, page_size = None, 
+                 connection_character_set = None, page_size = None,
                  sql_dialect = 3, init_script = '', resources= None,
                  substitutions = None,qmid=None):
         """
@@ -451,7 +451,7 @@ class TestVersion(object):
                                            as_unicode(replacement)))
 
     def get_platforms(self):
-        """Returns platforms supported by this test version as list of platform 
+        """Returns platforms supported by this test version as list of platform
         names.
         """
         if self.platform == 'All':
@@ -460,9 +460,9 @@ class TestVersion(object):
             return self.platform.split(':')
     def run(self,context,result):
         """Execute the recipe.
-        
+
         .. important:: Test run outcome is stored in :class:`Result` instance.
-        
+
         :param context: :class:`Runner` instance.
         :param result:  :class:`Result` instance.
         """
@@ -472,7 +472,7 @@ class TestVersion(object):
                 self.init_script = self.init_script+'\n'
             if self.test_script and self.test_script[-1] != '\n':
                 self.test_script = self.test_script+'\n'
-        def fail_and_annotate_streams(outcome, program_name, cause, stdout=None, 
+        def fail_and_annotate_streams(outcome, program_name, cause, stdout=None,
                                    stderr=None, annotate={}):
             """Set test as FAILed and set annotations. Used to note failures
             from external programs.
@@ -485,7 +485,7 @@ class TestVersion(object):
             if stderr: # gbak prints nothing to stderr if everything went ok
                 unexp.append("stderr")
                 annotations["%s_STDERR" % program_name]= stderr
-            if unexp: # if we got something in stdout, stderr or both 
+            if unexp: # if we got something in stdout, stderr or both
                 cause += "\nUnexpected " + " and ".join(unexp) + \
                         " stream%s " % "s"[len(unexp)==1:] + \
                         "received from %s." % program_name
@@ -587,7 +587,7 @@ class TestVersion(object):
             except:
                 result.note_exception(cause="Python test: Exception raised while running external program from Python test.")
                 result["failing_program"] = program
-                cleanup()
+                #cleanup()
 
         def cleanup():
             """Cleanup after the test run."""
@@ -609,8 +609,8 @@ class TestVersion(object):
 
         if context.version.startswith('1.5'):
             fb15bandaid()
-        
-        isqlsubs= map(re.compile,['(?m)Database:.*\n?', 'SQL>[ \t]*\n?', 
+
+        isqlsubs= map(re.compile,['(?m)Database:.*\n?', 'SQL>[ \t]*\n?',
                                   'CON>[ \t]*\n?', '-->[ \t]*\n?'])
         cause = 'Unknown cause'
         cleanup_db = None
@@ -624,7 +624,7 @@ class TestVersion(object):
             dsn = context.server_location + dsn
         context.environment['DSN'] = dsn
         result[Result.START_TIME] = str(time())
-        
+
         try:
             # Prepare database if needed
             if self.database == DB_NEW:
@@ -636,7 +636,7 @@ class TestVersion(object):
                 if self.database_character_set:
                     createCommand += " DEFAULT CHARACTER SET %s" % self.database_character_set
                 # We'll try to attach it first to see if it doesn't already exists
-                # and drop it if it does. It's probably leftover from previous test 
+                # and drop it if it does. It's probably leftover from previous test
                 # failure.
                 try:
                     conn = kdb.connect(dsn=dsn,user=self.user_name,
@@ -658,10 +658,10 @@ class TestVersion(object):
                     cleanup_db = dsn
             elif self.database == DB_RESTORE:
                 try:
-                    return_code, stdout, stderr= runProgram([context.gbak_path, "-C", 
+                    return_code, stdout, stderr= runProgram([context.gbak_path, "-C",
                         "-user",     self.user_name,
                         "-password", self.user_password,
-                        os.path.join(context.repository.backup_location,self.backup_file), 
+                        os.path.join(context.repository.backup_location,self.backup_file),
                         dsn],[])
                 except KeyboardInterrupt:
                     cleanup_db = dsn
@@ -692,7 +692,7 @@ class TestVersion(object):
                 except:
                     result.note_exception(cause="Test setup: Exception raised while connecting to database.")
                     return
-    
+
             # Execute Init script
             if self.init_script:
                 params = [context.isql_path,dsn,'-user',self.user_name,'-password',
@@ -719,7 +719,7 @@ class TestVersion(object):
                         fail_and_annotate_streams(Result.ERROR,'ISQL','Init script',stderr=stderr)
                         cleanup()
                         return
-    
+
             # Run test
             if self.test_type == TYPE_ISQL:
                 params = [context.isql_path,dsn,'-user',self.user_name,'-password',
@@ -784,7 +784,7 @@ class TestVersion(object):
                         result.note_exception(cause="Test setup: Exception raised while connecting to database.")
                         cleanup()
                         return
-    
+
                 global_ns={
                     'context'           : context.environment,
                     'kdb'               : kdb,
@@ -805,7 +805,7 @@ class TestVersion(object):
                     'db_path_property'  : 'database_location',
                     }
                 local_ns={}
-    
+
                 saved_out = sys.stdout
                 saved_err = sys.stderr
                 try:
@@ -834,20 +834,20 @@ class TestVersion(object):
                             stderr_a = stderr_a.decode('ascii')
                     except  UnicodeDecodeError:
                         result.note_exception(cause="Exception raised while processing stderr from Python test script.")
-    
+
                     stdout_e_stripped= string_strip(self.expected_stdout)
                     stdout_a_stripped= string_strip(stdout_a)
                     stderr_e_stripped= string_strip(self.expected_stderr)
                     stderr_a_stripped= string_strip(stderr_a)
                     if stderr_a_stripped != stderr_e_stripped: # if error outputs do not match
-                        annotate_error_diff("Python", 
+                        annotate_error_diff("Python",
                                           self.expected_stderr, stderr_a,
                                           stderr_e_stripped, stderr_a_stripped)
                     elif stdout_a_stripped == stdout_e_stripped:
                         pass
                     else:
-                        annotate_diff("Python", 
-                                     self.expected_stdout, stdout_a, 
+                        annotate_diff("Python",
+                                     self.expected_stdout, stdout_a,
                                      stdout_e_stripped, stdout_a_stripped)
                 finally:
                     sys.stdout = saved_out
@@ -869,7 +869,7 @@ class TestVersion(object):
         This string could be evaluated back to Python dictionary and passed to
         :class:`TestVersion` constructor to recreate the test version instance.
         String is encoded in UTF-8 if necessary.
-        
+
         .. note:: Only attributes that haven't DEFAULT values are included.
         """
         def store(attr,value):
@@ -933,8 +933,8 @@ class TestVersion(object):
 
 class Test(object):
     """Test definition.
-    
-    Can contain multiple :class:`TestVersion` recipes for test execution against 
+
+    Can contain multiple :class:`TestVersion` recipes for test execution against
     different Firebird versions on various OS platforms.
     """
     #: List of attribute names that should be included in :meth:`as_expression` returned string.
@@ -947,7 +947,7 @@ class Test(object):
         :param string title: Test title.
         :param string description: test description.
         :param string tracker_id: JIRA entry ID this tests relates to.
-        :param string min_versions: List of minimal engine versions supported by 
+        :param string min_versions: List of minimal engine versions supported by
             test (separated by semicolon).
         :param list versions: List of disctionaries with data for creation of
             :class:`TestVersion` instances.
@@ -972,7 +972,7 @@ class Test(object):
                 self.add_version(TestVersion(id,**version))
     def add_version(self,version):
         """Add :class:`TestVersion` instance to test.
-        
+
         :param version: :class:`TestVersion` instance.
         """
         assert self.id == version.id
@@ -1005,13 +1005,13 @@ class Test(object):
         return r
     def get_name(self):
         """Return test name.
-        
+
         Test name is last part of test ID.
         """
         return self.id.split('.')[-1:][0]
     def get_version_for(self,platform,version):
         """Return test recipe suitable for specified platform and Firebird version.
-        
+
         :param string platform: Platform name.
         :param string version: Firebird version.
         :returns: :class:`TestVersion` or None.
@@ -1022,7 +1022,7 @@ class Test(object):
             else:
                 platforms = test_platforms.split(':')
             return platform in platforms
-        
+
         # Minimal required version check (for mainline releases)
         if self.min_versions:
             base_version = '.'.join(version.split('.')[:2])
@@ -1072,7 +1072,7 @@ class Resource(object):
     @classmethod
     def create(cls,kind,**kwargs):
         """Class method to create right :class:`Resource` instance from parameters.
-        
+
         :param string kind: Resource class specification.
         """
         if kind == 'user':
@@ -1081,9 +1081,9 @@ class Resource(object):
             raise Exception("Unknown resource type '%s'" % kind)
     def fail_and_annotate_streams(self, result, outcome, program_name, cause,
                                   stdout=None, stderr=None, annotate={}):
-        """Helper method to note fail of resource setup/cleanup in 
+        """Helper method to note fail of resource setup/cleanup in
         :class:`Result` instance.
-        
+
         :param result: :class:`Result` instance.
         :param stirng outcome: Run outcome.
         :param string program_name: Program that reports the failure.
@@ -1100,19 +1100,19 @@ class Resource(object):
         if stderr: # gbak prints nothing to stderr if everything went ok
             unexp.append("stderr")
             annotations["%s_STDERR" % program_name]= stderr
-        if unexp: # if we got something in stdout, stderr or both 
+        if unexp: # if we got something in stdout, stderr or both
             cause += "\nUnexpected " + " and ".join(unexp) + \
                     " stream%s " % "s"[len(unexp)==1:] + \
                     "received from %s." % program_name
         result.set_outcome(outcome,cause,annotations)
     def setup(self,context,result):
         """Resource initialization.
-        
+
         Nothing in this class."""
         pass
     def cleanup(self,result):
         """Resource finalization
-        
+
         Nothing in this class."""
         pass
 
@@ -1172,10 +1172,10 @@ class UserResource(Resource):
                 if return_code != 0:
                     self.fail_and_annotate_streams(result, Result.ERROR,'GSEC','Delete user',
                                            stdout,stderr)
-    
+
 class Suite(object):
     """Container for tests and sub-suites to organize tests in hierarchical structure.
-    
+
     """
     def __init__(self,name,path=None,parent=None):
         """
@@ -1207,7 +1207,7 @@ class Suite(object):
                 os.mkdir(self.path)
             else:
                 raise Exception('Path is not a directory')
-            
+
     def clear(self):
         """Delete all tests and sub-suites from instance."""
         for test in self.tests:
@@ -1225,7 +1225,7 @@ class Suite(object):
             return None
     def get_id(self):
         """Return suite ID.
-        
+
         Consists from suite names from root to this one separated by dot."""
         p = self.get_parent()
         if p:
@@ -1270,7 +1270,7 @@ class Suite(object):
                 f.close()
     def reload_test(self,test_id):
         """Reload test from disk.
-        
+
         :param string test_id: Test ID.
         """
         l = test_id.split('.')
@@ -1291,7 +1291,7 @@ class Suite(object):
             else:
                 raise Exception("Unknown test '%s'" % test_id)
             testfile = test_id.split('.')[-1:][0]+'.fbt'
-            
+
             if os.path.isfile(os.path.join(self.path,testfile)):
                 try:
                     f = open(os.path.join(self.path,testfile),'rU')
@@ -1303,7 +1303,7 @@ class Suite(object):
                     f.close()
     def save_test(self,test_id):
         """Save test on disk.
-        
+
         :param test_id: Test ID.
         """
         l = test_id.split('.')
@@ -1327,7 +1327,7 @@ class Suite(object):
                 f.close()
     def add_test(self,test):
         """Add test to suite.
-        
+
         :param test: :class:`Test` instance.
         """
         l = test.id.split('.')
@@ -1345,10 +1345,10 @@ class Suite(object):
 
 class Archive(object):
     """Run results archive.
-    
+
     Archive is structured in subdirectories. Each directory is named after Firebird
     version and contains result collection dump (pickle) files with name::
-        
+
     <number_of_tests_executed>-<platform><cpuarch>-<fbarch>-<person-id>-<sequence>.trf
     """
     def __init__(self,archive_path):
@@ -1378,7 +1378,7 @@ class Archive(object):
         l = []
         for path, dirs, files in os.walk(self.archive_path):
             for file in files:
-                l.append(os.path.relpath(os.path.join(path,file),self.archive_path)) 
+                l.append(os.path.relpath(os.path.join(path,file),self.archive_path))
         l.sort()
         return l
     def store(self, results):
@@ -1389,9 +1389,9 @@ class Archive(object):
         results.dump(filename)
     def retrieve(self,version=None):
         """Get list of run results from archive.
-        
+
         :param string version: Returns only results for specified Firebird version.
-        
+
         :returns: List of :class:`RunResult` instances.
         """
         result = []
@@ -1406,17 +1406,17 @@ class Archive(object):
         return result
     def delete(self,result):
         """Remove specified run results from archive.
-        
+
         :param result: File path in archive or :class:`RunResult` instance stored
                        in archive.
         """
         path = self.get_archive_file_path(result) if isinstance(result,RunResults) else result
         if os.path.exists(path):
             os.remove(path)
-    
+
 class Repository(object):
     """Test repository.
-    
+
     All subdirectories must exists except 'archive' that's created if necessary.
     """
     def __init__(self,repository_path):
@@ -1425,7 +1425,7 @@ class Repository(object):
         """
         #: Directory of resources that maps resource name to :class:`Resource` instances.
         self.resource_map = {}
-        
+
         # Repository data
         #: Path to Repository.
         self.path = repository_path
@@ -1443,7 +1443,7 @@ class Repository(object):
         self.result_archive = Archive(os.path.join(repository_path,'archive'))
         #: Path to resources.
         self.resources = os.path.join(repository_path,'resources')
-        
+
         self.suite = Suite('',path=self.test_path)
     def load(self):
         """Load all tests and resources.
@@ -1451,8 +1451,8 @@ class Repository(object):
         self.suite.load()
         self.resource_map = {}
         dirlist = os.listdir(self.resources)
-        for resource_name in (name for name in dirlist 
-                              if os.path.isfile(os.path.join(self.resources,name)) and 
+        for resource_name in (name for name in dirlist
+                              if os.path.isfile(os.path.join(self.resources,name)) and
                               os.path.splitext(name)[1].lower() == '.fbr'):
             try:
                 f = open(os.path.join(self.resources,resource_name),'rU')
@@ -1467,7 +1467,7 @@ class Repository(object):
                 f.close()
     def get_suite(self,suite_id=''):
         """Return suite with specified ID.
-        
+
         :returns: :class:`Suite` instance or `None`.
         """
         if suite_id == '':
@@ -1492,9 +1492,9 @@ class Repository(object):
 
 class Result(object):
     """Result from test run or resource setup/cleanup.
-    
+
     .. note:: Also acts as dictionary of annotations.
-    
+
     """
 
     # Constants for result kinds.
@@ -1505,7 +1505,7 @@ class Result(object):
     RESOURCE_CLEANUP = "resource_cleanup"
     #: Result KIND
     TEST = "test"
-    
+
     # Constants for outcomes.
 
     #: Outcome
@@ -1532,7 +1532,7 @@ class Result(object):
     START_TIME = "start_time"
     #: Annotation.
     END_TIME = "end_time"
-    
+
     # Other class variables.
 
     #: List of possible result KINDS
@@ -1561,7 +1561,7 @@ class Result(object):
 
     def set_outcome(self, outcome, cause = None, annotations = {}):
         """Set Result outcome.
-        
+
         :param string outcome: Run outcome.
         :param string cause: Short description of the outcome,
         :param dict annotations: Disctionary of result anntotations.
@@ -1573,20 +1573,20 @@ class Result(object):
         self.annotate(annotations)
     def annotate(self, annotations):
         """Set annotations.
-        
+
         :param dict annotations: Annotations.
         """
         self.annotations.update(annotations)
     def fail(self, cause = None, annotations = {}):
         """Set FAIL outcome with specified cause and annotations.
-        
+
         :param string cause: Fail cause.
         :param dict annotations: Annotations.
         """
         self.set_outcome(Result.FAIL, cause, annotations)
     def error(self, cause = None, annotations = {}):
         """Set ERROR outcome with specified cause and annotations.
-        
+
         :param string cause: Error cause.
         :param dict annotations: Annotations.
         """
@@ -1602,7 +1602,7 @@ class Result(object):
         self[Result.CAUSE] = cause
     def note_exception(self,exc_info = None, cause = None):
         """Set outcome to ERROR and annotate with exception info and traceback.
-        
+
         :param exc_info: Exception info or None to use current exception info.
         :param string cause: Exception cause or `None` for default message.
         """
@@ -1610,7 +1610,7 @@ class Result(object):
             exc_info = sys.exc_info()
 
         exception_type = exc_info[0]
-        
+
         # If no cause was specified, use an appropriate message.
         if not cause:
             cause = "An exception occurred."
@@ -1629,7 +1629,7 @@ class Result(object):
         start_time = float(self.get(self.START_TIME,'0.0'))
         end_time = float(self.get(self.END_TIME,'0.0'))
         return end_time - start_time
-        
+
     # Next methods allow 'Result' to act like a dictionary of
     # annotations.
 
@@ -1656,10 +1656,10 @@ class Result(object):
 
 class RunResults(object):
     """Collection of test/resource Results.
-    
+
     Designed to hold Results from single QA run. Acts also as dictionary of Results
     with test/resource ID as key and :class:`Result` object as value.
-    
+
     """
     def __init__(self):
         #: Dictionary of :class:`Result` objects. Key is test/resource ID.
@@ -1731,7 +1731,7 @@ class RunResults(object):
     @classmethod
     def load(cls,filename):
         """Load results from file.
-        
+
         :param string filename: Filename with pickled :class:`Result`.
         """
         obj = None
@@ -1768,7 +1768,7 @@ class RunResults(object):
         return sum(1 for outcome in (r.outcome for r in self.values()) if outcome == Result.FAIL)
     def save(self,filename):
         """Write text report to file.
-        
+
         :param string filename: Filename.
         """
         f = open(filename,'w')
@@ -1787,7 +1787,7 @@ class RunResults(object):
         f.close()
     def save_xunit(self,filename):
         """Write xunit XML report to file.
-        
+
         :param string filename: Filename.
         """
         f = open(filename,'w')
@@ -1865,7 +1865,7 @@ class RunResults(object):
 
 class Runner(object):
     """QA Execution engine.
-    
+
     """
     def __init__(self,repository):
         """
@@ -1889,7 +1889,7 @@ class Runner(object):
         #: Firebird architecture.
         self.arch = UNKNOWN
         if sys.platform == 'win32':
-            #: OS platform. 
+            #: OS platform.
             self.platform = 'Windows'
         elif sys.platform.startswith('linux'):
             self.platform = 'Linux'
@@ -1904,6 +1904,8 @@ class Runner(object):
         self.isql_path = None
         #: Path to GBAK.
         self.gbak_path = None
+        # :Path to NBACKUP
+        self.nbackup_path = None
         #: Path to GSEC.
         self.gsec_path = None
         #: Path to GSTAT.
@@ -1914,7 +1916,7 @@ class Runner(object):
         self.gpre_path = None
         #: Path to security database.
         self.security_db = None
-        
+
         # Person data
         #: QA person ID (two letters).
         self.person_id = 'XX'
@@ -1947,20 +1949,20 @@ class Runner(object):
     tempdir = property(_get_tempdir,_set_tempdir)
     def set_target(self,arch,host,bin_dir=None,password='masterkey'):
         """Configures the QA environment to run on specified Firebird installation.
-        
+
         :param string arch:     Firebird architecture (SS,CS, SC or EM).
         :param string host:     'LOCAL' or Firebird host machine identification.
         :param string password: Password for Firebird access (default 'masterkey').
         """
         self.arch = arch
-        
+
         if host.upper() != 'LOCAL':
             self.server_location = host+':'
             svc = fbservice.connect(host=host,password=password)
         else:
             self.server_location = ''
             svc = fbservice.connect(password=password)
-        
+
         version = svc.get_server_version()
         fbarch = svc.get_architecture().lower()
         self.version = version[4:version.index(' ')]
@@ -1975,11 +1977,12 @@ class Runner(object):
         elif fbarch.find('darwin') != -1:
             self.platform = 'MacOS'
         self.user_password = password
-        
+
         # test context variables
         if bin_dir:
             self.isql_path = os.path.join(bin_dir,'isql'+ext)
             self.gbak_path = os.path.join(bin_dir,'gbak'+ext)
+            self.nbackup_path = os.path.join(bin_dir,'nbackup'+ext)
             self.gsec_path = os.path.join(bin_dir,'gsec'+ext)
             self.gstat_path = os.path.join(bin_dir,'gstat'+ext)
             self.gfix_path = os.path.join(bin_dir,'gfix'+ext)
@@ -1987,6 +1990,7 @@ class Runner(object):
         else:
             self.isql_path = os.path.join(fbdir,'bin','isql'+ext)
             self.gbak_path = os.path.join(fbdir,'bin','gbak'+ext)
+            self.nbackup_path = os.path.join(fbdir,'bin','nbackup'+ext)
             self.gsec_path = os.path.join(fbdir,'bin','gsec'+ext)
             self.gstat_path = os.path.join(fbdir,'bin','gstat'+ext)
             self.gfix_path = os.path.join(fbdir,'bin','gfix'+ext)
@@ -2000,6 +2004,7 @@ class Runner(object):
         cntx['user_password'] = self.user_password.encode('ascii')
         cntx['isql_path'] = self.isql_path
         cntx['gbak_path'] = self.gbak_path
+        cntx['nbackup_path'] = self.nbackup_path
         cntx['gsec_path'] = self.gsec_path
         cntx['gstat_path'] = self.gstat_path
         cntx['gfix_path'] = self.gfix_path
@@ -2009,13 +2014,13 @@ class Runner(object):
         self.environment.update(cntx)
     def set_person(self, person):
         """Set QA person identification.
-        
+
         :param string person: QA person name.
 
         Sets `person_name` and `person_id` attributes:
         person_name = `person` in lowercase
         person_id = first two letters from uppercased `person`
-        
+
         If `person` is "Unknown", the person_is is set to "XX".
         """
         if person.upper() == UNKNOWN.upper():
@@ -2026,14 +2031,14 @@ class Runner(object):
             self.person_id = person.upper()[:2]
     def run(self,test_list=None,verbosity=1,results=None,no_summary=False):
         """Run tests.
-        
-        :param test_list:  List of :class:`Test` objects to run. If not specified, 
+
+        :param test_list:  List of :class:`Test` objects to run. If not specified,
             runs all tests in repository.
         :param int verbosity: Verbosity level (0, 1 or 2).
         :param bool no_summary: Do not print run summary.
-        
+
         :returns: :class:`RunResults` object with results.
-        
+
         .. warning:: QA environment must be properly configured!
         """
         if not results:
@@ -2048,20 +2053,20 @@ class Runner(object):
         results.sequence = self.sequence
 
         resources = {}
-        
+
         if not test_list:
             test_list = self.repository.suite.get_tests()
         else:
             if isinstance(test_list,Suite):
                 test_list = test_list.get_tests()
-        
+
         start_time = time()
         try:
             for test in test_list:
                 test_recipe = test.get_version_for(self.platform,self.version)
                 result = Result(Result.TEST,test.id)
                 skip = False
-                
+
                 if test_recipe:
                     # handle resources
                     if test_recipe.resources:
@@ -2094,7 +2099,7 @@ class Runner(object):
                                     result.set_outcome(Result.UNTESTED,'Resource setup failed')
                                     result.annotate(res_result)
                                     skip = True
-                    
+
                     if verbosity == 2:
                         print ('%s ... ' % test.id,end='')
                         sys.stdout.flush()
@@ -2135,12 +2140,12 @@ class Runner(object):
                     res_result.note_exception()
                 if verbosity == 2:
                     print (res_result.outcome)
-        
+
         if not no_summary:
             results.print_report()
             print ('-' * 70)
             print ('Ran %i tests in %.3fs' % (len(results.results),stop_time-start_time))
-            
+
             fails = results.get_fail_count()
             errors = results.get_error_count()
             untested = results.get_untested_count()
@@ -2170,13 +2175,13 @@ class ScriptRunner(object):
     """
     platform_table = {'windows':'Win','linux':'Linux','macos':'Mac',
                       'solaris':'Solaris','freebsd':'BSD','hp-ux':'HPUX'}
-    
+
     def __init__(self):
         self.revision = None
         self.remote_fbtest = None
     def get_repository(self,options):
         """Connect to local or remote Test Repository.
-        
+
         :param options: Command-line options.
         :returns: :class:`Repository` instance.
         """
@@ -2198,7 +2203,7 @@ class ScriptRunner(object):
             repository.load()
         return repository
     def run_tests(self,options):
-        """Called by :func:`~fbtest.run_tests` for command execution. 
+        """Called by :func:`~fbtest.run_tests` for command execution.
         """
         repository = self.get_repository(options)
         if options.remote:
@@ -2213,13 +2218,13 @@ class ScriptRunner(object):
 
         runner.sequence = options.sequence
         runner.set_person(options.person)
-        
+
         verbosity = options.verbosity
         if options.verbose:
             verbosity = 2
         if options.quiet:
             verbosity = 0
-        
+
         skip_tests = []
         if options.skip:
             skip_names = []
@@ -2239,7 +2244,7 @@ class ScriptRunner(object):
                         skip_tests.append(test)
         if options.rerun:
             last_results = RunResults.load(os.path.join(os.getcwd(),'results.trf'))
-            run_ids = [r.id for r in last_results.results.values() if r.kind == Result.TEST and 
+            run_ids = [r.id for r in last_results.results.values() if r.kind == Result.TEST and
                        r.outcome != Result.PASS]
             run_list = list(itertools.imap(repository.get_test, run_ids))
         else:
@@ -2255,10 +2260,10 @@ class ScriptRunner(object):
                         run_list = None
             else:
                 run_list = repository.suite.get_tests()
-    
+
         if run_list:
             run_list = [test for test in run_list if test not in skip_tests]
-    
+
         if run_list:
             if options.remote:
                 results = runner.run(run_list,verbosity,RunResults())
@@ -2277,7 +2282,7 @@ class ScriptRunner(object):
             print ('Nothing to run')
 
     def run_server(self,options):
-        """Called by :func:`~fbtest.run_server` for command execution. 
+        """Called by :func:`~fbtest.run_server` for command execution.
         """
         repository = Repository(os.getcwd())
         repository.load()
@@ -2287,14 +2292,14 @@ class ScriptRunner(object):
         runner.set_target(options.arch,options.host,options.bin_dir,options.password)
         runner.sequence = 1
         runner.set_person(options.person)
-        
+
         class FBTestService(rpyc.SlaveService):
             def on_connect(self):
                 super(FBTestService,self).on_connect()
                 self._conn._config['allow_public_attrs'] = True
                 self._conn._config['allow_setattr'] = True
                 self._conn._config['allow_pickle'] = True
-                
+
             def exposed_get_Test(self):
                 return Test
             def exposed_get_TestVersion(self):
@@ -2312,7 +2317,7 @@ class ScriptRunner(object):
             #def exposed_getmodule(self, name):
                 #"""imports an arbitrary module"""
                 #return __import__(name, None, None, "*")
-                
+
         from rpyc.utils.server import ThreadedServer
         service = ThreadedServer(FBTestService, port = 18861, auto_register = options.register)
         print("Starting fbtest in server mode...")
@@ -2325,7 +2330,7 @@ class ScriptRunner(object):
         return '%s%s-%s-%i' % (self.platform_table[platform.lower()],cpuarch,arch.upper(),sequence)
     def print_result_info(self,result,filename):
         """Print information from result file.
-        
+
         :param result: Run results.
         :type result: :class:`RunResults`
         :param string filename: Results filename.
@@ -2343,7 +2348,7 @@ class ScriptRunner(object):
         print('')
     def print_fails(self,result,cause=False,detail=False):
         """Print IDs of tests that ended with FAIL.
-        
+
         :param result: Run results.
         :type result: :class:`RunResults`
         :param bool cause: Print fail cause.
@@ -2367,7 +2372,7 @@ class ScriptRunner(object):
                         print ()
     def print_errors(self,result,cause=False,detail=False):
         """Print IDs of tests that ended with ERROR.
-        
+
         :param result: Run results.
         :type result: :class:`RunResults`
         :param bool cause: Print error cause.
@@ -2389,7 +2394,7 @@ class ScriptRunner(object):
                     print (as_utf8(error[key]))
     def print_untested(self,result,cause=False):
         """Print IDs of tests that ended with UNTESTED.
-        
+
         :param result: Run results.
         :type result: :class:`RunResults`
         :param bool cause: Print cause.
@@ -2401,11 +2406,11 @@ class ScriptRunner(object):
             print (u.id)
             if cause:
                 print ('  ',u.get_cause())
-    
+
     def print_analysis(self,version,results,tests,test_details,test_order,
                        output_dir,diffs_only):
         """Create HTML files with test run analysis.
-        
+
         :param string version: Firebird version.
         :param result: Run results.
         :type result: :class:`RunResults`
@@ -2416,17 +2421,17 @@ class ScriptRunner(object):
         """
         def format_result(r):
             return '%s %s' % (r.outcome,r.get_cause())
-        
+
         main_template = makolookup.get_template("main.mako")
         detail_template = makolookup.get_template("detail.mako")
-        
+
         f = open(os.path.join(output_dir,'index.html'),'w')
         try:
             f.write(main_template.render(version=version,results=results,tests=tests,
                                    test_details=test_details,test_order=test_order))
         finally:
             f.close()
-    
+
         for test_id,test_detail in test_details.items():
             #print ('Detail: %s' % test_id)
             f = open(os.path.join(output_dir,test_id+'.html'),'w')
@@ -2447,14 +2452,14 @@ class ScriptRunner(object):
         result.sort(key=operator.itemgetter(0))
         return result
     def compare_results(self,r1,r2):
-        """Compare two results for single test. Compares :attr:`~Result.kind`, 
+        """Compare two results for single test. Compares :attr:`~Result.kind`,
         :attr:`~Result.outcome` and :attr:`~Result.annotations`.
-        
+
         :param r1: Run result.
         :type r1: :class:`Result`
         :param r2: Run result.
         :type r2: :class:`Result`
-        
+
         :returns: True if both results are equal.
         """
         result = (r1.kind == r2.kind) and (r1.outcome == r2.outcome)
@@ -2463,21 +2468,21 @@ class ScriptRunner(object):
                                                     self.annotation_filter(r1.annotations),
                                                     self.annotation_filter(r2.annotations)))
         return result
-        
+
     def get_result_filenames(self,directory):
         """Return list of Result file filenames stored in directory.
-        
+
         :param string directory: directory with result files.
-        
+
         :returns: List with filenames.
         """
-        return [os.path.join(directory,name) for name in os.listdir(directory) 
-                if os.path.isfile(os.path.join(directory,name)) and 
+        return [os.path.join(directory,name) for name in os.listdir(directory)
+                if os.path.isfile(os.path.join(directory,name)) and
                 os.path.splitext(name)[1].lower() == '.trf']
-    
+
     def analyze(self,filenames,output_dir,diffs_only=False):
         """Analyze test run results and produce HTML output.
-        
+
         :param list filenames: List of result file filenames.
         :param string output_dir: Directory for HTML output files.
         """
@@ -2489,7 +2494,7 @@ class ScriptRunner(object):
                 return r
         def overall_outcome_weight(results):
             return max((['PASS', 'ERROR', 'FAIL', 'UNTESTED'].index(r.outcome) for r in results if r))
-        
+
         # pass 0: Load results
         results = [RunResults.load(filename) for filename in filenames]
         # step 1: Check if all results are for the same version
@@ -2499,14 +2504,14 @@ class ScriptRunner(object):
                 raise Exception('Analyze: Results for the same FB version required.')
         # step 2: Sort results into groups (platform, cpuarch, arch, run)
         results.sort(key=operator.attrgetter('platform','cpuarch','arch','sequence'))
-        
+
         # pass 1: Create list of tests with results
         tests = {} # Dictionary of all tests found in results; Test ID: list of results
         for result in results:
             column = results.index(result)
             for test_id,test_result in result.items():
                 tests.setdefault(test_id,len(results)*[None])[column] = test_result
-        
+
         # pass 2: Analyze results for each tests that didn't pass in all runs
         test_details = {}
         # step 1: Collect details for tests that didn't pass
@@ -2529,11 +2534,11 @@ class ScriptRunner(object):
                     groups.append((test_result,[result_id]))
             del test_results[:]
             test_results.extend(groups)
-    
+
         # pass 3: Order tests
         test_order = tests.keys()
         test_order.sort(key=okey)
-        
+
         # pass 4: Generate report
         self.print_analysis(version,results,tests,test_details,test_order,
                             output_dir, diffs_only)
@@ -2556,10 +2561,10 @@ class ScriptRunner(object):
             revision = event['revision']
             self.revision = revision
     def cmd_update_results(self,options):
-        """Called by :func:`~fbtest.run_update` for command execution. 
+        """Called by :func:`~fbtest.run_update` for command execution.
         """
         filenames = []
-    
+
         if options.name:
             if os.path.isdir(options.name):
                 filenames = self.get_result_filenames(options.name)
@@ -2567,7 +2572,7 @@ class ScriptRunner(object):
                 filenames.append(options.name)
         else:
             filenames = self.get_result_filenames(os.getcwd())
-            
+
         for filename in filenames:
             if not (options.arch or options.sequence or options.person):
                 print("No update option specified.")
@@ -2575,7 +2580,7 @@ class ScriptRunner(object):
                 return
             print ("Updating: %s" % filename)
             result = RunResults.load(filename)
-            
+
             if options.arch:
                 result.arch = options.arch
                 result.dump(filename)
@@ -2587,7 +2592,7 @@ class ScriptRunner(object):
                 result.person_id = options.person.upper()[:2]
                 result.dump(filename)
     def cmd_update_repository(self,options):
-        """Called by :func:`~fbtest.run_update` for command execution. 
+        """Called by :func:`~fbtest.run_update` for command execution.
         """
         if pysvn_present:
             root_dir = os.getcwd()
@@ -2612,10 +2617,10 @@ class ScriptRunner(object):
 
 
     def run_analyze(self,options):
-        """Called by :func:`~fbtest.run_analyze` for command execution. 
+        """Called by :func:`~fbtest.run_analyze` for command execution.
         """
         filenames = []
-    
+
         if options.name:
             output_dir = os.getcwd()
             if os.path.isdir(options.name):
@@ -2625,16 +2630,16 @@ class ScriptRunner(object):
         else:
             output_dir = os.getcwd()
             filenames = self.get_result_filenames(os.getcwd())
-    
+
         if options.output:
             output_dir = options.output
-            
+
         self.analyze(filenames,output_dir,options.diffs_only)
     def run_view(self,options):
-        """Called by :func:`~fbtest.run_view` for command execution. 
+        """Called by :func:`~fbtest.run_view` for command execution.
         """
         filenames = []
-    
+
         if options.name:
             if os.path.isdir(options.name):
                 filenames = self.get_result_filenames(options.name)
@@ -2642,7 +2647,7 @@ class ScriptRunner(object):
                 filenames.append(options.name)
         else:
             filenames = self.get_result_filenames(os.getcwd())
-        
+
         for filename in filenames:
             result = RunResults.load(filename)
             if options.xunit:
@@ -2654,7 +2659,7 @@ class ScriptRunner(object):
                 self.print_untested(result,options.cause)
                 print('')
     def cmd_archive_list(self,options):
-        """Called by :func:`~fbtest.run_archive` for command execution. 
+        """Called by :func:`~fbtest.run_archive` for command execution.
         """
         repository = self.get_repository(options)
         print ("Files in archive:")
@@ -2667,24 +2672,24 @@ class ScriptRunner(object):
             for filename in filenames:
                 print ('   %s' % filename)
     def cmd_archive_save(self,options):
-        """Called by :func:`~fbtest.run_archive` for command execution. 
+        """Called by :func:`~fbtest.run_archive` for command execution.
         """
         repository = self.get_repository(options)
         name = options.name if options.name else 'results.trf'
         try:
             last_results = RunResults.load(name)
             repository.result_archive.store(last_results)
-            print("Results file '%s' stored into archive as '%s'" % 
+            print("Results file '%s' stored into archive as '%s'" %
                   (os.path.basename(last_results.filename),
                    os.path.relpath(repository.result_archive.get_archive_file_path(last_results),
                                    repository.result_archive.archive_path)))
         except Exception as e:
             print(e)
     def cmd_archive_retrieve(self,options):
-        """Called by :func:`~fbtest.run_archive` for command execution. 
+        """Called by :func:`~fbtest.run_archive` for command execution.
         """
         repository = self.get_repository(options)
-        
+
         if options.current:
             if options.remote:
                 runner = self.remote_fbtest.root.get_runner()
@@ -2699,7 +2704,7 @@ class ScriptRunner(object):
             print ("Firebird version not specified.")
             print ("Use either '--version' or '--current' to specify it.")
             return
-        
+
         results = repository.result_archive.retrieve(version)
         for result in results:
             if options.arch and options.arch != result.arch:
@@ -2712,10 +2717,10 @@ class ScriptRunner(object):
             result.dump(os.path.join(options.output,filename))
             print (filename,'retrieved.')
     def cmd_archive_delete(self,options):
-        """Called by :func:`~fbtest.run_archive` for command execution. 
+        """Called by :func:`~fbtest.run_archive` for command execution.
         """
         repository = self.get_repository(options)
-        
+
         if options.current:
             if options.remote:
                 runner = self.remote_fbtest.root.get_runner()
@@ -2730,7 +2735,7 @@ class ScriptRunner(object):
             print ("Firebird version not specified.")
             print ("Use either '--version' or '--current' to specify it.")
             return
-        
+
         results = repository.result_archive.retrieve(version)
         for result in results:
             if options.arch and options.arch != result.arch:
@@ -2748,83 +2753,83 @@ script_runner = ScriptRunner()
 
 def run_tests():
     """CLI Script function for test execution.
-    
-    This is a 'main' function called by :command:`fbt_run` script. 
+
+    This is a 'main' function called by :command:`fbt_run` script.
     Runs all tests in test reporsitory or specified test/suite. Result from
     test run is stored in current directory:
-    
-    :file:`results.trf` : Pickled :class:`RunResults` instance. 
+
+    :file:`results.trf` : Pickled :class:`RunResults` instance.
     Pickled :class:`RunResults` instance is also stored in 'archive'.
 
     :file:`results.xml` : XUNIT XML report (when -x or --xunit is specified).
-    
+
     usage: fbt_run [options] [suite_or_test_name]
-    
+
     .. program:: fbt_run
-    
+
     .. option:: -v, --verbose
-    
+
        Be more verbose
-       
+
     .. option:: --verbosity=NUM
-    
+
        Set verbosity; `--verbosity=2` is the same as `-v`
-    
+
     .. option:: -q, --quiet
-    
+
        Be less verbose
-       
+
     .. option:: -b <directory>, --bin-dir=<directory>
-    
+
        Location of Firebird binary tools (like gbak etc.).
-       
+
     .. option:: -d <directory>, --db-dir=<directory>
-    
+
        Location for temporary databases used by tests.
-    
+
     .. option:: -k <name_or_file>, --skip=<name_or_file>
-    
+
        Suite or test name or name of file with suite/test names to skip.
-    
+
     .. option:: --archive
-    
+
        If specified, last run result file is copied to archive.
-       
+
     .. option:: --rerun
-    
+
        If specified, runs only tests that don't PASSed in last run.
-       
+
     .. option:: --remote
-    
+
        If specified, connects to remote fbtest server and runs specified tests on it.
-       
+
     .. option:: -u, --update
-    
+
        If specified, updates last run results with re-run results.
-       
+
     .. option:: -w <password>, --password=<password>
-    
+
        SYSDBA password. (`default 'masterkey'`)
-       
+
     .. option:: -o <machine>, --host=<machine>
-    
+
        Firebird or fbtest host machine identification. (`default 'localhost'`)
-       
+
     .. option:: -p <person>, --person=<person>
-    
+
        QA person name. First two letters are used as person ID.
-    
+
     .. option:: -a <arch>, --arch=<arch>
-    
+
        Firebird architecture ('SS', 'CS' or 'SC'). (`default 'SS' - SuperServer`)
-       
+
     .. option:: -s <number>, --sequence=<number>
-    
+
        Run sequence number. Important to disctinguish repeated runs af the same
        tests on single 'target'. Used by :command:`fbt_analyze`. (`default '1'`)
-       
+
     .. option:: -x, --xunit
-    
+
        Provides test results also in the standard XUnit XML format.
     """
     parser = ArgumentParser()
@@ -2839,7 +2844,7 @@ def run_tests():
     parser.add_argument('-x','--xunit',action='store_true',help="Provides test results also in the standard XUnit XML format")
     if rpyc_available:
         parser.add_argument('--remote',action='store_true',help="Connect to remote fbtest server")
-    
+
     parser.add_argument('-u','--update',action='store_true',help="Update last run results with re-run results")
     parser.add_argument('-w','--password',help="SYSDBA password")
     parser.add_argument('-o','--host',help="Remote Firebird or fbtest host machine identification")
@@ -2855,48 +2860,48 @@ def run_tests():
 
 def run_server():
     """CLI Script function for test execution.
-    
-    This is a 'main' function called by :command:`fbt_server` script. 
+
+    This is a 'main' function called by :command:`fbt_server` script.
 
     usage: fbt_server [options]
-    
+
     .. program:: fbt_server
-    
+
     .. option:: -b <directory>, --bin-dir=<directory>
-    
+
        Location of Firebird binary tools (like gbak etc.).
-       
+
     .. option:: -d <directory>, --db-dir=<directory>
-    
+
        Location for temporary databases used by tests.
-    
+
     .. option:: -w <password>, --password=<password>
-    
+
        SYSDBA password. (`default 'masterkey'`)
-       
+
     .. option:: -o <machine>, --host=<machine>
-    
+
        Firebird host machine identification. (`default 'localhost'`)
-       
+
     .. option:: -p <person>, --person=<person>
-    
+
        QA person name. First two letters are used as person ID.
-    
+
     .. option:: -a <arch>, --arch=<arch>
-    
+
        Firebird architecture ('SS', 'CS' or 'SC'). (`default 'SS' - SuperServer`)
-       
+
     .. option:: --register
-    
+
        If specified, automatically registers RPyC slave server.
-    
+
     """
-    
+
     if not rpyc_available:
         print('rpyc module not installed.')
         print('To instal rpyc from PyPI use: pip install rpyc')
         return
-    
+
     parser = ArgumentParser()
     parser.add_argument('-b','--bin-dir',help="Directory where Firebird binaries tools are")
     parser.add_argument('-d','--db-dir',help="Directory to use for test databases")
@@ -2912,20 +2917,20 @@ def run_server():
 def run_analyze():
     """CLI Script function for test analysis.
 
-    This is a 'main' function called by :command:`fbt_analyze` script. 
+    This is a 'main' function called by :command:`fbt_analyze` script.
     Reads result file or all result files in specified directory and writes
     HTML report in current or specified directory.
-    
+
     usage: fbt_analyze [options] <file_or_directory>
-    
+
     .. program:: fbt_analyze
-    
+
     .. option:: -o <directory>, --output=<directory>
-    
+
        Location where HTML report should be stored.
-    
+
     .. option:: -d, --difs-only
-    
+
        Show only diffs on detail pages.
     """
 
@@ -2934,46 +2939,46 @@ def run_analyze():
     parser.add_argument('-o','--output',help="Analysis output directory")
     parser.add_argument('-d','--diffs-only',action='store_true',help="Show only diffs on detail pages")
     parser.set_defaults(output='',diffs_only=False)
-    
+
     script_runner.run_analyze(parser.parse_args())
 
 def run_update():
     """CLI Script function to update metadata in Result file(s).
 
-    This is a 'main' function called by :command:`fbt_update` script. 
+    This is a 'main' function called by :command:`fbt_update` script.
     Reads result file or all result files in specified directory and updates
     metadata with specified value(s).
-    
+
     usage::
-    
+
        fbt_update {result,repository} [options]
-       
+
        result             Change result file metadata.
        repository         Update Test Repository.
-    
+
     .. program:: fbt_update
-    
+
     Options for `fbt_update result`:
-    
+
     .. option:: name
-    
+
        Results file or directory with result files.
-    
+
     .. option:: -a <arch>, --arch=<arch>
-    
+
        Firebird architecture ('SS', 'CS' or 'SC').
-       
+
     .. option:: -p <person>, --person=<person>
-    
+
        QA person name. First two letters are used as person ID.
-    
+
     .. option:: -s <number>, --sequence=<number>
-    
+
        Run sequence number. Important to disctinguish repeated runs of the same
        tests on single 'target'. Used by :command:`fbt_analyze`.
-       
+
     Options for `fbt_update repository`:
-    
+
        None.
     """
     parser = ArgumentParser()
@@ -2993,34 +2998,34 @@ def run_update():
                                               description="Update local test repository from Firebird project Subversion repository.",
                                               help="Update test repository.")
     parser_repository.set_defaults(func=script_runner.cmd_update_repository)
-    
+
     args = parser.parse_args()
     args.func(args)
-    
+
 
 def run_view():
     """CLI Script function to update metadata in Result file(s).
 
-    This is a 'main' function called by :command:`fbt_view` script. 
+    This is a 'main' function called by :command:`fbt_view` script.
     Reads result file or all result files in specified directory and prints
     information about stored results.
-    
+
     usage: fbt_view <file_or_directory>
-    
+
     .. program:: fbt_view
-    
+
     .. option:: -x, --xunit
-    
+
        Store processed test results in the standard XUnit XML format.
-       
+
     .. option:: -c, --cause
-    
+
        Print cause of fails and errors.
-    
+
     .. option:: -d, --details
-    
+
        Print details for fails and errors.
-       
+
     """
     parser = ArgumentParser()
     parser.add_argument('name',nargs='?',default=None,help="Results file or directory with result files")
@@ -3034,85 +3039,85 @@ def run_view():
 def run_archive():
     """CLI Script function to maintain archive of Result file(s).
 
-    This is a 'main' function called by :command:`fbt_archive` script. 
-    
+    This is a 'main' function called by :command:`fbt_archive` script.
+
     usage::
-    
+
        fbt_update {list,save,retrieve,delete} [options]
-       
+
        list                List result(s) in archive.
        save                Save result(s) to archive.
        retrieve            Retrieve result(s) from archive.
        delete              Delete result(s) from archive.
-       
+
     .. program:: fbt_archive
-    
+
     .. option:: --remote
-    
+
        If specified, connects to remote fbtest server (and archive).
 
     .. option:: -o <machine>, --host=<machine>
-    
+
        Remote fbtest host machine identification. (`default 'localhost'`)
-       
+
     Options for `fbt_archive list`:
 
        None.
-       
+
     Options for `fbt_archive save`:
-    
+
     .. option:: name
-    
+
        Results file.
-       
+
     Options for `fbt_archive retrieve`:
-    
+
     .. option:: -v <version_number>, --version=<version_number>
-    
+
        Retrieve results only for specified Firebird version.
-       
+
     .. option:: -c, --current
-    
+
        Retrieve results only for currently tested Firebird version.
-       
+
     .. option:: -o <directory>, --output=<directory>
-    
+
        Location where result file(s) should be copied.
-    
+
     .. option:: -p <person>, --person=<person>
-    
+
        Retrieve results only for specified QA person name. First two letters are used as person ID.
-    
+
     .. option:: -a <arch>, --arch=<arch>
-    
+
        Retrieve results only for specified Firebird architecture ('SS', 'CS' or 'SC').
-       
+
     .. option:: -s <number>, --sequence=<number>
-    
+
        Retrieve results only for specified run sequence number.
-       
+
     Options for `fbt_archive delete`:
-    
+
     .. option:: -v <version_number>, --version=<version_number>
-    
+
        Delete results only for specified Firebird version.
-       
+
     .. option:: -c, --current
-    
+
        Delete results only for currently tested Firebird version.
-       
+
     .. option:: -p <person>, --person=<person>
-    
+
        Delete results only for specified QA person name. First two letters are used as person ID.
-    
+
     .. option:: -a <arch>, --arch=<arch>
-    
+
        Delete results only for specified Firebird architecture ('SS', 'CS' or 'SC').
-       
+
     .. option:: -s <number>, --sequence=<number>
-    
+
        Delete results only for specified run sequence number.
-       
+
     """
     parser = ArgumentParser()
     if rpyc_available:
@@ -3138,9 +3143,9 @@ def run_archive():
     parser_retrieve = subparsers.add_parser('retrieve',
                                             description="Retrieve result(s) from archive.",
                                             help="Retrieve result(s) from archive.")
-    parser_retrieve.add_argument('-v','--version', 
+    parser_retrieve.add_argument('-v','--version',
                                  help="Only specified Firebird version")
-    parser_retrieve.add_argument('-c','--current',action='store_true', 
+    parser_retrieve.add_argument('-c','--current',action='store_true',
                                  help="Only currently tested Firebird version")
     parser_retrieve.add_argument('-o','--output',help="Output directory")
     parser_retrieve.add_argument('-a','--arch',
@@ -3154,9 +3159,9 @@ def run_archive():
     parser_delete = subparsers.add_parser('delete',
                                           description="Delete result(s) from archive.",
                                           help="Delete result(s) from archive.")
-    parser_delete.add_argument('-v','--version', 
+    parser_delete.add_argument('-v','--version',
                                help="Only specified Firebird version")
-    parser_delete.add_argument('-c','--current',action='store_true', 
+    parser_delete.add_argument('-c','--current',action='store_true',
                                help="Only currently tested Firebird version")
     parser_delete.add_argument('-a','--arch',
                                help="Firebird architecture: SS, CS, SC")
@@ -3167,6 +3172,6 @@ def run_archive():
                                func=script_runner.cmd_archive_delete)
     args = parser.parse_args()
     args.func(args)
-    
+
 if __name__=='__main__':
     run_tests()
