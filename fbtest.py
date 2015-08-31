@@ -49,7 +49,7 @@ from argparse import ArgumentParser
 from time import time
 from xml.sax import saxutils
 
-__version__ = "1.0"
+__version__ = "1.0.2"
 
 try:
     from subprocess import Popen, PIPE
@@ -623,6 +623,12 @@ class TestVersion(object):
         if context.server_location:
             dsn = context.server_location + dsn
         context.environment['DSN'] = dsn
+        #
+        if (self.user_name == 'SYSDBA'
+            and self.user_password == 'masterkey'
+            and context.environment['user_password'] != 'masterkey'):
+            self.user_password = context.environment['user_password']
+        #
         result[Result.START_TIME] = str(time())
 
         try:
@@ -2029,7 +2035,7 @@ class Runner(object):
         else:
             self.person_name = person.lower()
             self.person_id = person.upper()[:2]
-    def run(self,test_list=None,verbosity=1,results=None,no_summary=False):
+    def run(self,test_list=None,verbosity=1,results=None,no_summary=False,expectations=None):
         """Run tests.
 
         :param test_list:  List of :class:`Test` objects to run. If not specified,
@@ -2104,10 +2110,26 @@ class Runner(object):
                         print ('%s ... ' % test.id,end='')
                         sys.stdout.flush()
                     if not skip:
+                        expect = None
+                        if expectations:
+                            expect = expectations.get(test.id)
                         try:
                             test_recipe.run(self,result)
                         except Exception:
                             result.note_exception()
+                        if expect and expect.outcome != Result.PASS:
+                            if result.outcome == expect.outcome:
+                                if result.get_cause() == expect.get_cause():
+                                    result.set_outcome(Result.PASS,'Expected outcome (%s)' %
+                                                       expect.outcome)
+                                else:
+                                    result.set_outcome(Result.FAIL,
+                                                       'Cause of %s (%s) differs from expected (%s)' %
+                                                       (result.outcome,result.get_cause(),expect.get_cause()))
+                            else:
+                                result.set_outcome(Result.FAIL,
+                                                   'Outcome (%s) differs from expected (%s)' %
+                                                   (result.outcome,expect.outcome))
                     if verbosity == 2:
                         if result.outcome == Result.PASS:
                             print ('ok')
@@ -2242,6 +2264,10 @@ class ScriptRunner(object):
                     test = repository.get_test(name)
                     if test:
                         skip_tests.append(test)
+        if options.expect:
+            expectations = RunResults.load(options.expect)
+        else:
+            expectations = None
         if options.rerun:
             last_results = RunResults.load(os.path.join(os.getcwd(),'results.trf'))
             run_ids = [r.id for r in last_results.results.values() if r.kind == Result.TEST and
@@ -2266,9 +2292,9 @@ class ScriptRunner(object):
 
         if run_list:
             if options.remote:
-                results = runner.run(run_list,verbosity,RunResults())
+                results = runner.run(run_list,verbosity,RunResults(),expectations=expectations)
             else:
-                results = runner.run(run_list,verbosity)
+                results = runner.run(run_list,verbosity,expectations=expectations)
             if not options.rerun:
                 results.dump(os.path.join(os.getcwd(),'results.trf'))
             elif options.update:
@@ -2831,6 +2857,10 @@ def run_tests():
     .. option:: -x, --xunit
 
        Provides test results also in the standard XUnit XML format.
+
+    .. option:: -e, --expect
+
+       Test results file to be used as expeted outcomes
     """
     parser = ArgumentParser()
     parser.add_argument('name',nargs='?',default=None,help="Suite or test name")
@@ -2842,6 +2872,7 @@ def run_tests():
     parser.add_argument('--verbosity',type=int,choices=[0,1,2],default=1,help="Set verbosity; --verbosity=2 is the same as -v")
     parser.add_argument('-q','--quiet',action='store_true',help="Be less verbose")
     parser.add_argument('-x','--xunit',action='store_true',help="Provides test results also in the standard XUnit XML format")
+    parser.add_argument('-e','--expect',type=str,metavar="FILENAME",help="Test results file to be used as expeted outcomes")
     if rpyc_available:
         parser.add_argument('--remote',action='store_true',help="Connect to remote fbtest server")
 

@@ -124,6 +124,8 @@ Usage::
      -q, --quiet           Be less verbose
      -x, --xunit           Provides test results also in the standard XUnit XML
                            format
+     -e FILENAME, --expect FILENAME
+                           Test results file to be used as expeted outcomes
      --remote              Connect to remote fbtest server
      -u, --update          Update last run results with re-run results
      -w PASSWORD, --password PASSWORD
@@ -135,7 +137,7 @@ Usage::
      -s SEQUENCE, --sequence SEQUENCE
                            Run sequence number for this target
      -k SKIP, --skip SKIP  Suite or test name or name of file with suite/test
-                           names to ski
+                           names to skip
 
 This tool runs all or specified set of tests and collects run result from each test. This result for 
 whole run is saved to :file:`results.trf` file in Test Repository for later reference. 
@@ -250,6 +252,14 @@ additional options in other cases:
   option. You should also consider using :option:`--arch` and :option:`--person` options in this case.
 
 - If you want to exclude some tests from execution, you will need :option:`--skip` option.
+
+- If you know that some tests will fail, you can either skip them altogether using :option:`--skip` 
+  option, or you can run them but set an expectation using :option:`--expect` option and a result file
+  from previous run. Test will then PASS if test outcome and its cause will match expected one, otherwise
+  it will FAIL. Please note that run details of failure (like content of standard output or error output) 
+  are NOT compared, only general description of the cause is checked. So test will fail only if cause of 
+  failure significantly changes it's type (for example from difference in standard output to difference 
+  in error output).
        
 - If you want to run the same set of tests several times and compare their results using `fbt_analyze`,
   you have to specify :option:`--sequence` option. Don't forget to copy the results.trf file to safe
