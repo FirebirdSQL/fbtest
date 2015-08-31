@@ -1,0 +1,1935 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>fbtest Reference &mdash; fbtest 1.0.2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/fdbtheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="fbtest 1.0.2 documentation" href="index.html" />
+    <link rel="prev" title="Writting new tests" href="writting-new-tests.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="writting-new-tests.html" title="Writting new tests"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">fbtest 1.0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-fbtest">
+<span id="fbtest-reference"></span><h1><cite>fbtest</cite> Reference<a class="headerlink" href="#module-fbtest" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="globals">
+<h2>Globals<a class="headerlink" href="#globals" title="Permalink to this headline">¶</a></h2>
+<dl class="data">
+<dt id="fbtest.DB_NEW">
+<tt class="descclassname">fbtest.</tt><tt class="descname">DB_NEW</tt><em class="property"> = 'New'</em><a class="headerlink" href="#fbtest.DB_NEW" title="Permalink to this definition">¶</a></dt>
+<dd><p>str(object=&#8217;&#8216;) -&gt; string</p>
+<p>Return a nice string representation of the object.
+If the argument is a string, the return value is the same object.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="fbtest.DB_EXISTING">
+<tt class="descclassname">fbtest.</tt><tt class="descname">DB_EXISTING</tt><em class="property"> = 'Existing'</em><a class="headerlink" href="#fbtest.DB_EXISTING" title="Permalink to this definition">¶</a></dt>
+<dd><p>str(object=&#8217;&#8216;) -&gt; string</p>
+<p>Return a nice string representation of the object.
+If the argument is a string, the return value is the same object.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="fbtest.DB_RESTORE">
+<tt class="descclassname">fbtest.</tt><tt class="descname">DB_RESTORE</tt><em class="property"> = 'Restore'</em><a class="headerlink" href="#fbtest.DB_RESTORE" title="Permalink to this definition">¶</a></dt>
+<dd><p>str(object=&#8217;&#8216;) -&gt; string</p>
+<p>Return a nice string representation of the object.
+If the argument is a string, the return value is the same object.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="fbtest.DB_ACCESS">
+<tt class="descclassname">fbtest.</tt><tt class="descname">DB_ACCESS</tt><em class="property"> = [None, 'New', 'Existing', 'Restore']</em><a class="headerlink" href="#fbtest.DB_ACCESS" title="Permalink to this definition">¶</a></dt>
+<dd><p>list() -&gt; new empty list
+list(iterable) -&gt; new list initialized from iterable&#8217;s items</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="fbtest.CHARACTER_SETS">
+<tt class="descclassname">fbtest.</tt><tt class="descname">CHARACTER_SETS</tt><em class="property"> = [None, 'NONE', 'ASCII', 'BIG_5', 'CYRL', 'DOS437', 'DOS737', 'DOS775', 'DOS850', 'DOS852', 'DOS857', 'DOS858', 'DOS860', 'DOS861', 'DOS862', 'DOS863', 'DOS864', 'DOS865', 'DOS866', 'DOS869', 'EUCJ_0208', 'GBK', 'GB_2312', 'ISO8859_1', 'ISO8859_2', 'ISO8859_3', 'ISO8859_4', 'ISO8859_5', 'ISO8859_6', 'ISO8859_7', 'ISO8859_8', 'ISO8859_9', 'ISO8859_13', 'KOI8R', 'KOI8U', 'KSC_5601', 'NEXT', 'OCTETS', 'SJIS_0208', 'TIS620', 'UNICODE_FSS', 'UTF8', 'WIN1250', 'WIN1251', 'WIN1252', 'WIN1253', 'WIN1254', 'WIN1255', 'WIN1256', 'WIN1257', 'WIN1258', 'LATIN2']</em><a class="headerlink" href="#fbtest.CHARACTER_SETS" title="Permalink to this definition">¶</a></dt>
+<dd><p>list() -&gt; new empty list
+list(iterable) -&gt; new list initialized from iterable&#8217;s items</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="fbtest.PAGE_SIZES">
+<tt class="descclassname">fbtest.</tt><tt class="descname">PAGE_SIZES</tt><em class="property"> = [None, '1024', '2048', '4096', '8192', '16384']</em><a class="headerlink" href="#fbtest.PAGE_SIZES" title="Permalink to this definition">¶</a></dt>
+<dd><p>list() -&gt; new empty list
+list(iterable) -&gt; new list initialized from iterable&#8217;s items</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="fbtest.TYPE_ISQL">
+<tt class="descclassname">fbtest.</tt><tt class="descname">TYPE_ISQL</tt><em class="property"> = 'ISQL'</em><a class="headerlink" href="#fbtest.TYPE_ISQL" title="Permalink to this definition">¶</a></dt>
+<dd><p>str(object=&#8217;&#8216;) -&gt; string</p>
+<p>Return a nice string representation of the object.
+If the argument is a string, the return value is the same object.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="fbtest.TYPE_PYTHON">
+<tt class="descclassname">fbtest.</tt><tt class="descname">TYPE_PYTHON</tt><em class="property"> = 'Python'</em><a class="headerlink" href="#fbtest.TYPE_PYTHON" title="Permalink to this definition">¶</a></dt>
+<dd><p>str(object=&#8217;&#8216;) -&gt; string</p>
+<p>Return a nice string representation of the object.
+If the argument is a string, the return value is the same object.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="fbtest.TEST_TYPES">
+<tt class="descclassname">fbtest.</tt><tt class="descname">TEST_TYPES</tt><em class="property"> = ['ISQL', 'Python']</em><a class="headerlink" href="#fbtest.TEST_TYPES" title="Permalink to this definition">¶</a></dt>
+<dd><p>list() -&gt; new empty list
+list(iterable) -&gt; new list initialized from iterable&#8217;s items</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="fbtest.PLATFORMS">
+<tt class="descclassname">fbtest.</tt><tt class="descname">PLATFORMS</tt><em class="property"> = ['Windows', 'Linux', 'MacOS', 'FreeBSD', 'Solaris', 'HP-UX']</em><a class="headerlink" href="#fbtest.PLATFORMS" title="Permalink to this definition">¶</a></dt>
+<dd><p>list() -&gt; new empty list
+list(iterable) -&gt; new list initialized from iterable&#8217;s items</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="fbtest.UNKNOWN">
+<tt class="descclassname">fbtest.</tt><tt class="descname">UNKNOWN</tt><em class="property"> = 'Unknown'</em><a class="headerlink" href="#fbtest.UNKNOWN" title="Permalink to this definition">¶</a></dt>
+<dd><p>str(object=&#8217;&#8216;) -&gt; string</p>
+<p>Return a nice string representation of the object.
+If the argument is a string, the return value is the same object.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="fbtest.script_runner">
+<tt class="descclassname">fbtest.</tt><tt class="descname">script_runner</tt><a class="headerlink" href="#fbtest.script_runner" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="#fbtest.ScriptRunner" title="fbtest.ScriptRunner"><tt class="xref py py-class docutils literal"><span class="pre">ScriptRunner</span></tt></a> instance.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="fbtest.xml_safe">
+<tt class="descclassname">fbtest.</tt><tt class="descname">xml_safe</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#fbtest.xml_safe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replaces invalid XML characters with &#8216;?&#8217;.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="fbtest.escape_cdata">
+<tt class="descclassname">fbtest.</tt><tt class="descname">escape_cdata</tt><big>(</big><em>cdata</em><big>)</big><a class="headerlink" href="#fbtest.escape_cdata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Escape a string for an XML CDATA section.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="fbtest.trim_value">
+<tt class="descclassname">fbtest.</tt><tt class="descname">trim_value</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#fbtest.trim_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return string with trailing whitespaces from each line removed.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="fbtest.quote">
+<tt class="descclassname">fbtest.</tt><tt class="descname">quote</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#fbtest.quote" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return properly quoted string according its content.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="fbtest.compare_versions">
+<tt class="descclassname">fbtest.</tt><tt class="descname">compare_versions</tt><big>(</big><em>lver</em>, <em>rver</em><big>)</big><a class="headerlink" href="#fbtest.compare_versions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compare two version strings, returns:
+0 for lver = rver
+-1 for lver &lt; rver
+1 for lver &gt; rver</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="fbtest.as_unicode">
+<tt class="descclassname">fbtest.</tt><tt class="descname">as_unicode</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#fbtest.as_unicode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make sure that string is unicode.
+Accepts <cite>Unicode</cite>, <cite>strings</cite> encoded in UTF-8 or <cite>None</cite> and returns <cite>Unicode</cite>
+string or <cite>None</cite>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="fbtest.as_utf8">
+<tt class="descclassname">fbtest.</tt><tt class="descname">as_utf8</tt><big>(</big><em>value</em><big>)</big><a class="headerlink" href="#fbtest.as_utf8" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make sure that string is encoded in UTF-8.
+Accepts <cite>Unicode</cite>, <cite>strings</cite> or <cite>None</cite>. If paremeter is unicode, it&#8217;s returned as
+string encoded in UTF-8. String or <cite>None</cite> parameter is returned as is.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="fbtest.runProgram">
+<tt class="descclassname">fbtest.</tt><tt class="descname">runProgram</tt><big>(</big><em>args</em>, <em>environment</em>, <em>stdin=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#fbtest.runProgram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run external program using <a class="reference external" href="http://docs.python.org/library/subprocess.html#subprocess.Popen" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">Popen</span></tt></a> from subprocess
+module and capture <cite>stdin</cite> and <cite>stderr</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>args</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><em>list</em></a>) &#8211; List of arguments for <a class="reference external" href="http://docs.python.org/library/subprocess.html#subprocess.Popen" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">subprocess.Popen</span></tt></a>. First item
+must be specification of program to run.</li>
+<li><strong>environment</strong> (<a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; Dictionary of environment variables. Ignored in this version.</li>
+<li><strong>stdin</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; String to be passed as stdin to external program.</li>
+<li><strong>kwarg</strong> (<a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; Dictionary of additional keyword arguments for Popen.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Tuple of (returncode, stdout, stderr)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="testversion-class">
+<h3>TestVersion class<a class="headerlink" href="#testversion-class" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="fbtest.TestVersion">
+<em class="property">class </em><tt class="descclassname">fbtest.</tt><tt class="descname">TestVersion</tt><big>(</big><em>id</em>, <em>platform</em>, <em>firebird_version</em>, <em>test_type</em>, <em>test_script</em>, <em>database='New'</em>, <em>expected_stdout=''</em>, <em>expected_stderr=''</em>, <em>database_name=None</em>, <em>backup_file=None</em>, <em>user_name='SYSDBA'</em>, <em>user_password='masterkey'</em>, <em>database_character_set=None</em>, <em>connection_character_set=None</em>, <em>page_size=None</em>, <em>sql_dialect=3</em>, <em>init_script=''</em>, <em>resources=None</em>, <em>substitutions=None</em>, <em>qmid=None</em><big>)</big><a class="headerlink" href="#fbtest.TestVersion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recipe for test execution against specific Firebird version and OS platform.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Test ID (dot-separated name).</li>
+<li><strong>platform</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; List of platform names separated by colon.</li>
+<li><strong>firebird_version</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; First Firebird version this test version is designed for.</li>
+<li><strong>test_type</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Test implemetation method: &#8220;ISQL&#8221; or &#8220;Python&#8221;.</li>
+<li><strong>test_script</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Test code.</li>
+<li><strong>database</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Database usage specification: None, &#8220;New&#8221;, &#8220;Existing&#8221; or &#8220;Restore&#8221;.</li>
+<li><strong>expected_stdout</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Expected STDOUT content.</li>
+<li><strong>expected_stderr</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Expected STDERR content.</li>
+<li><strong>database_name</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Database file name.</li>
+<li><strong>backup_file</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Backup file name.</li>
+<li><strong>user_name</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; User name.</li>
+<li><strong>user_password</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; User password.</li>
+<li><strong>database_character_set</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Character set for database.</li>
+<li><strong>connection_character_set</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Character set for connection.</li>
+<li><strong>page_size</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Page size for database.</li>
+<li><strong>sql_dialect</strong> (<em>integer</em>) &#8211; SQL dialect for database.</li>
+<li><strong>init_script</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Test initialization script.</li>
+<li><strong>resources</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><em>list</em></a>) &#8211; List of <a class="reference internal" href="#fbtest.Resource" title="fbtest.Resource"><tt class="xref py py-class docutils literal"><span class="pre">Resource</span></tt></a> names.</li>
+<li><strong>substitutions</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><em>list</em></a>) &#8211; List of substitution specifications.</li>
+<li><strong>qmid</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Test ID from old system (QMTest).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="fbtest.TestVersion.as_expression">
+<tt class="descname">as_expression</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.TestVersion.as_expression" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return recipe data as string definition of Python dictionary.
+This string could be evaluated back to Python dictionary and passed to
+<a class="reference internal" href="#fbtest.TestVersion" title="fbtest.TestVersion"><tt class="xref py py-class docutils literal"><span class="pre">TestVersion</span></tt></a> constructor to recreate the test version instance.
+String is encoded in UTF-8 if necessary.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Only attributes that haven&#8217;t DEFAULT values are included.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.TestVersion.get_platforms">
+<tt class="descname">get_platforms</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.TestVersion.get_platforms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns platforms supported by this test version as list of platform
+names.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.TestVersion.run">
+<tt class="descname">run</tt><big>(</big><em>context</em>, <em>result</em><big>)</big><a class="headerlink" href="#fbtest.TestVersion.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute the recipe.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">Test run outcome is stored in <a class="reference internal" href="#fbtest.Result" title="fbtest.Result"><tt class="xref py py-class docutils literal"><span class="pre">Result</span></tt></a> instance.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>context</strong> &#8211; <a class="reference internal" href="#fbtest.Runner" title="fbtest.Runner"><tt class="xref py py-class docutils literal"><span class="pre">Runner</span></tt></a> instance.</li>
+<li><strong>result</strong> &#8211; <a class="reference internal" href="#fbtest.Result" title="fbtest.Result"><tt class="xref py py-class docutils literal"><span class="pre">Result</span></tt></a> instance.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="fbtest.TestVersion.FIELDS">
+<tt class="descname">FIELDS</tt><em class="property"> = ['id', 'qmid', 'firebird_version', 'platform', 'database', 'database_name', 'backup_file', 'user_name', 'user_password', 'database_character_set', 'connection_character_set', 'page_size', 'sql_dialect', 'init_script', 'test_type', 'test_script', 'expected_stdout', 'expected_stderr', 'resources', 'substitutions']</em><a class="headerlink" href="#fbtest.TestVersion.FIELDS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="test-class">
+<h3>Test class<a class="headerlink" href="#test-class" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="fbtest.Test">
+<em class="property">class </em><tt class="descclassname">fbtest.</tt><tt class="descname">Test</tt><big>(</big><em>id</em>, <em>title=''</em>, <em>description=''</em>, <em>tracker_id=''</em>, <em>min_versions=None</em>, <em>versions=None</em>, <em>qmid=None</em><big>)</big><a class="headerlink" href="#fbtest.Test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test definition.</p>
+<p>Can contain multiple <a class="reference internal" href="#fbtest.TestVersion" title="fbtest.TestVersion"><tt class="xref py py-class docutils literal"><span class="pre">TestVersion</span></tt></a> recipes for test execution against
+different Firebird versions on various OS platforms.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Test ID (dot-separated name).</li>
+<li><strong>title</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Test title.</li>
+<li><strong>description</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; test description.</li>
+<li><strong>tracker_id</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; JIRA entry ID this tests relates to.</li>
+<li><strong>min_versions</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; List of minimal engine versions supported by
+test (separated by semicolon).</li>
+<li><strong>versions</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><em>list</em></a>) &#8211; List of disctionaries with data for creation of
+<a class="reference internal" href="#fbtest.TestVersion" title="fbtest.TestVersion"><tt class="xref py py-class docutils literal"><span class="pre">TestVersion</span></tt></a> instances.</li>
+<li><strong>qmid</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Test ID from old system (QMTest).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="fbtest.Test.add_version">
+<tt class="descname">add_version</tt><big>(</big><em>version</em><big>)</big><a class="headerlink" href="#fbtest.Test.add_version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add <a class="reference internal" href="#fbtest.TestVersion" title="fbtest.TestVersion"><tt class="xref py py-class docutils literal"><span class="pre">TestVersion</span></tt></a> instance to test.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>version</strong> &#8211; <a class="reference internal" href="#fbtest.TestVersion" title="fbtest.TestVersion"><tt class="xref py py-class docutils literal"><span class="pre">TestVersion</span></tt></a> instance.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Test.as_expression">
+<tt class="descname">as_expression</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.Test.as_expression" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return test data as string definition of Python dictionary.
+This string could be evaluated back to Python dictionary and passed to
+<a class="reference internal" href="#fbtest.Test" title="fbtest.Test"><tt class="xref py py-class docutils literal"><span class="pre">Test</span></tt></a> constructor to recreate the test instance.
+String is encoded in UTF-8 if necessary.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Only attributes that haven&#8217;t DEFAULT values are included.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Test.get_name">
+<tt class="descname">get_name</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.Test.get_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return test name.</p>
+<p>Test name is last part of test ID.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Test.get_version_for">
+<tt class="descname">get_version_for</tt><big>(</big><em>platform</em>, <em>version</em><big>)</big><a class="headerlink" href="#fbtest.Test.get_version_for" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return test recipe suitable for specified platform and Firebird version.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>platform</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Platform name.</li>
+<li><strong>version</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Firebird version.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#fbtest.TestVersion" title="fbtest.TestVersion"><tt class="xref py py-class docutils literal"><span class="pre">TestVersion</span></tt></a> or None.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="fbtest.Test.FIELDS">
+<tt class="descname">FIELDS</tt><em class="property"> = ['id', 'qmid', 'tracker_id', 'title', 'description', 'min_versions', 'versions']</em><a class="headerlink" href="#fbtest.Test.FIELDS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="resource-class">
+<h3>Resource class<a class="headerlink" href="#resource-class" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="fbtest.Resource">
+<em class="property">class </em><tt class="descclassname">fbtest.</tt><tt class="descname">Resource</tt><big>(</big><em>id</em><big>)</big><a class="headerlink" href="#fbtest.Resource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for test resources.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>id</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Resource ID.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="fbtest.Resource.as_expression">
+<tt class="descname">as_expression</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.Resource.as_expression" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return resource data as string definition of Python dictionary.
+This string could be evaluated back to Python dictionary and passed to
+<a class="reference internal" href="#fbtest.Resource" title="fbtest.Resource"><tt class="xref py py-class docutils literal"><span class="pre">Resource</span></tt></a> constructor to recreate the resource instance.
+String is encoded in UTF-8 if necessary.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Resource.cleanup">
+<tt class="descname">cleanup</tt><big>(</big><em>result</em><big>)</big><a class="headerlink" href="#fbtest.Resource.cleanup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resource finalization</p>
+<p>Nothing in this class.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="fbtest.Resource.create">
+<em class="property">classmethod </em><tt class="descname">create</tt><big>(</big><em>kind</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#fbtest.Resource.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class method to create right <a class="reference internal" href="#fbtest.Resource" title="fbtest.Resource"><tt class="xref py py-class docutils literal"><span class="pre">Resource</span></tt></a> instance from parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kind</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Resource class specification.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Resource.fail_and_annotate_streams">
+<tt class="descname">fail_and_annotate_streams</tt><big>(</big><em>result</em>, <em>outcome</em>, <em>program_name</em>, <em>cause</em>, <em>stdout=None</em>, <em>stderr=None</em>, <em>annotate={}</em><big>)</big><a class="headerlink" href="#fbtest.Resource.fail_and_annotate_streams" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper method to note fail of resource setup/cleanup in
+<a class="reference internal" href="#fbtest.Result" title="fbtest.Result"><tt class="xref py py-class docutils literal"><span class="pre">Result</span></tt></a> instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>result</strong> &#8211; <a class="reference internal" href="#fbtest.Result" title="fbtest.Result"><tt class="xref py py-class docutils literal"><span class="pre">Result</span></tt></a> instance.</li>
+<li><strong>outcome</strong> (<em>stirng</em>) &#8211; Run outcome.</li>
+<li><strong>program_name</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Program that reports the failure.</li>
+<li><strong>cause</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Fail reason.</li>
+<li><strong>stdout</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; <cite>stdout</cite> content.</li>
+<li><strong>stderr</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; <cite>stderr</cite> content.</li>
+<li><strong>annotate</strong> (<a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; Dictionary of annotations.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Resource.setup">
+<tt class="descname">setup</tt><big>(</big><em>context</em>, <em>result</em><big>)</big><a class="headerlink" href="#fbtest.Resource.setup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resource initialization.</p>
+<p>Nothing in this class.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="userresource-class">
+<h3>UserResource class<a class="headerlink" href="#userresource-class" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="fbtest.UserResource">
+<em class="property">class </em><tt class="descclassname">fbtest.</tt><tt class="descname">UserResource</tt><big>(</big><em>id</em>, <em>user_name</em>, <em>user_password</em><big>)</big><a class="headerlink" href="#fbtest.UserResource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test resource that provides Firebird USER.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; resource ID.</li>
+<li><strong>user_name</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Firebird user name.</li>
+<li><strong>user_password</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Firebird user password.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="fbtest.UserResource.cleanup">
+<tt class="descname">cleanup</tt><big>(</big><em>context</em>, <em>result</em><big>)</big><a class="headerlink" href="#fbtest.UserResource.cleanup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove specified Firebird user via GSEC.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.UserResource.setup">
+<tt class="descname">setup</tt><big>(</big><em>context</em>, <em>result</em><big>)</big><a class="headerlink" href="#fbtest.UserResource.setup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create Firebird user with specified name and password via GSEC.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="fbtest.UserResource.FIELD">
+<tt class="descname">FIELD</tt><em class="property"> = ['id', 'user_name', 'user_password']</em><a class="headerlink" href="#fbtest.UserResource.FIELD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="suite-class">
+<h3>Suite class<a class="headerlink" href="#suite-class" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="fbtest.Suite">
+<em class="property">class </em><tt class="descclassname">fbtest.</tt><tt class="descname">Suite</tt><big>(</big><em>name</em>, <em>path=None</em>, <em>parent=None</em><big>)</big><a class="headerlink" href="#fbtest.Suite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Container for tests and sub-suites to organize tests in hierarchical structure.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Suite name.</li>
+<li><strong>path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Directory with tests and sub-suites.</li>
+<li><strong>parent</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Parent suite name or None.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="fbtest.Suite.add_test">
+<tt class="descname">add_test</tt><big>(</big><em>test</em><big>)</big><a class="headerlink" href="#fbtest.Suite.add_test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add test to suite.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>test</strong> &#8211; <a class="reference internal" href="#fbtest.Test" title="fbtest.Test"><tt class="xref py py-class docutils literal"><span class="pre">Test</span></tt></a> instance.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Suite.clear">
+<tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.Suite.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete all tests and sub-suites from instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Suite.get_id">
+<tt class="descname">get_id</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.Suite.get_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return suite ID.</p>
+<p>Consists from suite names from root to this one separated by dot.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Suite.get_parent">
+<tt class="descname">get_parent</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.Suite.get_parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return parent suite or None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Suite.get_tests">
+<tt class="descname">get_tests</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.Suite.get_tests" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all tests for this suite (including tests from sub-suites).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Suite.load">
+<tt class="descname">load</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.Suite.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load tests and sub-suites from <tt class="xref py py-attr docutils literal"><span class="pre">path</span></tt>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Suite.reload_test">
+<tt class="descname">reload_test</tt><big>(</big><em>test_id</em><big>)</big><a class="headerlink" href="#fbtest.Suite.reload_test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reload test from disk.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>test_id</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Test ID.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Suite.save_test">
+<tt class="descname">save_test</tt><big>(</big><em>test_id</em><big>)</big><a class="headerlink" href="#fbtest.Suite.save_test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save test on disk.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>test_id</strong> &#8211; Test ID.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="repository-class">
+<h3>Repository class<a class="headerlink" href="#repository-class" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="fbtest.Repository">
+<em class="property">class </em><tt class="descclassname">fbtest.</tt><tt class="descname">Repository</tt><big>(</big><em>repository_path</em><big>)</big><a class="headerlink" href="#fbtest.Repository" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test repository.</p>
+<p>All subdirectories must exists except &#8216;archive&#8217; that&#8217;s created if necessary.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>repository_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Directory with test repository.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="fbtest.Repository.get_suite">
+<tt class="descname">get_suite</tt><big>(</big><em>suite_id=''</em><big>)</big><a class="headerlink" href="#fbtest.Repository.get_suite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return suite with specified ID.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="#fbtest.Suite" title="fbtest.Suite"><tt class="xref py py-class docutils literal"><span class="pre">Suite</span></tt></a> instance or <cite>None</cite>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Repository.get_test">
+<tt class="descname">get_test</tt><big>(</big><em>test_id</em><big>)</big><a class="headerlink" href="#fbtest.Repository.get_test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return test with specified ID.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="#fbtest.Test" title="fbtest.Test"><tt class="xref py py-class docutils literal"><span class="pre">Test</span></tt></a> instance or <cite>None</cite>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Repository.load">
+<tt class="descname">load</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.Repository.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load all tests and resources.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="archive-class">
+<h3>Archive class<a class="headerlink" href="#archive-class" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="fbtest.Archive">
+<em class="property">class </em><tt class="descclassname">fbtest.</tt><tt class="descname">Archive</tt><big>(</big><em>archive_path</em><big>)</big><a class="headerlink" href="#fbtest.Archive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run results archive.</p>
+<p>Archive is structured in subdirectories. Each directory is named after Firebird
+version and contains result collection dump (pickle) files with name:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;number_of_tests_executed&gt;-&lt;platform&gt;&lt;cpuarch&gt;-&lt;fbarch&gt;-&lt;person-id&gt;-&lt;sequence&gt;.trf
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>archive_path</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Directory with archive.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="fbtest.Archive.delete">
+<tt class="descname">delete</tt><big>(</big><em>result</em><big>)</big><a class="headerlink" href="#fbtest.Archive.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove specified run results from archive.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>result</strong> &#8211; File path in archive or <tt class="xref py py-class docutils literal"><span class="pre">RunResult</span></tt> instance stored
+in archive.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Archive.get_archive_file_path">
+<tt class="descname">get_archive_file_path</tt><big>(</big><em>results</em><big>)</big><a class="headerlink" href="#fbtest.Archive.get_archive_file_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get File path for archived results.
+:param <tt class="xref py py-class docutils literal"><span class="pre">RunResult</span></tt> results: Run results.
+:returns: File path.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Archive.get_archive_filename">
+<tt class="descname">get_archive_filename</tt><big>(</big><em>results</em><big>)</big><a class="headerlink" href="#fbtest.Archive.get_archive_filename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Archive.list_filenames">
+<tt class="descname">list_filenames</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.Archive.list_filenames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of result files in archive.
+:returns: Sorted list of filenames (including FB version subdirectory name).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Archive.retrieve">
+<tt class="descname">retrieve</tt><big>(</big><em>version=None</em><big>)</big><a class="headerlink" href="#fbtest.Archive.retrieve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of run results from archive.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>version</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Returns only results for specified Firebird version.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of <tt class="xref py py-class docutils literal"><span class="pre">RunResult</span></tt> instances.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Archive.store">
+<tt class="descname">store</tt><big>(</big><em>results</em><big>)</big><a class="headerlink" href="#fbtest.Archive.store" title="Permalink to this definition">¶</a></dt>
+<dd><p>Store run results into archive.
+:param <tt class="xref py py-class docutils literal"><span class="pre">RunResult</span></tt> results: Run results.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="result-class">
+<h3>Result class<a class="headerlink" href="#result-class" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="fbtest.Result">
+<em class="property">class </em><tt class="descclassname">fbtest.</tt><tt class="descname">Result</tt><big>(</big><em>kind</em>, <em>id</em>, <em>outcome='PASS'</em>, <em>annotations={}</em><big>)</big><a class="headerlink" href="#fbtest.Result" title="Permalink to this definition">¶</a></dt>
+<dd><p>Result from test run or resource setup/cleanup.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Also acts as dictionary of annotations.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>kind</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Result kind.</li>
+<li><strong>id</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Result ID.</li>
+<li><strong>outcome</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Result outcome (default <a class="reference internal" href="#fbtest.Result.PASS" title="fbtest.Result.PASS"><tt class="xref py py-data docutils literal"><span class="pre">PASS</span></tt></a>).</li>
+<li><strong>annotations</strong> (<a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; Annotations.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="fbtest.Result.annotate">
+<tt class="descname">annotate</tt><big>(</big><em>annotations</em><big>)</big><a class="headerlink" href="#fbtest.Result.annotate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set annotations.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>annotations</strong> (<a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; Annotations.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Result.error">
+<tt class="descname">error</tt><big>(</big><em>cause=None</em>, <em>annotations={}</em><big>)</big><a class="headerlink" href="#fbtest.Result.error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set ERROR outcome with specified cause and annotations.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>cause</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Error cause.</li>
+<li><strong>annotations</strong> (<a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; Annotations.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Result.fail">
+<tt class="descname">fail</tt><big>(</big><em>cause=None</em>, <em>annotations={}</em><big>)</big><a class="headerlink" href="#fbtest.Result.fail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set FAIL outcome with specified cause and annotations.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>cause</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Fail cause.</li>
+<li><strong>annotations</strong> (<a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; Annotations.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Result.get">
+<tt class="descname">get</tt><big>(</big><em>key</em>, <em>default=None</em><big>)</big><a class="headerlink" href="#fbtest.Result.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Result.get_cause">
+<tt class="descname">get_cause</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.Result.get_cause" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return cause.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Result.get_run_time">
+<tt class="descname">get_run_time</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.Result.get_run_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Result.has_key">
+<tt class="descname">has_key</tt><big>(</big><em>key</em><big>)</big><a class="headerlink" href="#fbtest.Result.has_key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Result.items">
+<tt class="descname">items</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.Result.items" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Result.keys">
+<tt class="descname">keys</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.Result.keys" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Result.note_exception">
+<tt class="descname">note_exception</tt><big>(</big><em>exc_info=None</em>, <em>cause=None</em><big>)</big><a class="headerlink" href="#fbtest.Result.note_exception" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set outcome to ERROR and annotate with exception info and traceback.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>exc_info</strong> &#8211; Exception info or None to use current exception info.</li>
+<li><strong>cause</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Exception cause or <cite>None</cite> for default message.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Result.set_cause">
+<tt class="descname">set_cause</tt><big>(</big><em>cause</em><big>)</big><a class="headerlink" href="#fbtest.Result.set_cause" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set cause.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Result.set_outcome">
+<tt class="descname">set_outcome</tt><big>(</big><em>outcome</em>, <em>cause=None</em>, <em>annotations={}</em><big>)</big><a class="headerlink" href="#fbtest.Result.set_outcome" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set Result outcome.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>outcome</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Run outcome.</li>
+<li><strong>cause</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Short description of the outcome,</li>
+<li><strong>annotations</strong> (<a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; Disctionary of result anntotations.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="fbtest.Result.CAUSE">
+<tt class="descname">CAUSE</tt><em class="property"> = 'cause'</em><a class="headerlink" href="#fbtest.Result.CAUSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="fbtest.Result.END_TIME">
+<tt class="descname">END_TIME</tt><em class="property"> = 'end_time'</em><a class="headerlink" href="#fbtest.Result.END_TIME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="fbtest.Result.ERROR">
+<tt class="descname">ERROR</tt><em class="property"> = 'ERROR'</em><a class="headerlink" href="#fbtest.Result.ERROR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="fbtest.Result.EXCEPTION">
+<tt class="descname">EXCEPTION</tt><em class="property"> = 'exception'</em><a class="headerlink" href="#fbtest.Result.EXCEPTION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="fbtest.Result.FAIL">
+<tt class="descname">FAIL</tt><em class="property"> = 'FAIL'</em><a class="headerlink" href="#fbtest.Result.FAIL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="fbtest.Result.PASS">
+<tt class="descname">PASS</tt><em class="property"> = 'PASS'</em><a class="headerlink" href="#fbtest.Result.PASS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="fbtest.Result.RESOURCE">
+<tt class="descname">RESOURCE</tt><em class="property"> = 'resource'</em><a class="headerlink" href="#fbtest.Result.RESOURCE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="fbtest.Result.RESOURCE_CLEANUP">
+<tt class="descname">RESOURCE_CLEANUP</tt><em class="property"> = 'resource_cleanup'</em><a class="headerlink" href="#fbtest.Result.RESOURCE_CLEANUP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="fbtest.Result.RESOURCE_SETUP">
+<tt class="descname">RESOURCE_SETUP</tt><em class="property"> = 'resource_setup'</em><a class="headerlink" href="#fbtest.Result.RESOURCE_SETUP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="fbtest.Result.START_TIME">
+<tt class="descname">START_TIME</tt><em class="property"> = 'start_time'</em><a class="headerlink" href="#fbtest.Result.START_TIME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="fbtest.Result.TEST">
+<tt class="descname">TEST</tt><em class="property"> = 'test'</em><a class="headerlink" href="#fbtest.Result.TEST" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="fbtest.Result.TRACEBACK">
+<tt class="descname">TRACEBACK</tt><em class="property"> = 'traceback'</em><a class="headerlink" href="#fbtest.Result.TRACEBACK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="fbtest.Result.UNTESTED">
+<tt class="descname">UNTESTED</tt><em class="property"> = 'UNTESTED'</em><a class="headerlink" href="#fbtest.Result.UNTESTED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="fbtest.Result.kinds">
+<tt class="descname">kinds</tt><em class="property"> = ['resource_setup', 'resource_cleanup', 'test']</em><a class="headerlink" href="#fbtest.Result.kinds" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="fbtest.Result.outcomes">
+<tt class="descname">outcomes</tt><em class="property"> = ['ERROR', 'FAIL', 'UNTESTED', 'PASS']</em><a class="headerlink" href="#fbtest.Result.outcomes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="runresults-class">
+<h3>RunResults class<a class="headerlink" href="#runresults-class" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="fbtest.RunResults">
+<em class="property">class </em><tt class="descclassname">fbtest.</tt><tt class="descname">RunResults</tt><a class="headerlink" href="#fbtest.RunResults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Collection of test/resource Results.</p>
+<p>Designed to hold Results from single QA run. Acts also as dictionary of Results
+with test/resource ID as key and <a class="reference internal" href="#fbtest.Result" title="fbtest.Result"><tt class="xref py py-class docutils literal"><span class="pre">Result</span></tt></a> object as value.</p>
+<dl class="method">
+<dt id="fbtest.RunResults.add">
+<tt class="descname">add</tt><big>(</big><em>result</em><big>)</big><a class="headerlink" href="#fbtest.RunResults.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add result</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.RunResults.clear">
+<tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.RunResults.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove all results.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.RunResults.dump">
+<tt class="descname">dump</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#fbtest.RunResults.dump" title="Permalink to this definition">¶</a></dt>
+<dd><p>Store (pickle) collection of <a class="reference internal" href="#fbtest.Result" title="fbtest.Result"><tt class="xref py py-class docutils literal"><span class="pre">Result</span></tt></a> instances to file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.RunResults.get">
+<tt class="descname">get</tt><big>(</big><em>key</em>, <em>default=None</em><big>)</big><a class="headerlink" href="#fbtest.RunResults.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fbtest.RunResults.get_error_count">
+<tt class="descname">get_error_count</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.RunResults.get_error_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return number of ERROR outcomes</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.RunResults.get_errors">
+<tt class="descname">get_errors</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.RunResults.get_errors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of Results with ERROR outcome</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.RunResults.get_fail_count">
+<tt class="descname">get_fail_count</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.RunResults.get_fail_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return number of FAIL outcomes</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.RunResults.get_fails">
+<tt class="descname">get_fails</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.RunResults.get_fails" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of Results with FAIL outcome</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.RunResults.get_outcomes">
+<tt class="descname">get_outcomes</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.RunResults.get_outcomes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list outcomes from stored Results</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.RunResults.get_pass_count">
+<tt class="descname">get_pass_count</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.RunResults.get_pass_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return number of PASS outcomes</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.RunResults.get_passes">
+<tt class="descname">get_passes</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.RunResults.get_passes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of Results with PASS outcome</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.RunResults.get_untested">
+<tt class="descname">get_untested</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.RunResults.get_untested" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of Results with UNTESTED outcome</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.RunResults.get_untested_count">
+<tt class="descname">get_untested_count</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.RunResults.get_untested_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return number of UNTESTED outcomes</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.RunResults.has_key">
+<tt class="descname">has_key</tt><big>(</big><em>key</em><big>)</big><a class="headerlink" href="#fbtest.RunResults.has_key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fbtest.RunResults.items">
+<tt class="descname">items</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.RunResults.items" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fbtest.RunResults.keys">
+<tt class="descname">keys</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.RunResults.keys" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="fbtest.RunResults.load">
+<em class="property">classmethod </em><tt class="descname">load</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#fbtest.RunResults.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load results from file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Filename with pickled <a class="reference internal" href="#fbtest.Result" title="fbtest.Result"><tt class="xref py py-class docutils literal"><span class="pre">Result</span></tt></a>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.RunResults.print_report">
+<tt class="descname">print_report</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.RunResults.print_report" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fbtest.RunResults.print_summary">
+<tt class="descname">print_summary</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.RunResults.print_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print results summary to stdout.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.RunResults.save">
+<tt class="descname">save</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#fbtest.RunResults.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write text report to file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Filename.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.RunResults.save_xunit">
+<tt class="descname">save_xunit</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#fbtest.RunResults.save_xunit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write xunit XML report to file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Filename.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.RunResults.values">
+<tt class="descname">values</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.RunResults.values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="runner-class">
+<h3>Runner class<a class="headerlink" href="#runner-class" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="fbtest.Runner">
+<em class="property">class </em><tt class="descclassname">fbtest.</tt><tt class="descname">Runner</tt><big>(</big><em>repository</em><big>)</big><a class="headerlink" href="#fbtest.Runner" title="Permalink to this definition">¶</a></dt>
+<dd><p>QA Execution engine.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>repository</strong> &#8211; <a class="reference internal" href="#fbtest.Repository" title="fbtest.Repository"><tt class="xref py py-class docutils literal"><span class="pre">Repository</span></tt></a> instance.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="fbtest.Runner.run">
+<tt class="descname">run</tt><big>(</big><em>test_list=None</em>, <em>verbosity=1</em>, <em>results=None</em>, <em>no_summary=False</em>, <em>expectations=None</em><big>)</big><a class="headerlink" href="#fbtest.Runner.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run tests.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>test_list</strong> &#8211; List of <a class="reference internal" href="#fbtest.Test" title="fbtest.Test"><tt class="xref py py-class docutils literal"><span class="pre">Test</span></tt></a> objects to run. If not specified,
+runs all tests in repository.</li>
+<li><strong>verbosity</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; Verbosity level (0, 1 or 2).</li>
+<li><strong>no_summary</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; Do not print run summary.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#fbtest.RunResults" title="fbtest.RunResults"><tt class="xref py py-class docutils literal"><span class="pre">RunResults</span></tt></a> object with results.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">QA environment must be properly configured!</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Runner.set_person">
+<tt class="descname">set_person</tt><big>(</big><em>person</em><big>)</big><a class="headerlink" href="#fbtest.Runner.set_person" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set QA person identification.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>person</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; QA person name.</td>
+</tr>
+</tbody>
+</table>
+<p>Sets <cite>person_name</cite> and <cite>person_id</cite> attributes:
+person_name = <cite>person</cite> in lowercase
+person_id = first two letters from uppercased <cite>person</cite></p>
+<p>If <cite>person</cite> is &#8220;Unknown&#8221;, the person_is is set to &#8220;XX&#8221;.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.Runner.set_target">
+<tt class="descname">set_target</tt><big>(</big><em>arch</em>, <em>host</em>, <em>bin_dir=None</em>, <em>password='masterkey'</em><big>)</big><a class="headerlink" href="#fbtest.Runner.set_target" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configures the QA environment to run on specified Firebird installation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>arch</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Firebird architecture (SS,CS, SC or EM).</li>
+<li><strong>host</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; &#8216;LOCAL&#8217; or Firebird host machine identification.</li>
+<li><strong>password</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Password for Firebird access (default &#8216;masterkey&#8217;).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="fbtest.Runner.tempdir">
+<tt class="descname">tempdir</tt><a class="headerlink" href="#fbtest.Runner.tempdir" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="scriptrunner-class">
+<h3>ScriptRunner class<a class="headerlink" href="#scriptrunner-class" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="fbtest.ScriptRunner">
+<em class="property">class </em><tt class="descclassname">fbtest.</tt><tt class="descname">ScriptRunner</tt><a class="headerlink" href="#fbtest.ScriptRunner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper class to organize script running code. Instantiated as singleton
+instance <cite>script_runner</cite>.</p>
+<dl class="method">
+<dt id="fbtest.ScriptRunner.analyze">
+<tt class="descname">analyze</tt><big>(</big><em>filenames</em>, <em>output_dir</em>, <em>diffs_only=False</em><big>)</big><a class="headerlink" href="#fbtest.ScriptRunner.analyze" title="Permalink to this definition">¶</a></dt>
+<dd><p>Analyze test run results and produce HTML output.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>filenames</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><em>list</em></a>) &#8211; List of result file filenames.</li>
+<li><strong>output_dir</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Directory for HTML output files.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.ScriptRunner.annotation_filter">
+<tt class="descname">annotation_filter</tt><big>(</big><em>annotations</em><big>)</big><a class="headerlink" href="#fbtest.ScriptRunner.annotation_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filters out annotations we don&#8217;t want to compare.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.ScriptRunner.cmd_archive_delete">
+<tt class="descname">cmd_archive_delete</tt><big>(</big><em>options</em><big>)</big><a class="headerlink" href="#fbtest.ScriptRunner.cmd_archive_delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called by <a class="reference internal" href="#fbtest.run_archive" title="fbtest.run_archive"><tt class="xref py py-func docutils literal"><span class="pre">run_archive()</span></tt></a> for command execution.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.ScriptRunner.cmd_archive_list">
+<tt class="descname">cmd_archive_list</tt><big>(</big><em>options</em><big>)</big><a class="headerlink" href="#fbtest.ScriptRunner.cmd_archive_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called by <a class="reference internal" href="#fbtest.run_archive" title="fbtest.run_archive"><tt class="xref py py-func docutils literal"><span class="pre">run_archive()</span></tt></a> for command execution.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.ScriptRunner.cmd_archive_retrieve">
+<tt class="descname">cmd_archive_retrieve</tt><big>(</big><em>options</em><big>)</big><a class="headerlink" href="#fbtest.ScriptRunner.cmd_archive_retrieve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called by <a class="reference internal" href="#fbtest.run_archive" title="fbtest.run_archive"><tt class="xref py py-func docutils literal"><span class="pre">run_archive()</span></tt></a> for command execution.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.ScriptRunner.cmd_archive_save">
+<tt class="descname">cmd_archive_save</tt><big>(</big><em>options</em><big>)</big><a class="headerlink" href="#fbtest.ScriptRunner.cmd_archive_save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called by <a class="reference internal" href="#fbtest.run_archive" title="fbtest.run_archive"><tt class="xref py py-func docutils literal"><span class="pre">run_archive()</span></tt></a> for command execution.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.ScriptRunner.cmd_update_repository">
+<tt class="descname">cmd_update_repository</tt><big>(</big><em>options</em><big>)</big><a class="headerlink" href="#fbtest.ScriptRunner.cmd_update_repository" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called by <a class="reference internal" href="#fbtest.run_update" title="fbtest.run_update"><tt class="xref py py-func docutils literal"><span class="pre">run_update()</span></tt></a> for command execution.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.ScriptRunner.cmd_update_results">
+<tt class="descname">cmd_update_results</tt><big>(</big><em>options</em><big>)</big><a class="headerlink" href="#fbtest.ScriptRunner.cmd_update_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called by <a class="reference internal" href="#fbtest.run_update" title="fbtest.run_update"><tt class="xref py py-func docutils literal"><span class="pre">run_update()</span></tt></a> for command execution.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.ScriptRunner.compare_results">
+<tt class="descname">compare_results</tt><big>(</big><em>r1</em>, <em>r2</em><big>)</big><a class="headerlink" href="#fbtest.ScriptRunner.compare_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compare two results for single test. Compares <tt class="xref py py-attr docutils literal"><span class="pre">kind</span></tt>,
+<tt class="xref py py-attr docutils literal"><span class="pre">outcome</span></tt> and <tt class="xref py py-attr docutils literal"><span class="pre">annotations</span></tt>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>r1</strong> (<a class="reference internal" href="#fbtest.Result" title="fbtest.Result"><tt class="xref py py-class docutils literal"><span class="pre">Result</span></tt></a>) &#8211; Run result.</li>
+<li><strong>r2</strong> (<a class="reference internal" href="#fbtest.Result" title="fbtest.Result"><tt class="xref py py-class docutils literal"><span class="pre">Result</span></tt></a>) &#8211; Run result.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True if both results are equal.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.ScriptRunner.get_repository">
+<tt class="descname">get_repository</tt><big>(</big><em>options</em><big>)</big><a class="headerlink" href="#fbtest.ScriptRunner.get_repository" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connect to local or remote Test Repository.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>options</strong> &#8211; Command-line options.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="#fbtest.Repository" title="fbtest.Repository"><tt class="xref py py-class docutils literal"><span class="pre">Repository</span></tt></a> instance.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.ScriptRunner.get_result_filenames">
+<tt class="descname">get_result_filenames</tt><big>(</big><em>directory</em><big>)</big><a class="headerlink" href="#fbtest.ScriptRunner.get_result_filenames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of Result file filenames stored in directory.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>directory</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; directory with result files.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List with filenames.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.ScriptRunner.get_run_tag">
+<tt class="descname">get_run_tag</tt><big>(</big><em>platform</em>, <em>cpuarch</em>, <em>arch</em>, <em>sequence</em><big>)</big><a class="headerlink" href="#fbtest.ScriptRunner.get_run_tag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return string that could be used as key to group tests by platform, cpu,
+FB architecture and run sequence.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.ScriptRunner.get_svn_login">
+<tt class="descname">get_svn_login</tt><big>(</big><em>realm</em>, <em>username</em>, <em>may_save</em><big>)</big><a class="headerlink" href="#fbtest.ScriptRunner.get_svn_login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get Subversion login credentials from user.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.ScriptRunner.print_analysis">
+<tt class="descname">print_analysis</tt><big>(</big><em>version</em>, <em>results</em>, <em>tests</em>, <em>test_details</em>, <em>test_order</em>, <em>output_dir</em>, <em>diffs_only</em><big>)</big><a class="headerlink" href="#fbtest.ScriptRunner.print_analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create HTML files with test run analysis.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>version</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Firebird version.</li>
+<li><strong>result</strong> (<a class="reference internal" href="#fbtest.RunResults" title="fbtest.RunResults"><tt class="xref py py-class docutils literal"><span class="pre">RunResults</span></tt></a>) &#8211; Run results.</li>
+<li><strong>tests</strong> (<a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; Dictionary of all tests found in results; Test ID: list of results.</li>
+<li><strong>test_details</strong> (<a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><em>dict</em></a>) &#8211; Dictionary with test run results: Run tag: Result.</li>
+<li><strong>test_order</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#list" title="(in Python v2.7)"><em>list</em></a>) &#8211; List that define test order in output.</li>
+<li><strong>output_dir</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Directory for HTML output files.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.ScriptRunner.print_errors">
+<tt class="descname">print_errors</tt><big>(</big><em>result</em>, <em>cause=False</em>, <em>detail=False</em><big>)</big><a class="headerlink" href="#fbtest.ScriptRunner.print_errors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print IDs of tests that ended with ERROR.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>result</strong> (<a class="reference internal" href="#fbtest.RunResults" title="fbtest.RunResults"><tt class="xref py py-class docutils literal"><span class="pre">RunResults</span></tt></a>) &#8211; Run results.</li>
+<li><strong>cause</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; Print error cause.</li>
+<li><strong>detail</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; Print error details.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.ScriptRunner.print_fails">
+<tt class="descname">print_fails</tt><big>(</big><em>result</em>, <em>cause=False</em>, <em>detail=False</em><big>)</big><a class="headerlink" href="#fbtest.ScriptRunner.print_fails" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print IDs of tests that ended with FAIL.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>result</strong> (<a class="reference internal" href="#fbtest.RunResults" title="fbtest.RunResults"><tt class="xref py py-class docutils literal"><span class="pre">RunResults</span></tt></a>) &#8211; Run results.</li>
+<li><strong>cause</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; Print fail cause.</li>
+<li><strong>detail</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; Print fail details.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.ScriptRunner.print_result_info">
+<tt class="descname">print_result_info</tt><big>(</big><em>result</em>, <em>filename</em><big>)</big><a class="headerlink" href="#fbtest.ScriptRunner.print_result_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print information from result file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>result</strong> (<a class="reference internal" href="#fbtest.RunResults" title="fbtest.RunResults"><tt class="xref py py-class docutils literal"><span class="pre">RunResults</span></tt></a>) &#8211; Run results.</li>
+<li><strong>filename</strong> (<a class="reference external" href="http://docs.python.org/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Results filename.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.ScriptRunner.print_untested">
+<tt class="descname">print_untested</tt><big>(</big><em>result</em>, <em>cause=False</em><big>)</big><a class="headerlink" href="#fbtest.ScriptRunner.print_untested" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print IDs of tests that ended with UNTESTED.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>result</strong> (<a class="reference internal" href="#fbtest.RunResults" title="fbtest.RunResults"><tt class="xref py py-class docutils literal"><span class="pre">RunResults</span></tt></a>) &#8211; Run results.</li>
+<li><strong>cause</strong> (<a class="reference external" href="http://docs.python.org/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; Print cause.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.ScriptRunner.run_analyze">
+<tt class="descname">run_analyze</tt><big>(</big><em>options</em><big>)</big><a class="headerlink" href="#fbtest.ScriptRunner.run_analyze" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called by <a class="reference internal" href="#fbtest.run_analyze" title="fbtest.run_analyze"><tt class="xref py py-func docutils literal"><span class="pre">run_analyze()</span></tt></a> for command execution.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.ScriptRunner.run_server">
+<tt class="descname">run_server</tt><big>(</big><em>options</em><big>)</big><a class="headerlink" href="#fbtest.ScriptRunner.run_server" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called by <a class="reference internal" href="#fbtest.run_server" title="fbtest.run_server"><tt class="xref py py-func docutils literal"><span class="pre">run_server()</span></tt></a> for command execution.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.ScriptRunner.run_tests">
+<tt class="descname">run_tests</tt><big>(</big><em>options</em><big>)</big><a class="headerlink" href="#fbtest.ScriptRunner.run_tests" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called by <a class="reference internal" href="#fbtest.run_tests" title="fbtest.run_tests"><tt class="xref py py-func docutils literal"><span class="pre">run_tests()</span></tt></a> for command execution.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.ScriptRunner.run_view">
+<tt class="descname">run_view</tt><big>(</big><em>options</em><big>)</big><a class="headerlink" href="#fbtest.ScriptRunner.run_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called by <a class="reference internal" href="#fbtest.run_view" title="fbtest.run_view"><tt class="xref py py-func docutils literal"><span class="pre">run_view()</span></tt></a> for command execution.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="fbtest.ScriptRunner.svn_notify">
+<tt class="descname">svn_notify</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#fbtest.ScriptRunner.svn_notify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Notification callback from pysvn.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="fbtest.ScriptRunner.platform_table">
+<tt class="descname">platform_table</tt><em class="property"> = {'macos': 'Mac', 'hp-ux': 'HPUX', 'solaris': 'Solaris', 'windows': 'Win', 'freebsd': 'BSD', 'linux': 'Linux'}</em><a class="headerlink" href="#fbtest.ScriptRunner.platform_table" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="script-functions">
+<h2>Script Functions<a class="headerlink" href="#script-functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="fbtest.run_tests">
+<tt class="descclassname">fbtest.</tt><tt class="descname">run_tests</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.run_tests" title="Permalink to this definition">¶</a></dt>
+<dd><p>CLI Script function for test execution.</p>
+<p>This is a &#8216;main&#8217; function called by <strong class="command">fbt_run</strong> script.
+Runs all tests in test reporsitory or specified test/suite. Result from
+test run is stored in current directory:</p>
+<p><tt class="file docutils literal"><span class="pre">results.trf</span></tt> : Pickled <a class="reference internal" href="#fbtest.RunResults" title="fbtest.RunResults"><tt class="xref py py-class docutils literal"><span class="pre">RunResults</span></tt></a> instance.
+Pickled <a class="reference internal" href="#fbtest.RunResults" title="fbtest.RunResults"><tt class="xref py py-class docutils literal"><span class="pre">RunResults</span></tt></a> instance is also stored in &#8216;archive&#8217;.</p>
+<p><tt class="file docutils literal"><span class="pre">results.xml</span></tt> : XUNIT XML report (when -x or &#8211;xunit is specified).</p>
+<p>usage: fbt_run [options] [suite_or_test_name]</p>
+<dl class="option">
+<dt id="cmdoption-fbt_run-v">
+<span id="cmdoption-fbt_run--verbose"></span><tt class="descname">-v</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--verbose</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-fbt_run-v" title="Permalink to this definition">¶</a></dt>
+<dd><p>Be more verbose</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_run--verbosity">
+<tt class="descname">--verbosity</tt><tt class="descclassname">=NUM</tt><a class="headerlink" href="#cmdoption-fbt_run--verbosity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set verbosity; <cite>&#8211;verbosity=2</cite> is the same as <cite>-v</cite></p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_run-q">
+<span id="cmdoption-fbt_run--quiet"></span><tt class="descname">-q</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--quiet</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-fbt_run-q" title="Permalink to this definition">¶</a></dt>
+<dd><p>Be less verbose</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_run-b">
+<span id="cmdoption-fbt_run--bin-dir"></span><tt class="descname">-b</tt><tt class="descclassname"> &lt;directory&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--bin-dir</tt><tt class="descclassname">=&lt;directory&gt;</tt><a class="headerlink" href="#cmdoption-fbt_run-b" title="Permalink to this definition">¶</a></dt>
+<dd><p>Location of Firebird binary tools (like gbak etc.).</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_run-d">
+<span id="cmdoption-fbt_run--db-dir"></span><tt class="descname">-d</tt><tt class="descclassname"> &lt;directory&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--db-dir</tt><tt class="descclassname">=&lt;directory&gt;</tt><a class="headerlink" href="#cmdoption-fbt_run-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Location for temporary databases used by tests.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_run-k">
+<span id="cmdoption-fbt_run--skip"></span><tt class="descname">-k</tt><tt class="descclassname"> &lt;name_or_file&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--skip</tt><tt class="descclassname">=&lt;name_or_file&gt;</tt><a class="headerlink" href="#cmdoption-fbt_run-k" title="Permalink to this definition">¶</a></dt>
+<dd><p>Suite or test name or name of file with suite/test names to skip.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_run--archive">
+<tt class="descname">--archive</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-fbt_run--archive" title="Permalink to this definition">¶</a></dt>
+<dd><p>If specified, last run result file is copied to archive.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_run--rerun">
+<tt class="descname">--rerun</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-fbt_run--rerun" title="Permalink to this definition">¶</a></dt>
+<dd><p>If specified, runs only tests that don&#8217;t PASSed in last run.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_run--remote">
+<tt class="descname">--remote</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-fbt_run--remote" title="Permalink to this definition">¶</a></dt>
+<dd><p>If specified, connects to remote fbtest server and runs specified tests on it.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_run-u">
+<span id="cmdoption-fbt_run--update"></span><tt class="descname">-u</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--update</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-fbt_run-u" title="Permalink to this definition">¶</a></dt>
+<dd><p>If specified, updates last run results with re-run results.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_run-w">
+<span id="cmdoption-fbt_run--password"></span><tt class="descname">-w</tt><tt class="descclassname"> &lt;password&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--password</tt><tt class="descclassname">=&lt;password&gt;</tt><a class="headerlink" href="#cmdoption-fbt_run-w" title="Permalink to this definition">¶</a></dt>
+<dd><p>SYSDBA password. (<cite>default &#8216;masterkey&#8217;</cite>)</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_run-o">
+<span id="cmdoption-fbt_run--host"></span><tt class="descname">-o</tt><tt class="descclassname"> &lt;machine&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--host</tt><tt class="descclassname">=&lt;machine&gt;</tt><a class="headerlink" href="#cmdoption-fbt_run-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Firebird or fbtest host machine identification. (<cite>default &#8216;localhost&#8217;</cite>)</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_run-p">
+<span id="cmdoption-fbt_run--person"></span><tt class="descname">-p</tt><tt class="descclassname"> &lt;person&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--person</tt><tt class="descclassname">=&lt;person&gt;</tt><a class="headerlink" href="#cmdoption-fbt_run-p" title="Permalink to this definition">¶</a></dt>
+<dd><p>QA person name. First two letters are used as person ID.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_run-a">
+<span id="cmdoption-fbt_run--arch"></span><tt class="descname">-a</tt><tt class="descclassname"> &lt;arch&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--arch</tt><tt class="descclassname">=&lt;arch&gt;</tt><a class="headerlink" href="#cmdoption-fbt_run-a" title="Permalink to this definition">¶</a></dt>
+<dd><p>Firebird architecture (&#8216;SS&#8217;, &#8216;CS&#8217; or &#8216;SC&#8217;). (<cite>default &#8216;SS&#8217; - SuperServer</cite>)</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_run-s">
+<span id="cmdoption-fbt_run--sequence"></span><tt class="descname">-s</tt><tt class="descclassname"> &lt;number&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--sequence</tt><tt class="descclassname">=&lt;number&gt;</tt><a class="headerlink" href="#cmdoption-fbt_run-s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run sequence number. Important to disctinguish repeated runs af the same
+tests on single &#8216;target&#8217;. Used by <strong class="command">fbt_analyze</strong>. (<cite>default &#8216;1&#8217;</cite>)</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_run-x">
+<span id="cmdoption-fbt_run--xunit"></span><tt class="descname">-x</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--xunit</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-fbt_run-x" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides test results also in the standard XUnit XML format.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_run-e">
+<span id="cmdoption-fbt_run--expect"></span><tt class="descname">-e</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--expect</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-fbt_run-e" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test results file to be used as expeted outcomes</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="fbtest.run_server">
+<tt class="descclassname">fbtest.</tt><tt class="descname">run_server</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.run_server" title="Permalink to this definition">¶</a></dt>
+<dd><p>CLI Script function for test execution.</p>
+<p>This is a &#8216;main&#8217; function called by <strong class="command">fbt_server</strong> script.</p>
+<p>usage: fbt_server [options]</p>
+<dl class="option">
+<dt id="cmdoption-fbt_server-b">
+<span id="cmdoption-fbt_server--bin-dir"></span><tt class="descname">-b</tt><tt class="descclassname"> &lt;directory&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--bin-dir</tt><tt class="descclassname">=&lt;directory&gt;</tt><a class="headerlink" href="#cmdoption-fbt_server-b" title="Permalink to this definition">¶</a></dt>
+<dd><p>Location of Firebird binary tools (like gbak etc.).</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_server-d">
+<span id="cmdoption-fbt_server--db-dir"></span><tt class="descname">-d</tt><tt class="descclassname"> &lt;directory&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--db-dir</tt><tt class="descclassname">=&lt;directory&gt;</tt><a class="headerlink" href="#cmdoption-fbt_server-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Location for temporary databases used by tests.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_server-w">
+<span id="cmdoption-fbt_server--password"></span><tt class="descname">-w</tt><tt class="descclassname"> &lt;password&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--password</tt><tt class="descclassname">=&lt;password&gt;</tt><a class="headerlink" href="#cmdoption-fbt_server-w" title="Permalink to this definition">¶</a></dt>
+<dd><p>SYSDBA password. (<cite>default &#8216;masterkey&#8217;</cite>)</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_server-o">
+<span id="cmdoption-fbt_server--host"></span><tt class="descname">-o</tt><tt class="descclassname"> &lt;machine&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--host</tt><tt class="descclassname">=&lt;machine&gt;</tt><a class="headerlink" href="#cmdoption-fbt_server-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Firebird host machine identification. (<cite>default &#8216;localhost&#8217;</cite>)</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_server-p">
+<span id="cmdoption-fbt_server--person"></span><tt class="descname">-p</tt><tt class="descclassname"> &lt;person&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--person</tt><tt class="descclassname">=&lt;person&gt;</tt><a class="headerlink" href="#cmdoption-fbt_server-p" title="Permalink to this definition">¶</a></dt>
+<dd><p>QA person name. First two letters are used as person ID.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_server-a">
+<span id="cmdoption-fbt_server--arch"></span><tt class="descname">-a</tt><tt class="descclassname"> &lt;arch&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--arch</tt><tt class="descclassname">=&lt;arch&gt;</tt><a class="headerlink" href="#cmdoption-fbt_server-a" title="Permalink to this definition">¶</a></dt>
+<dd><p>Firebird architecture (&#8216;SS&#8217;, &#8216;CS&#8217; or &#8216;SC&#8217;). (<cite>default &#8216;SS&#8217; - SuperServer</cite>)</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_server--register">
+<tt class="descname">--register</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-fbt_server--register" title="Permalink to this definition">¶</a></dt>
+<dd><p>If specified, automatically registers RPyC slave server.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="fbtest.run_analyze">
+<tt class="descclassname">fbtest.</tt><tt class="descname">run_analyze</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.run_analyze" title="Permalink to this definition">¶</a></dt>
+<dd><p>CLI Script function for test analysis.</p>
+<p>This is a &#8216;main&#8217; function called by <strong class="command">fbt_analyze</strong> script.
+Reads result file or all result files in specified directory and writes
+HTML report in current or specified directory.</p>
+<p>usage: fbt_analyze [options] &lt;file_or_directory&gt;</p>
+<dl class="option">
+<dt id="cmdoption-fbt_analyze-o">
+<span id="cmdoption-fbt_analyze--output"></span><tt class="descname">-o</tt><tt class="descclassname"> &lt;directory&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--output</tt><tt class="descclassname">=&lt;directory&gt;</tt><a class="headerlink" href="#cmdoption-fbt_analyze-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Location where HTML report should be stored.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_analyze-d">
+<span id="cmdoption-fbt_analyze--difs-only"></span><tt class="descname">-d</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--difs-only</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-fbt_analyze-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show only diffs on detail pages.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="fbtest.run_update">
+<tt class="descclassname">fbtest.</tt><tt class="descname">run_update</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.run_update" title="Permalink to this definition">¶</a></dt>
+<dd><p>CLI Script function to update metadata in Result file(s).</p>
+<p>This is a &#8216;main&#8217; function called by <strong class="command">fbt_update</strong> script.
+Reads result file or all result files in specified directory and updates
+metadata with specified value(s).</p>
+<p>usage:</p>
+<div class="highlight-python"><div class="highlight"><pre>fbt_update {result,repository} [options]
+
+result             Change result file metadata.
+repository         Update Test Repository.
+</pre></div>
+</div>
+<p>Options for <cite>fbt_update result</cite>:</p>
+<dl class="option">
+<dt id="cmdoption-fbt_update-arg-name">
+<tt class="descname">name</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-fbt_update-arg-name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Results file or directory with result files.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_update-a">
+<span id="cmdoption-fbt_update--arch"></span><tt class="descname">-a</tt><tt class="descclassname"> &lt;arch&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--arch</tt><tt class="descclassname">=&lt;arch&gt;</tt><a class="headerlink" href="#cmdoption-fbt_update-a" title="Permalink to this definition">¶</a></dt>
+<dd><p>Firebird architecture (&#8216;SS&#8217;, &#8216;CS&#8217; or &#8216;SC&#8217;).</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_update-p">
+<span id="cmdoption-fbt_update--person"></span><tt class="descname">-p</tt><tt class="descclassname"> &lt;person&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--person</tt><tt class="descclassname">=&lt;person&gt;</tt><a class="headerlink" href="#cmdoption-fbt_update-p" title="Permalink to this definition">¶</a></dt>
+<dd><p>QA person name. First two letters are used as person ID.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_update-s">
+<span id="cmdoption-fbt_update--sequence"></span><tt class="descname">-s</tt><tt class="descclassname"> &lt;number&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--sequence</tt><tt class="descclassname">=&lt;number&gt;</tt><a class="headerlink" href="#cmdoption-fbt_update-s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run sequence number. Important to disctinguish repeated runs of the same
+tests on single &#8216;target&#8217;. Used by <strong class="command">fbt_analyze</strong>.</p>
+</dd></dl>
+
+<p>Options for <cite>fbt_update repository</cite>:</p>
+<blockquote>
+<div>None.</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="fbtest.run_view">
+<tt class="descclassname">fbtest.</tt><tt class="descname">run_view</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.run_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>CLI Script function to update metadata in Result file(s).</p>
+<p>This is a &#8216;main&#8217; function called by <strong class="command">fbt_view</strong> script.
+Reads result file or all result files in specified directory and prints
+information about stored results.</p>
+<p>usage: fbt_view &lt;file_or_directory&gt;</p>
+<dl class="option">
+<dt id="cmdoption-fbt_view-x">
+<span id="cmdoption-fbt_view--xunit"></span><tt class="descname">-x</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--xunit</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-fbt_view-x" title="Permalink to this definition">¶</a></dt>
+<dd><p>Store processed test results in the standard XUnit XML format.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_view-c">
+<span id="cmdoption-fbt_view--cause"></span><tt class="descname">-c</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--cause</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-fbt_view-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print cause of fails and errors.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_view-d">
+<span id="cmdoption-fbt_view--details"></span><tt class="descname">-d</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--details</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-fbt_view-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print details for fails and errors.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="fbtest.run_archive">
+<tt class="descclassname">fbtest.</tt><tt class="descname">run_archive</tt><big>(</big><big>)</big><a class="headerlink" href="#fbtest.run_archive" title="Permalink to this definition">¶</a></dt>
+<dd><p>CLI Script function to maintain archive of Result file(s).</p>
+<p>This is a &#8216;main&#8217; function called by <strong class="command">fbt_archive</strong> script.</p>
+<p>usage:</p>
+<div class="highlight-python"><div class="highlight"><pre>fbt_update {list,save,retrieve,delete} [options]
+
+list                List result(s) in archive.
+save                Save result(s) to archive.
+retrieve            Retrieve result(s) from archive.
+delete              Delete result(s) from archive.
+</pre></div>
+</div>
+<dl class="option">
+<dt id="cmdoption-fbt_archive--remote">
+<tt class="descname">--remote</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-fbt_archive--remote" title="Permalink to this definition">¶</a></dt>
+<dd><p>If specified, connects to remote fbtest server (and archive).</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_archive-o">
+<span id="cmdoption-fbt_archive--host"></span><tt class="descname">-o</tt><tt class="descclassname"> &lt;machine&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--host</tt><tt class="descclassname">=&lt;machine&gt;</tt><a class="headerlink" href="#cmdoption-fbt_archive-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remote fbtest host machine identification. (<cite>default &#8216;localhost&#8217;</cite>)</p>
+</dd></dl>
+
+<p>Options for <cite>fbt_archive list</cite>:</p>
+<blockquote>
+<div>None.</div></blockquote>
+<p>Options for <cite>fbt_archive save</cite>:</p>
+<dl class="option">
+<dt id="cmdoption-fbt_archive-arg-name">
+<tt class="descname">name</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-fbt_archive-arg-name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Results file.</p>
+</dd></dl>
+
+<p>Options for <cite>fbt_archive retrieve</cite>:</p>
+<dl class="option">
+<dt id="cmdoption-fbt_archive-v">
+<span id="cmdoption-fbt_archive--version"></span><tt class="descname">-v</tt><tt class="descclassname"> &lt;version_number&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--version</tt><tt class="descclassname">=&lt;version_number&gt;</tt><a class="headerlink" href="#cmdoption-fbt_archive-v" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve results only for specified Firebird version.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_archive-c">
+<span id="cmdoption-fbt_archive--current"></span><tt class="descname">-c</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--current</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-fbt_archive-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve results only for currently tested Firebird version.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_archive-o">
+<span id="cmdoption-fbt_archive--output"></span><tt class="descname">-o</tt><tt class="descclassname"> &lt;directory&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--output</tt><tt class="descclassname">=&lt;directory&gt;</tt><a class="headerlink" href="#cmdoption-fbt_archive-o" title="Permalink to this definition">¶</a></dt>
+<dd><p>Location where result file(s) should be copied.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_archive-p">
+<span id="cmdoption-fbt_archive--person"></span><tt class="descname">-p</tt><tt class="descclassname"> &lt;person&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--person</tt><tt class="descclassname">=&lt;person&gt;</tt><a class="headerlink" href="#cmdoption-fbt_archive-p" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve results only for specified QA person name. First two letters are used as person ID.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_archive-a">
+<span id="cmdoption-fbt_archive--arch"></span><tt class="descname">-a</tt><tt class="descclassname"> &lt;arch&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--arch</tt><tt class="descclassname">=&lt;arch&gt;</tt><a class="headerlink" href="#cmdoption-fbt_archive-a" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve results only for specified Firebird architecture (&#8216;SS&#8217;, &#8216;CS&#8217; or &#8216;SC&#8217;).</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_archive-s">
+<span id="cmdoption-fbt_archive--sequence"></span><tt class="descname">-s</tt><tt class="descclassname"> &lt;number&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--sequence</tt><tt class="descclassname">=&lt;number&gt;</tt><a class="headerlink" href="#cmdoption-fbt_archive-s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve results only for specified run sequence number.</p>
+</dd></dl>
+
+<p>Options for <cite>fbt_archive delete</cite>:</p>
+<dl class="option">
+<dt id="cmdoption-fbt_archive-v">
+<span id="cmdoption-fbt_archive--version"></span><tt class="descname">-v</tt><tt class="descclassname"> &lt;version_number&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--version</tt><tt class="descclassname">=&lt;version_number&gt;</tt><a class="headerlink" href="#cmdoption-fbt_archive-v" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete results only for specified Firebird version.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_archive-c">
+<span id="cmdoption-fbt_archive--current"></span><tt class="descname">-c</tt><tt class="descclassname"></tt><tt class="descclassname">, </tt><tt class="descname">--current</tt><tt class="descclassname"></tt><a class="headerlink" href="#cmdoption-fbt_archive-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete results only for currently tested Firebird version.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_archive-p">
+<span id="cmdoption-fbt_archive--person"></span><tt class="descname">-p</tt><tt class="descclassname"> &lt;person&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--person</tt><tt class="descclassname">=&lt;person&gt;</tt><a class="headerlink" href="#cmdoption-fbt_archive-p" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete results only for specified QA person name. First two letters are used as person ID.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_archive-a">
+<span id="cmdoption-fbt_archive--arch"></span><tt class="descname">-a</tt><tt class="descclassname"> &lt;arch&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--arch</tt><tt class="descclassname">=&lt;arch&gt;</tt><a class="headerlink" href="#cmdoption-fbt_archive-a" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete results only for specified Firebird architecture (&#8216;SS&#8217;, &#8216;CS&#8217; or &#8216;SC&#8217;).</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-fbt_archive-s">
+<span id="cmdoption-fbt_archive--sequence"></span><tt class="descname">-s</tt><tt class="descclassname"> &lt;number&gt;</tt><tt class="descclassname">, </tt><tt class="descname">--sequence</tt><tt class="descclassname">=&lt;number&gt;</tt><a class="headerlink" href="#cmdoption-fbt_archive-s" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete results only for specified run sequence number.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><cite>fbtest</cite> Reference</a><ul>
+<li><a class="reference internal" href="#globals">Globals</a></li>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#classes">Classes</a><ul>
+<li><a class="reference internal" href="#testversion-class">TestVersion class</a></li>
+<li><a class="reference internal" href="#test-class">Test class</a></li>
+<li><a class="reference internal" href="#resource-class">Resource class</a></li>
+<li><a class="reference internal" href="#userresource-class">UserResource class</a></li>
+<li><a class="reference internal" href="#suite-class">Suite class</a></li>
+<li><a class="reference internal" href="#repository-class">Repository class</a></li>
+<li><a class="reference internal" href="#archive-class">Archive class</a></li>
+<li><a class="reference internal" href="#result-class">Result class</a></li>
+<li><a class="reference internal" href="#runresults-class">RunResults class</a></li>
+<li><a class="reference internal" href="#runner-class">Runner class</a></li>
+<li><a class="reference internal" href="#scriptrunner-class">ScriptRunner class</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#script-functions">Script Functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="writting-new-tests.html"
+                        title="previous chapter">Writting new tests</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="writting-new-tests.html" title="Writting new tests"
+             >previous</a> |</li>
+        <li><a href="index.html">fbtest 1.0.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Pavel Císař.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>
