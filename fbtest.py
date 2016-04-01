@@ -40,7 +40,7 @@ import pickle
 import weakref
 import traceback
 from StringIO import StringIO
-import fdb as kdb
+import fdb
 import fdb.services as fbservice
 from fdb.ibase import DB_CHAR_SET_NAME_TO_PYTHON_ENCODING_MAP
 from mako.template import Template
@@ -543,10 +543,10 @@ class TestVersion(object):
             """Print data from open KInterbasDB cursor to stdout."""
             # Print a header.
             for fieldDesc in cur.description:
-                print (fieldDesc[kdb.DESCRIPTION_NAME].ljust(fieldDesc[kdb.DESCRIPTION_DISPLAY_SIZE]),end=' ')
+                print (fieldDesc[fdb.DESCRIPTION_NAME].ljust(fieldDesc[fdb.DESCRIPTION_DISPLAY_SIZE]),end=' ')
             print('')
             for fieldDesc in cur.description:
-                print ("-" * max((len(fieldDesc[kdb.DESCRIPTION_NAME]),fieldDesc[kdb.DESCRIPTION_DISPLAY_SIZE])),end=' ')
+                print ("-" * max((len(fieldDesc[fdb.DESCRIPTION_NAME]),fieldDesc[fdb.DESCRIPTION_DISPLAY_SIZE])),end=' ')
             print('')
             # For each row, print the value of each field left-justified within
             # the maximum possible width of that field.
@@ -558,7 +558,7 @@ class TestVersion(object):
                         fieldValue = str(fieldValue)
                     if isinstance(fieldValue,types.UnicodeType):
                         fieldValue = fieldValue.encode('utf8')
-                    fieldMaxWidth = max((len(cur.description[fieldIndex][kdb.DESCRIPTION_NAME]),cur.description[fieldIndex][kdb.DESCRIPTION_DISPLAY_SIZE]))
+                    fieldMaxWidth = max((len(cur.description[fieldIndex][fdb.DESCRIPTION_NAME]),cur.description[fieldIndex][fdb.DESCRIPTION_DISPLAY_SIZE]))
                     print (fieldValue.ljust(fieldMaxWidth),end=' ')
                 print('')
         def run_program_from_python_test(program, args, stdin=''):
@@ -601,7 +601,7 @@ class TestVersion(object):
             if cleanup_db:
                 params = {'dsn':cleanup_db,'user':self.user_name.encode('ascii'),'password':self.user_password.encode('ascii')}
                 try:
-                    c = kdb.connect(**params)
+                    c = fdb.connect(**params)
                     c.drop_database()
                 except:
                     result.note_exception(cause="Test cleanup: Exception raised while dropping database.")
@@ -645,13 +645,13 @@ class TestVersion(object):
                 # and drop it if it does. It's probably leftover from previous test
                 # failure.
                 try:
-                    conn = kdb.connect(dsn=dsn,user=self.user_name,
+                    conn = fdb.connect(dsn=dsn,user=self.user_name,
                                        password=self.user_password)
                     conn.drop_database()
                 except:
                     pass
                 try:
-                    conn = kdb.create_database(createCommand, self.sql_dialect)
+                    conn = fdb.create_database(createCommand, self.sql_dialect)
                     conn.close()
                 except KeyboardInterrupt:
                     cleanup_db = dsn
@@ -692,7 +692,7 @@ class TestVersion(object):
                 if self.connection_character_set:
                     params['charset'] = self.connection_character_set
                 try:
-                    connection = kdb.connect(**params)
+                    connection = fdb.connect(**params)
                 except KeyboardInterrupt:
                     raise
                 except:
@@ -783,7 +783,7 @@ class TestVersion(object):
                     if self.connection_character_set:
                         params['charset'] = self.connection_character_set
                     try:
-                        connection = kdb.connect(**params)
+                        connection = fdb.connect(**params)
                     except KeyboardInterrupt:
                         raise
                     except:
@@ -793,7 +793,7 @@ class TestVersion(object):
 
                 global_ns={
                     'context'           : context.environment,
-                    'kdb'               : kdb,
+                    'kdb'               : fdb,
                     'print'             : print,
                     'printData'         : python_data_printer,
                     'runProgram'        : run_program_from_python_test,
@@ -859,7 +859,7 @@ class TestVersion(object):
                     sys.stdout = saved_out
                     sys.stderr = saved_err
                     for conn in (obj for (name,obj) in itertools.chain(global_ns.items(),local_ns.items())
-                                 if isinstance(obj,kdb.Connection) and name != 'db_conn'):
+                                 if isinstance(obj,fdb.Connection) and name != 'db_conn'):
                         if not conn.closed:
                             conn.close()
             # Cleanup
@@ -1878,6 +1878,8 @@ class Runner(object):
         :param repository: :class:`Repository` instance.
         """
 
+        self.all_passed = True
+
         #: :class:`Repository` object.
         self.repository = repository
 
@@ -1953,13 +1955,16 @@ class Runner(object):
         self.environment['DATABASE_PATH'] = self.__tempdir
     #: Directory for temporary files.
     tempdir = property(_get_tempdir,_set_tempdir)
-    def set_target(self,arch,host,bin_dir=None,password='masterkey'):
+    def set_target(self,arch,host,bin_dir=None,password='masterkey',client_lib=None):
         """Configures the QA environment to run on specified Firebird installation.
 
         :param string arch:     Firebird architecture (SS,CS, SC or EM).
         :param string host:     'LOCAL' or Firebird host machine identification.
         :param string password: Password for Firebird access (default 'masterkey').
+        :param string client_lib:     Path to Firebird client library (default: use system one).
         """
+        fdb.load_api(client_lib)
+
         self.arch = arch
 
         if host.upper() != 'LOCAL':
@@ -1993,6 +1998,8 @@ class Runner(object):
             self.gstat_path = os.path.join(bin_dir,'gstat'+ext)
             self.gfix_path = os.path.join(bin_dir,'gfix'+ext)
             self.gpre_path = os.path.join(bin_dir,'gpre'+ext)
+            self.fbsvcmgr_path = os.path.join(bin_dir,'fbsvcmgr'+ext)
+            self.fbtracemgr_path = os.path.join(bin_dir,'fbtracemgr'+ext)
         else:
             self.isql_path = os.path.join(fbdir,'bin','isql'+ext)
             self.gbak_path = os.path.join(fbdir,'bin','gbak'+ext)
@@ -2001,6 +2008,8 @@ class Runner(object):
             self.gstat_path = os.path.join(fbdir,'bin','gstat'+ext)
             self.gfix_path = os.path.join(fbdir,'bin','gfix'+ext)
             self.gpre_path = os.path.join(fbdir,'bin','gpre'+ext)
+            self.fbsvcmgr_path = os.path.join(fbdir,'fbsvcmgr'+ext)
+            self.fbtracemgr_path = os.path.join(fbdir,'fbtracemgr'+ext)
         self.security_db = svc.get_security_database_path()
 
         self.run_description = '%s%s %s' % (self.platform,self.cpuarch,self.arch)
@@ -2016,6 +2025,8 @@ class Runner(object):
         cntx['gfix_path'] = self.gfix_path
         cntx['gpre_path'] = self.gpre_path
         cntx['isc4_path'] = self.security_db
+        cntx['fbsvcmgr_path'] = self.fbsvcmgr_path
+        cntx['fbtracemgr_path'] = self.fbtracemgr_path
         #cntx['run_description'] = self.run_description
         self.environment.update(cntx)
     def set_person(self, person):
@@ -2142,6 +2153,7 @@ class Runner(object):
                             print (result.outcome[0],end='')
                         sys.stdout.flush()
                     results.add(result)
+                    self.all_passed = self.all_passed and (result.outcome == Result.PASS)
             if verbosity == 1:
                 print ()
         except KeyboardInterrupt:
@@ -2221,7 +2233,7 @@ class ScriptRunner(object):
             r = self.remote_fbtest.root
             repository = r.get_repository()
         else:
-            repository = Repository(os.getcwd())
+            repository = Repository(os.getenv('FBT_REPO',os.getcwd()))
             repository.load()
         return repository
     def run_tests(self,options):
@@ -2236,7 +2248,7 @@ class ScriptRunner(object):
             runner = Runner(repository)
             if options.db_dir:
                 runner.tempdir = options.db_dir
-            runner.set_target(options.arch,options.host,options.bin_dir,options.password)
+            runner.set_target(options.arch,options.host,options.bin_dir,options.password,options.client)
 
         runner.sequence = options.sequence
         runner.set_person(options.person)
@@ -2306,6 +2318,8 @@ class ScriptRunner(object):
                 results.save_xunit(os.path.join(os.getcwd(),'results.xml'))
         else:
             print ('Nothing to run')
+        if not runner.all_passed:
+            sys.exit(1)
 
     def run_server(self,options):
         """Called by :func:`~fbtest.run_server` for command execution.
@@ -2883,6 +2897,7 @@ def run_tests():
     parser.add_argument('-a','--arch',help="Firebird architecture: SS, CS, SC, EM")
     parser.add_argument('-s','--sequence',type=int,help="Run sequence number for this target")
     parser.add_argument('-k','--skip',help="Suite or test name or name of file with suite/test names to skip")
+    parser.add_argument('-c','--client',help="Use specified Firebird client library")
     parser.set_defaults(rerun=False,update=False,server=False,register=False,
                         remote=False,host='localhost',password='masterkey',
                         sequence=1,arch='SS',person=UNKNOWN)

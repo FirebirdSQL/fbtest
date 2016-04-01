@@ -105,7 +105,7 @@ Usage::
 
    fbt_run [-h] [-b BIN_DIR] [-d DB_DIR] [--archive] [--rerun] [-v]
            [--verbosity {0,1,2}] [-q] [-x] [--remote] [-u] [-w PASSWORD]
-           [-o HOST] [-p PERSON] [-a ARCH] [-s SEQUENCE] [-k SKIP]
+           [-o HOST] [-p PERSON] [-a ARCH] [-s SEQUENCE] [-k SKIP] [-c CLIENT]
            [name]
 
    positional arguments:
@@ -138,6 +138,8 @@ Usage::
                            Run sequence number for this target
      -k SKIP, --skip SKIP  Suite or test name or name of file with suite/test
                            names to skip
+     -c CLIENT, --client CLIENT
+                           Use specified Firebird client library
 
 This tool runs all or specified set of tests and collects run result from each test. This result for 
 whole run is saved to :file:`results.trf` file in Test Repository for later reference. 

@@ -19,6 +19,7 @@ Contents:
    new-test-design
    writting-new-tests
    reference
+   changelog
 
 Indices and tables
 ==================
