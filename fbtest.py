@@ -48,6 +48,7 @@ from mako.lookup import TemplateLookup
 from argparse import ArgumentParser
 from time import time
 from xml.sax import saxutils
+import datetime
 
 __version__ = "1.0.2"
 
@@ -97,6 +98,9 @@ PLATFORMS         = ['Windows','Linux','MacOS','FreeBSD','Solaris','HP-UX']
 #:
 UNKNOWN           = 'Unknown'
 
+class FirebirdNotAvailable(Exception):
+    pass
+
 # Invalid XML characters, control characters 0-31 sans \t, \n and \r
 CONTROL_CHARACTERS = re.compile(r"[\000-\010\013\014\016-\037]")
 
@@ -140,11 +144,13 @@ td { padding: 2px 0.5em 0 0.5em;}
 .FAIL { background-color: #ff9090; text-align: }
 .ERROR { background-color: #ffffe0; text-align: }
 .UNTESTED { background-color: #d0d0d0; text-align: }
+.SKIPPED { background-color: #d0d0d0; text-align: }
 .NA { background-color: white; text-align: center; }
 .test_id { padding-left: 5px;}
 .ann-o { background-color: white; padding: 2px; }
 .ann-e { background-color: #ffffe0; padding: 2px; }
 .cause { background-color: #ff9090; padding: 2px;}
+.total { font-weight: bold; background-color: #e0e0e0; padding: 2px; }
 
 #Container { margin: 0em auto; padding: 4px 20px 4px 20px ;
   text-align: left; /* Win IE5 */ }
@@ -214,7 +220,7 @@ platforms = [(k,len(list(g))) for k,g in groupby(results,attrgetter('platform'))
 cpuarchs = [(k,len(list(g))) for k,g in groupby(results,attrgetter('cpuarch'))]
 archs = [(k,len(list(g))) for k,g in groupby(results,attrgetter('arch'))]
 runs = [(k,len(list(g))) for k,g in groupby(results,attrgetter('sequence'))]
-
+totals = [0 for x in tests[test_order[0]]]
 %>
 <table>
 <tr>
@@ -243,13 +249,15 @@ runs = [(k,len(list(g))) for k,g in groupby(results,attrgetter('sequence'))]
 <tr>
 %for result in test_results:
 %if result:
-<% r = result.outcome %>
+<% r = result.outcome
+totals[test_results.index(result)] += result.get_elapsed()
+%>
 %else:
 <% r = 'NA' %>
 %endif
 <td class='${r}'>
 %if result:
-${result.outcome[:1]}
+${result.outcome[:1]} &nbsp; ${result.get_run_time().strftime('%M:%S:%f')}
 %else:
 -
 %endif
@@ -261,6 +269,12 @@ ${result.outcome[:1]}
 <td class="test_id">${test_id}</td></tr>
 %endif
 %endfor
+<tr>
+%for total in totals:
+<td class='total'>${time2datetime(total).strftime('%H:%M:%S:%f')}</td>
+%endfor
+<td class='total'>Total run-time</td>
+</tr>
 </table>
 """
 
@@ -272,6 +286,19 @@ makolookup.put_string('base.mako',template_base)
 makolookup.put_string('main.mako',template_main)
 makolookup.put_string('detail.mako',template_detail)
 
+def time2datetime(sec):
+    s,ms = str(sec).split('.')
+    h = 0
+    m = 0
+    ms = int(ms[:6])
+    s = int(s)
+    if s >= 60:
+        m = s / 60
+        s = s % 60
+    if m >= 60:
+        h = m / 60
+        m = m % 60
+    return datetime.time(hour=h,minute=m,second=s,microsecond=ms)
 def xml_safe(value):
     """Replaces invalid XML characters with '?'."""
     return CONTROL_CHARACTERS.sub('?', value)
@@ -606,6 +633,12 @@ class TestVersion(object):
                 except:
                     result.note_exception(cause="Test cleanup: Exception raised while dropping database.")
                     return
+        def get_log():
+            conn = fdb.services.connect(user='sysdba',password=self.user_password)
+            conn.get_log()
+            log = conn.readlines()
+            conn.close()
+            return log
 
         if context.version.startswith('1.5'):
             fb15bandaid()
@@ -632,6 +665,14 @@ class TestVersion(object):
         result[Result.START_TIME] = str(time())
 
         try:
+            # Check that Firebird is running
+            try:
+                conn = fdb.services.connect(user='sysdba',password=self.user_password)
+                conn.close()
+                #self.firebird_log = get_log()
+            except:
+                result.set_outcome(Result.UNTESTED,"Can't connect to Firebird")
+                raise FirebirdNotAvailable()
             # Prepare database if needed
             if self.database == DB_NEW:
                 createCommand = "CREATE DATABASE '%s' USER '%s' PASSWORD '%s'" % (dsn,
@@ -794,7 +835,7 @@ class TestVersion(object):
                 global_ns={
                     'context'           : context.environment,
                     'kdb'               : fdb,
-                    'print'             : print,
+                    'fdb'               : fdb,
                     'printData'         : python_data_printer,
                     'runProgram'        : run_program_from_python_test,
                     'sys'               : sys,
@@ -805,10 +846,13 @@ class TestVersion(object):
                     'page_size'         : self.page_size,
                     'sql_dialect'       : self.sql_dialect,
                     'character_set'     : self.connection_character_set,
+                    #'inital_log'        : self.firebird_log,
+                    #'get_log'           : get_log,
                     #'server_location'   : context["server_location"],
                     #'database_location' : context[self.db_path_property],
                     'db_conn'           : connection,
                     'db_path_property'  : 'database_location',
+                    'print'             : print
                     }
                 local_ns={}
 
@@ -867,6 +911,8 @@ class TestVersion(object):
         except KeyboardInterrupt:
             cleanup()
             raise
+        except FirebirdNotAvailable:
+            pass
         finally:
             result[Result.END_TIME] = str(time())
 
@@ -1522,6 +1568,8 @@ class Result(object):
     UNTESTED = "UNTESTED"
     #: Outcome
     PASS = "PASS"
+    #: Outcome
+    SKIPPED = "SKIPPED"
 
     # Constants for predefined annotations.
 
@@ -1542,9 +1590,9 @@ class Result(object):
     # Other class variables.
 
     #: List of possible result KINDS
-    kinds = [ RESOURCE_SETUP, RESOURCE_CLEANUP, TEST ]
+    kinds = [RESOURCE_SETUP, RESOURCE_CLEANUP, TEST]
     #: List of possible OUTCOMES.
-    outcomes = [ ERROR, FAIL, UNTESTED, PASS ]
+    outcomes = [ERROR, FAIL, UNTESTED, PASS, SKIPPED]
 
     def __init__(self, kind, id, outcome=PASS, annotations={}):
         """
@@ -1632,9 +1680,12 @@ class Result(object):
         self[Result.TRACEBACK] \
             = '\n'.join(traceback.format_tb(exc_info[2]))
     def get_run_time(self):
-        start_time = float(self.get(self.START_TIME,'0.0'))
-        end_time = float(self.get(self.END_TIME,'0.0'))
-        return end_time - start_time
+        "Return test run time as datetime.time."
+        return time2datetime(float(self.get(self.END_TIME,'0.0')) -
+                             float(self.get(self.START_TIME,'0.0')))
+    def get_elapsed(self):
+        "Return test run time as (float) number of secods."
+        return float(self.get(self.END_TIME,'0.0')) - float(self.get(self.START_TIME,'0.0'))
 
     # Next methods allow 'Result' to act like a dictionary of
     # annotations.
@@ -1760,6 +1811,9 @@ class RunResults(object):
     def get_fails(self):
         """Return list of Results with FAIL outcome"""
         return [result for result in self.values() if result.outcome == Result.FAIL]
+    def get_skipped(self):
+        """Return list of Results with SKIPPED outcome"""
+        return [result for result in self.values() if result.outcome == Result.SKIPPED]
     def get_pass_count(self):
         """Return number of PASS outcomes"""
         return sum(1 for outcome in (r.outcome for r in self.values()) if outcome == Result.PASS)
@@ -1769,6 +1823,9 @@ class RunResults(object):
     def get_untested_count(self):
         """Return number of UNTESTED outcomes"""
         return sum(1 for outcome in (r.outcome for r in self.values()) if outcome == Result.UNTESTED)
+    def get_skipped_count(self):
+        """Return number of SKIPPED outcomes"""
+        return sum(1 for outcome in (r.outcome for r in self.values()) if outcome == Result.SKIPPED)
     def get_fail_count(self):
         """Return number of FAIL outcomes"""
         return sum(1 for outcome in (r.outcome for r in self.values()) if outcome == Result.FAIL)
@@ -1790,6 +1847,7 @@ class RunResults(object):
         f.write('Fails:    %i\n' % self.get_fail_count())
         f.write('Errors:   %i\n' % self.get_error_count())
         f.write('Untested: %i\n' % self.get_untested_count())
+        f.write('Skipped: %i\n' % self.get_skipped_count())
         f.close()
     def save_xunit(self,filename):
         """Write xunit XML report to file.
@@ -1798,9 +1856,9 @@ class RunResults(object):
         """
         f = open(filename,'w')
         f.write('<?xml version="1.0" encoding="UTF-8"?>')
-        f.write('<testsuite name="fbtest" tests="%i" errors="%i" failures="%i" skip="%i">' %
+        f.write('<testsuite name="fbtest" tests="%i" errors="%i" failures="%i" untested="%i" skip="%i">' %
                 (len(self.results),self.get_error_count(),self.get_fail_count(),
-                 self.get_untested_count()))
+                 self.get_untested_count(),self.get_skipped_count()))
         for result in self.values():
             if result.outcome == Result.PASS:
                 f.write('<testcase classname="Test" name="%s" time="%.3f" />' % (
@@ -1834,6 +1892,9 @@ class RunResults(object):
                 elif result.outcome == Result.UNTESTED:
                     f.write('<failure type="untested" message=%s>' % self._quoteattr(result.get_cause()))
                     f.write('</failure>')
+                elif result.outcome == Result.SKIPPED:
+                    f.write('<failure type="skipped" message=%s>' % self._quoteattr(result.get_cause()))
+                    f.write('</failure>')
                 f.write('</testcase>')
         f.write('</testsuite>')
         f.close()
@@ -1849,6 +1910,7 @@ class RunResults(object):
         print ('Fails:    %i' % self.get_fail_count())
         print ('Errors:   %i' % self.get_error_count())
         print ('Untested: %i' % self.get_untested_count())
+        print ('Skipped:  %i' % self.get_skipped_count())
     def print_report(self):
         for result in self.get_errors():
             print ('=' * 70)
@@ -1867,6 +1929,10 @@ class RunResults(object):
             print ('UNTESTED:', result.id)
             print ('-' * 70)
             print (result.get_cause())
+            print()
+        for result in self.get_skipped():
+            print ('=' * 70)
+            print ('SKIPPED:', result.id)
             print()
 
 class Runner(object):
@@ -2046,7 +2112,7 @@ class Runner(object):
         else:
             self.person_name = person.lower()
             self.person_id = person.upper()[:2]
-    def run(self,test_list=None,verbosity=1,results=None,no_summary=False,expectations=None):
+    def run(self,test_list=None,skip_list=None,verbosity=1,results=None,no_summary=False,expectations=None):
         """Run tests.
 
         :param test_list:  List of :class:`Test` objects to run. If not specified,
@@ -2083,6 +2149,11 @@ class Runner(object):
                 test_recipe = test.get_version_for(self.platform,self.version)
                 result = Result(Result.TEST,test.id)
                 skip = False
+
+                # Handle skipped test
+                if test in skip_list:
+                    skip = True
+                    result.set_outcome(Result.SKIPPED, cause="Test in skip list.")
 
                 if test_recipe:
                     # handle resources
@@ -2183,6 +2254,7 @@ class Runner(object):
             fails = results.get_fail_count()
             errors = results.get_error_count()
             untested = results.get_untested_count()
+            skipped = results.get_skipped_count()
             print ()
             if fails + errors + untested == 0:
                 print ('OK')
@@ -2194,6 +2266,8 @@ class Runner(object):
                     print ('(errors=%i)' % errors,end='')
                 if untested > 0:
                     print ('(untested=%i)' % untested,end='')
+                if skipped > 0:
+                    print ('(skipped=%i)' % skipped,end='')
                 print()
         return results
 
@@ -2285,6 +2359,11 @@ class ScriptRunner(object):
             run_ids = [r.id for r in last_results.results.values() if r.kind == Result.TEST and
                        r.outcome != Result.PASS]
             run_list = list(itertools.imap(repository.get_test, run_ids))
+        elif options.untested:
+            last_results = RunResults.load(os.path.join(os.getcwd(),'results.trf'))
+            run_ids = [r.id for r in last_results.results.values() if r.kind == Result.TEST and
+                       r.outcome == Result.UNTESTED]
+            run_list = list(itertools.imap(repository.get_test, run_ids))
         else:
             if options.name:
                 suite = repository.get_suite(options.name)
@@ -2300,14 +2379,12 @@ class ScriptRunner(object):
                 run_list = repository.suite.get_tests()
 
         if run_list:
-            run_list = [test for test in run_list if test not in skip_tests]
-
-        if run_list:
             if options.remote:
-                results = runner.run(run_list,verbosity,RunResults(),expectations=expectations)
+                results = runner.run(run_list,skip_tests,verbosity,RunResults(),
+                                     expectations=expectations)
             else:
-                results = runner.run(run_list,verbosity,expectations=expectations)
-            if not options.rerun:
+                results = runner.run(run_list,skip_tests,verbosity,expectations=expectations)
+            if not (options.rerun or options.untested):
                 results.dump(os.path.join(os.getcwd(),'results.trf'))
             elif options.update:
                 last_results.results.update(results.results)
@@ -2447,6 +2524,21 @@ class ScriptRunner(object):
             if cause:
                 print ('  ',u.get_cause())
 
+    def print_skipped(self,result,cause=False):
+        """Print IDs of tests that ended with SKIPPED.
+
+        :param result: Run results.
+        :type result: :class:`RunResults`
+        :param bool cause: Print cause.
+        """
+        skipped = result.get_skipped()
+        if skipped:
+            print ('=== SKIPPED '+('='*59))
+        for u in skipped:
+            print (u.id)
+            if cause:
+                print ('  ',u.get_cause())
+
     def print_analysis(self,version,results,tests,test_details,test_order,
                        output_dir,diffs_only):
         """Create HTML files with test run analysis.
@@ -2468,7 +2560,8 @@ class ScriptRunner(object):
         f = open(os.path.join(output_dir,'index.html'),'w')
         try:
             f.write(main_template.render(version=version,results=results,tests=tests,
-                                   test_details=test_details,test_order=test_order))
+                                   test_details=test_details,test_order=test_order,
+                                   time2datetime=time2datetime))
         finally:
             f.close()
 
@@ -2527,13 +2620,13 @@ class ScriptRunner(object):
         :param string output_dir: Directory for HTML output files.
         """
         def okey(value):
-            r = max((['PASS', 'ERROR', 'FAIL', 'UNTESTED'].index(r.outcome) for r in tests[value] if r))
+            r = max((['PASS', 'ERROR', 'FAIL', 'UNTESTED', 'SKIPPED'].index(r.outcome) for r in tests[value] if r))
             if r == 0:
                 return value
             else:
                 return r
         def overall_outcome_weight(results):
-            return max((['PASS', 'ERROR', 'FAIL', 'UNTESTED'].index(r.outcome) for r in results if r))
+            return max((['PASS', 'ERROR', 'FAIL', 'UNTESTED', 'SKIPPED'].index(r.outcome) for r in results if r))
 
         # pass 0: Load results
         results = [RunResults.load(filename) for filename in filenames]
@@ -2697,6 +2790,7 @@ class ScriptRunner(object):
                 self.print_fails(result,options.cause,options.details)
                 self.print_errors(result,options.cause,options.details)
                 self.print_untested(result,options.cause)
+                self.print_skipped(result,options.cause)
                 print('')
     def cmd_archive_list(self,options):
         """Called by :func:`~fbtest.run_archive` for command execution.
@@ -2882,6 +2976,7 @@ def run_tests():
     parser.add_argument('-d','--db-dir',help="Directory to use for test databases")
     parser.add_argument('--archive',action='store_true',help="Save last run results to archive")
     parser.add_argument('--rerun',action='store_true',help="Run only tests that don't PASSed in last run")
+    parser.add_argument('--untested',action='store_true',help="Run only tests that were UNTESTED in last run")
     parser.add_argument('-v','--verbose',action='store_true',help="Be more verbose")
     parser.add_argument('--verbosity',type=int,choices=[0,1,2],default=1,help="Set verbosity; --verbosity=2 is the same as -v")
     parser.add_argument('-q','--quiet',action='store_true',help="Be less verbose")
@@ -2898,7 +2993,7 @@ def run_tests():
     parser.add_argument('-s','--sequence',type=int,help="Run sequence number for this target")
     parser.add_argument('-k','--skip',help="Suite or test name or name of file with suite/test names to skip")
     parser.add_argument('-c','--client',help="Use specified Firebird client library")
-    parser.set_defaults(rerun=False,update=False,server=False,register=False,
+    parser.set_defaults(rerun=False,untested=False,update=False,server=False,register=False,
                         remote=False,host='localhost',password='masterkey',
                         sequence=1,arch='SS',person=UNKNOWN)
 
@@ -3221,3 +3316,4 @@ def run_archive():
 
 if __name__=='__main__':
     run_tests()
+    #run_analyze()

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Usage Guide &mdash; fbtest 1.0.3 documentation</title>
+    <title>Usage Guide &mdash; fbtest 1.0.4 documentation</title>
     
     <link rel="stylesheet" href="_static/fdbtheme.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.0.3',
+        VERSION:     '1.0.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="fbtest 1.0.3 documentation" href="index.html" />
+    <link rel="top" title="fbtest 1.0.4 documentation" href="index.html" />
     <link rel="next" title="How to design new tests" href="new-test-design.html" />
     <link rel="prev" title="Introduction" href="introduction.html" />
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
@@ -50,7 +50,7 @@
         <li class="right" >
           <a href="introduction.html" title="Introduction"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">fbtest 1.0.3 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">fbtest 1.0.4 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -166,6 +166,7 @@ optional arguments:
                         Directory to use for test databases
   --archive             Save last run results to archive
   --rerun               Run only tests that don&#39;t PASSed in last run
+  --untested            Run only tests that were UNTESTED in last run
   -v, --verbose         Be more verbose
   --verbosity {0,1,2}   Set verbosity; --verbosity=2 is the same as -v
   -q, --quiet           Be less verbose
@@ -286,7 +287,8 @@ If you want temporary databases in different location, you will need <code class
 server architecture of tested engine using <code class="xref std std-option docutils literal"><span class="pre">--arch</span></code> option.</li>
 <li>If you want that test run results would be also archived, you have to specify <code class="xref std std-option docutils literal"><span class="pre">--archive</span></code>
 option. You should also consider using <code class="xref std std-option docutils literal"><span class="pre">--arch</span></code> and <code class="xref std std-option docutils literal"><span class="pre">--person</span></code> options in this case.</li>
-<li>If you want to exclude some tests from execution, you will need <code class="xref std std-option docutils literal"><span class="pre">--skip</span></code> option.</li>
+<li>If you want to exclude some tests from execution, you will need <code class="xref std std-option docutils literal"><span class="pre">--skip</span></code> option. However these
+tests are included into results file with outcome <cite>SKIPPED</cite> which is special kind of <cite>UNTESTED</cite> outcome.</li>
 <li>If you know that some tests will fail, you can either skip them altogether using <code class="xref std std-option docutils literal"><span class="pre">--skip</span></code>
 option, or you can run them but set an expectation using <code class="xref std std-option docutils literal"><span class="pre">--expect</span></code> option and a result file
 from previous run. Test will then PASS if test outcome and its cause will match expected one, otherwise
@@ -299,6 +301,10 @@ you have to specify <code class="xref std std-option docutils literal"><span cla
 location after each series run, or use <code class="xref std std-option docutils literal"><span class="pre">--archive</span></code>.</li>
 <li>If you want to run only tests that didn&#8217;t passed the last run, use <code class="xref std std-option docutils literal"><span class="pre">--rerun</span></code> option, and
 if you want the last run results updated with results from new run, use <code class="xref std std-option docutils literal"><span class="pre">--update</span></code> option.</li>
+<li>Since version 1.0.4 <cite>fbt_run</cite> checks that Firebird engine is running before each test is executed by
+creating a connection to Firebird services. If this attempt fails, test is not executed at all, and
+its outcome is set to <cite>UNTESTED</cite>. When you fix the problem with Firebird engine, you may re-run all
+these tests using <code class="xref std std-option docutils literal"><span class="pre">--untested</span></code> option that works similarly to <code class="xref std std-option docutils literal"><span class="pre">--rerun</span></code> option.</li>
 <li>If you want to send run results to someone, you should specify <code class="xref std std-option docutils literal"><span class="pre">--arch</span></code> and
 <code class="xref std std-option docutils literal"><span class="pre">--person</span></code> options.</li>
 <li>If you need run results also in standard XUnit XML format, use <code class="xref std std-option docutils literal"><span class="pre">--xunit</span></code> option.</li>
@@ -565,6 +571,10 @@ passed.</p>
 <p>As you can see, summary is presented as table with row for each test and column for each input results
 file. Table cells contain test run outcome for each run. Columns are sorted and grouped by platform,
 CPU, Firebird architecture and test run sequence number.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Since version 1.0.4 this report contains time performance of tests.</p>
+</div>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
 <p class="last">If you want to compare results from several test runs, you must specify <code class="xref std std-option docutils literal"><span class="pre">--sequence</span></code> option
@@ -887,7 +897,7 @@ Current version: 2.5.2.26540
         <li class="right" >
           <a href="introduction.html" title="Introduction"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">fbtest 1.0.3 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">fbtest 1.0.4 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

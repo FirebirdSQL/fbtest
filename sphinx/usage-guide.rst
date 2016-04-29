@@ -119,6 +119,7 @@ Usage::
                            Directory to use for test databases
      --archive             Save last run results to archive
      --rerun               Run only tests that don't PASSed in last run
+     --untested            Run only tests that were UNTESTED in last run
      -v, --verbose         Be more verbose
      --verbosity {0,1,2}   Set verbosity; --verbosity=2 is the same as -v
      -q, --quiet           Be less verbose
@@ -253,7 +254,8 @@ additional options in other cases:
 - If you want that test run results would be also archived, you have to specify :option:`--archive` 
   option. You should also consider using :option:`--arch` and :option:`--person` options in this case.
 
-- If you want to exclude some tests from execution, you will need :option:`--skip` option.
+- If you want to exclude some tests from execution, you will need :option:`--skip` option. However these 
+  tests are included into results file with outcome `SKIPPED` which is special kind of `UNTESTED` outcome.
 
 - If you know that some tests will fail, you can either skip them altogether using :option:`--skip` 
   option, or you can run them but set an expectation using :option:`--expect` option and a result file
@@ -269,6 +271,11 @@ additional options in other cases:
 
 - If you want to run only tests that didn't passed the last run, use :option:`--rerun` option, and 
   if you want the last run results updated with results from new run, use :option:`--update` option.
+
+- Since version 1.0.4 `fbt_run` checks that Firebird engine is running before each test is executed by
+  creating a connection to Firebird services. If this attempt fails, test is not executed at all, and
+  its outcome is set to `UNTESTED`. When you fix the problem with Firebird engine, you may re-run all 
+  these tests using :option:`--untested` option that works similarly to :option:`--rerun` option.
 
 - If you want to send run results to someone, you should specify :option:`--arch` and 
   :option:`--person` options.
@@ -561,6 +568,10 @@ Example summary page:
 As you can see, summary is presented as table with row for each test and column for each input results 
 file. Table cells contain test run outcome for each run. Columns are sorted and grouped by platform,
 CPU, Firebird architecture and test run sequence number.
+
+.. note::
+
+   Since version 1.0.4 this report contains time performance of tests.
 
 .. important::
 
