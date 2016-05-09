@@ -1862,10 +1862,10 @@ class RunResults(object):
         for result in self.values():
             if result.outcome == Result.PASS:
                 f.write('<testcase classname="Test" name="%s" time="%.3f" />' % (
-                result.id,result.get_run_time()))
+                result.id,result.get_elapsed()))
             else:
                 f.write('<testcase classname="Test" name="%s" time="%.3f">' % (
-                result.id,result.get_run_time()))
+                result.id,result.get_elapsed()))
                 if result.outcome == Result.ERROR:
                     if result.has_key(Result.EXCEPTION):
                         e = result[Result.EXCEPTION]
