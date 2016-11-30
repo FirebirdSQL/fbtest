@@ -20,6 +20,11 @@ Globals
 .. autodata:: TEST_TYPES
 .. autodata:: PLATFORMS
 .. autodata:: UNKNOWN
+.. autodata:: template_base
+.. autodata:: template_detail
+.. autodata:: template_main
+.. autodata:: archive_db
+
 .. data:: script_runner
 
    :class:`ScriptRunner` instance.
@@ -27,6 +32,8 @@ Globals
 Functions
 =========
 
+.. autofunction:: archive_db_commands
+.. autofunction:: time2datetime
 .. autofunction:: xml_safe
 .. autofunction:: escape_cdata
 .. autofunction:: trim_value
@@ -125,4 +132,5 @@ Script Functions
 .. autofunction:: run_update
 .. autofunction:: run_view
 .. autofunction:: run_archive
+.. autofunction:: run_database
 

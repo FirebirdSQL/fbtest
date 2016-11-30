@@ -2,8 +2,14 @@
 Changelog
 #########
 
+* `Version 1.0.5`_ (30.11.2016)
 * `Version 1.0.4`_ (29.4.2016)
 * `Version 1.0.3`_ (31.3.2016)
+
+Version 1.0.5
+=============
+
+- New utility fbt_db for managing Firebird database with test results.
 
 Version 1.0.4
 =============

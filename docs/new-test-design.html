@@ -63,23 +63,14 @@
 <h1>How to design new tests<a class="headerlink" href="#how-to-design-new-tests" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="where-to-start">
 <h2>Where to start<a class="headerlink" href="#where-to-start" title="Permalink to this headline">¶</a></h2>
-<p>First, it&#8217;s important to identify what you want to test. To avoid collision with others, take a look
-at our list of tests, and check if your beloved one is not already created! Then let us know about
-your intention in <cite>firebird-test</cite> mailing list.</p>
-<p>If you want to create functionality tests, then you&#8217;ll need Firebird SQL Reference Guide. Unfortunately,
-there isn&#8217;t any <strong>complete</strong> and freely available Firebird-specific SQL reference documentation
-right now, but you can use <a class="reference external" href="http://www.ibphoenix.com/files/60LangRef.zip">InterBase 6.0 Language Reference Guide</a> together with
-<a class="reference external" href="http://www.firebirdsql.org/file/documentation/reference_manuals/reference_material/html/langrefupd25.html">Language Reference Update</a> documents.</p>
-<p>If you want to create regression tests, please refer to <a class="reference external" href="http://tracker.firebirdsql.org">Firebird Project Tracker</a> for all bug-related
-informations. It&#8217;s also advised to consult Firebird QA team.</p>
+<p>First, it&#8217;s important to identify what you want to test. To avoid collision with others, take a look at our list of tests, and check if your beloved one is not already created! Then let us know about your intention in <cite>firebird-test</cite> mailing list.</p>
+<p>If you want to create functionality tests, then you&#8217;ll need Firebird SQL Reference Guide. Unfortunately, there isn&#8217;t any <strong>complete</strong> and freely available Firebird-specific SQL reference documentation right now, but you can use <a class="reference external" href="http://www.ibphoenix.com/files/60LangRef.zip">InterBase 6.0 Language Reference Guide</a> together with <a class="reference external" href="http://www.firebirdsql.org/file/documentation/reference_manuals/reference_material/html/langrefupd25.html">Language Reference Update</a> documents.</p>
+<p>If you want to create regression tests, please refer to <a class="reference external" href="http://tracker.firebirdsql.org">Firebird Project Tracker</a> for all bug-related informations. It&#8217;s also advised to consult Firebird QA team.</p>
 </div>
 <div class="section" id="the-golden-rule">
 <h2>The Golden Rule<a class="headerlink" href="#the-golden-rule" title="Permalink to this headline">¶</a></h2>
-<p>Test case should be really simple, and should cover only one aspect of single feature / command in
-discrete conditions.</p>
-<p>Lets take the SELECT statement as an example. SELECT statement is quite complex, so you&#8217;ll need to break
-it into clauses and choose one, for example the FIRST/SKIP. Then you need to identify all the features
-of that statement you want to test.</p>
+<p>Test case should be really simple, and should cover only one aspect of single feature / command in discrete conditions.</p>
+<p>Lets take the SELECT statement as an example. SELECT statement is quite complex, so you&#8217;ll need to break it into clauses and choose one, for example the FIRST/SKIP. Then you need to identify all the features of that statement you want to test.</p>
 <blockquote>
 <div><ol class="arabic simple">
 <li>SKIP only</li>
@@ -87,11 +78,8 @@ of that statement you want to test.</p>
 <li>FIRST and SKIP together</li>
 </ol>
 </div></blockquote>
-<p>Then you can go to design test cases that would cover these features. Focus on testing all <cite>legal paths</cite>
-first (positive test) — i.e. does it work correctly as specified? If there are any behaviour-switching
-value boundaries, concentrate your work around them!</p>
-<p>For example positive test cases for FIRST .. SKIP for feature &#8220;3. FIRST and SKIP together&#8221; could be
-defined as checking result from &#8220;select skip 10 first 5...&#8221; in next conditions:</p>
+<p>Then you can go to design test cases that would cover these features. Focus on testing all <cite>legal paths</cite> first (positive test) — i.e. does it work correctly as specified? If there are any behaviour-switching value boundaries, concentrate your work around them!</p>
+<p>For example positive test cases for FIRST .. SKIP for feature &#8220;3. FIRST and SKIP together&#8221; could be defined as checking result from &#8220;select skip 10 first 5...&#8221; in next conditions:</p>
 <blockquote>
 <div><ol class="arabic simple">
 <li>with no data — <cite>No data</cite> is an important condition for all DML commands</li>
@@ -100,115 +88,62 @@ defined as checking result from &#8220;select skip 10 first 5...&#8221; in next 
 <li>with 16 rows — Behaviour-switching value boundary for FIRST</li>
 </ol>
 </div></blockquote>
-<p>When you have these basic test cases, you can specify various work conditions and combine these test
-cases with them to produce final set of test cases:</p>
+<p>When you have these basic test cases, you can specify various work conditions and combine these test cases with them to produce final set of test cases:</p>
 <blockquote>
 <div><ol class="arabic simple">
 <li>Data taken from single table without WHERE predicate, i.e. table contains specified number of rows.</li>
-<li>Data taken from single table, larger resultset narrowed by WHERE predicate to specified number
-of rows.</li>
+<li>Data taken from single table, larger resultset narrowed by WHERE predicate to specified number of rows.</li>
 <li>Data taken from joined tables, where result of this join has required number of rows.</li>
 <li>Data taken from stored procedure that generates required number of rows.</li>
-<li>SORTED result from any source of data listed above (there is no need to spawn another dimension
-in the matrix, as dependancy on source of data is already covered in other groups).</li>
+<li>SORTED result from any source of data listed above (there is no need to spawn another dimension in the matrix, as dependancy on source of data is already covered in other groups).</li>
 </ol>
 </div></blockquote>
-<p>When legal paths are explored and covered, look at important <cite>illegal paths</cite> (negative tests) - does it
-correctly signal an error when wrong values are submitted? Because negative tests are endless, focus
-only on most important / expected points of failure. For example:</p>
+<p>When legal paths are explored and covered, look at important <cite>illegal paths</cite> (negative tests) - does it correctly signal an error when wrong values are submitted? Because negative tests are endless, focus only on most important / expected points of failure. For example:</p>
 <blockquote>
 <div><ol class="arabic simple">
 <li>Negative value for SKIP</li>
 <li>Negative value for FIRST</li>
 </ol>
 </div></blockquote>
-<p>You should also define test cases for special &#8220;bizarre&#8221; values that are legal (so they do not raise
-an error), but are not &#8220;right&#8221; in common sense. They are used rarely, so they are often overlooked
-by test designers, but as they are typically behaviour-switching boundary values, their verification
-is very important. In case of FIRST and SKIP, this &#8220;bizarre&#8221; parameter value is zero.</p>
-<p>Each test case has its own requirements for running environment: database schema and content, tools etc.
-These requirements must be a part of test case specification.</p>
+<p>You should also define test cases for special &#8220;bizarre&#8221; values that are legal (so they do not raise an error), but are not &#8220;right&#8221; in common sense. They are used rarely, so they are often overlooked by test designers, but as they are typically behaviour-switching boundary values, their verification is very important. In case of FIRST and SKIP, this &#8220;bizarre&#8221; parameter value is zero.</p>
+<p>Each test case has its own requirements for running environment: database schema and content, tools etc. These requirements must be a part of test case specification.</p>
 <p>All tests have common basic structure:</p>
 <blockquote>
 <div><ol class="arabic simple">
 <li><strong>Requirements</strong> for running environment: database schema and content, tools etc.</li>
-<li><strong>Tested command(s)</strong>. If test cases are well defined, then each has one and only one directly
-tested command. Its outcome is verified by expected output (if any), and / or with additional
-checks (check for right content in system tables for example).</li>
-<li><strong>Expected output</strong> from tested command(s). It could be standard command output or error message.
-The best way to describe it is as standard ISQL output when command(s) is executed (You can use
-ISQL OUTPUT command to grab it). But you can define it in any other way you see fit for you and
-the purpose.</li>
-<li><strong>Additional checks</strong>. If the direct output from tested command is not enough to verify its
-correctness (some commands even don&#8217;t produce any &#8220;visible&#8221; output), you must use additional
-means (check the content in system tables, check presence of file on disk etc.)</li>
+<li><strong>Tested command(s)</strong>. If test cases are well defined, then each has one and only one directly tested command. Its outcome is verified by expected output (if any), and / or with additional checks (check for right content in system tables for example).</li>
+<li><strong>Expected output</strong> from tested command(s). It could be standard command output or error message. The best way to describe it is as standard ISQL output when command(s) is executed (You can use ISQL OUTPUT command to grab it). But you can define it in any other way you see fit for you and the purpose.</li>
+<li><strong>Additional checks</strong>. If the direct output from tested command is not enough to verify its correctness (some commands even don&#8217;t produce any &#8220;visible&#8221; output), you must use additional means (check the content in system tables, check presence of file on disk etc.)</li>
 </ol>
 </div></blockquote>
 </div>
 <div class="section" id="making-test-cases-into-tests">
 <h2>Making test cases into tests<a class="headerlink" href="#making-test-cases-into-tests" title="Permalink to this headline">¶</a></h2>
-<p>In ideal world, each test case would be implemented as single test. This setup would provide most value
-for QA team, as test failure could be easily analyzed, and broken part of the engine (or in test
-itself) could be tracked down more precisely. Unfortunately, test implementation could require a lot
-of work, because each test needs its own running environment created independently from other tests.
-So if several test cases are closely related and use the same working environment, it could be more
-practical to give up on fine-grained evidence in test outcome in favour of simplified implementation,
-and merge them into single test.</p>
-<p>In case of &#8220;FIRST 5 SKIP 10&#8221; we crumbled before into approx. 20 test cases we can implement some groups
-of test cases that use the same database and source of data in single test. For example group of test
-cases that take data from single table, with larger resultset narrowed by WHERE predicate to none, 10,
-11 and 16 rows can easily use the same setup (database, table and table content), so we can create it
+<p>In ideal world, each test case would be implemented as single test. This setup would provide most value for QA team, as test failure could be easily analyzed, and broken part of the engine (or in test itself) could be tracked down more precisely. Unfortunately, test implementation could require a lot of work, because each test needs its own running environment created independently from other tests. So if several test cases are closely related and use the same working environment, it could be more practical to give up on fine-grained evidence in test outcome in favour of simplified implementation, and merge them into single test.</p>
+<p>In case of &#8220;FIRST 5 SKIP 10&#8221; we crumbled before into approx. 20 test cases we can implement some groups of test cases that use the same database and source of data in single test. For example group of test cases that take data from single table, with larger resultset narrowed by WHERE predicate to none, 10, 11 and 16 rows can easily use the same setup (database, table and table content), so we can create it
 as single test.</p>
-<p>When you decide to wrap up several test cases into single test, keep clear what are individual test
-cases, i.e. don&#8217;t try to make any &#8220;shortcuts&#8221; or &#8220;optimizations&#8221; in them. They should share only
-the common environment, nothing more. It should be also clearly stated and documented, that this
-paricular test contains multiple tests cases, and which they are.</p>
+<p>When you decide to wrap up several test cases into single test, keep clear what are individual test cases, i.e. don&#8217;t try to make any &#8220;shortcuts&#8221; or &#8220;optimizations&#8221; in them. They should share only the common environment, nothing more. It should be also clearly stated and documented, that this paricular test contains multiple tests cases, and which they are.</p>
 </div>
 <div class="section" id="from-drawing-board-to-production">
 <h2>From drawing board to production<a class="headerlink" href="#from-drawing-board-to-production" title="Permalink to this headline">¶</a></h2>
-<p>Once the test design is finished, it&#8217;s time to implement it. If you do not want to mess up with <cite>fbtest</cite>
-and implement it yourself, you can simply write the specification for test and send it over to us.</p>
+<p>Once the test design is finished, it&#8217;s time to implement it. If you do not want to mess up with <cite>fbtest</cite> and implement it yourself, you can simply write the specification for test and send it over to us.</p>
 <p>In this case, the test specification document should contain next information:</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Test ID:</th><td class="field-body">Tests have hierarchical, dot-separated names / ID&#8217;s, that must be unique in whole
-Firebird test suite. Take a look at test IDs in <a class="reference internal" href="usage-guide.html#test-repository"><span>Test Repository</span></a> for
-test ID examples. It would be great if test ID would conform to common schema used by Firebird
-QA team so it could persist, but don&#8217;t worry too much about it, as it could be easily adjusted
-later, and the main purpose for Test ID in specification document is to have a tag that could
-be used to refer on test in communication between you and the QA team.</td>
+<tr class="field-odd field"><th class="field-name">Test ID:</th><td class="field-body">Tests have hierarchical, dot-separated names / ID&#8217;s, that must be unique in whole Firebird test suite. Take a look at test IDs in <a class="reference internal" href="usage-guide.html#test-repository"><span>Test Repository</span></a> for test ID examples. It would be great if test ID would conform to common schema used by Firebird QA team so it could persist, but don&#8217;t worry too much about it, as it could be easily adjusted later, and the main purpose for Test ID in specification document is to have a tag that could be used to refer on test in communication between you and the QA team.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Author:</th><td class="field-body">Your name and e-mail</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">Clear specification what is checked by this test. If test contains more than one test case
-(see above), then all test cases should be described separately.</td>
+<tr class="field-odd field"><th class="field-name">Description:</th><td class="field-body">Clear specification what is checked by this test. If test contains more than one test case (see above), then all test cases should be described separately.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Dependencies:</th><td class="field-body">Your test would very likely depend on other SQL commands, tools or Firebird features
-beside tested ones, so they must work correctly if the test outcome should not be spoiled.
-Because these features are checked by other tests, we can simply run tests in dependancy
-order to get unspoiled results. Of course, we could extract this information from other
-parts of specification, but separate list of dependencies would make the whole
-specification more clear and concise, and save us some time we would need to figure it out.
-You can simply describe these dependencies by words, or you can look up IDs for tests that
-must be run before this one (but it&#8217;s not necessary)</td>
+<tr class="field-even field"><th class="field-name">Dependencies:</th><td class="field-body">Your test would very likely depend on other SQL commands, tools or Firebird features beside tested ones, so they must work correctly if the test outcome should not be spoiled. Because these features are checked by other tests, we can simply run tests in dependancy order to get unspoiled results. Of course, we could extract this information from other parts of specification, but separate list of dependencies would make the whole specification more clear and concise, and save us some time we would need to figure it out. You can simply describe these dependencies by words, or you can look up IDs for tests that must be run before this one (but it&#8217;s not necessary)</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Prerequisites:</th><td class="field-body">Any special conditions, tools or environment required for this test (except the test
-database and standard tools). Most tests do not have any special requirement beyond
-single work database and availability of standard Firebird command-line tools, so these
-requirements are fulfiled automatically. But if your test needs anything else beyond that,
-you must enlist it here.</td>
+<tr class="field-odd field"><th class="field-name">Prerequisites:</th><td class="field-body">Any special conditions, tools or environment required for this test (except the test database and standard tools). Most tests do not have any special requirement beyond single work database and availability of standard Firebird command-line tools, so these requirements are fulfiled automatically. But if your test needs anything else beyond that, you must enlist it here.</td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">Database specification:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body">It&#8217;s very likely that your test works with a database. You can give us a backup
-file for it (if the schema is complex or database must contain a lot of data),
-or you can specify how it could be created. By default, each test can get a new
-dialect 3 database owned by SYSDBA, with character set NONE and with page size
-4K, so you don&#8217;t need to specify these parameters if they are not different.
-If you would need this database with certain schema and populated with data,
-provide an ISQL script for it here. You can also refer to a database/script
-used in another test by test ID</td>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">It&#8217;s very likely that your test works with a database. You can give us a backup file for it (if the schema is complex or database must contain a lot of data), or you can specify how it could be created. By default, each test can get a new dialect 3 database owned by SYSDBA, with character set NONE and with page size 4K, so you don&#8217;t need to specify these parameters if they are not different.If you would need this database with certain schema and populated with data, provide an ISQL script for it here. You can also refer to a database/script used in another test by test ID</td>
 </tr>
 <tr class="field-odd field"><th class="field-name" colspan="2">Test command(s):</th></tr>
 <tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Self-explanatory.</td>
@@ -217,10 +152,7 @@ used in another test by test ID</td>
 <tr class="field-even field"><td>&nbsp;</td><td class="field-body">from tested command (returned data or error code etc.)</td>
 </tr>
 <tr class="field-odd field"><th class="field-name" colspan="2">Additional checks:</th></tr>
-<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(if any) - verification from database content (for INSERT statement and the likes).
-DDL commands are checked against system tables. Check may query more than
-one table, but it&#8217;s necessary to list each command and its expected output
-(captured output from ISQL is enough).</td>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">(if any) - verification from database content (for INSERT statement and the likes). DDL commands are checked against system tables. Check may query more than one table, but it&#8217;s necessary to list each command and its expected output (captured output from ISQL is enough).</td>
 </tr>
 </tbody>
 </table>

@@ -49,8 +49,9 @@ from argparse import ArgumentParser
 from time import time
 from xml.sax import saxutils
 import datetime
+from contextlib import closing
 
-__version__ = "1.0.2"
+__version__ = "1.0.5"
 
 try:
     from subprocess import Popen, PIPE
@@ -86,7 +87,7 @@ CHARACTER_SETS    = [None, 'NONE','ASCII','BIG_5','CYRL','DOS437','DOS737','DOS7
                     'WIN1252','WIN1253','WIN1254','WIN1255','WIN1256','WIN1257',
                     'WIN1258','LATIN2']
 #:
-PAGE_SIZES        = [None,'1024','2048','4096','8192','16384']
+PAGE_SIZES        = [None,'1024','2048','4096','8192','16384','32768']
 #:
 TYPE_ISQL         = 'ISQL'
 #:
@@ -285,6 +286,144 @@ makolookup.template_args['default_filters']=['decode.utf8']
 makolookup.put_string('base.mako',template_base)
 makolookup.put_string('main.mako',template_main)
 makolookup.put_string('detail.mako',template_detail)
+
+archive_db = """CREATE GENERATOR GEN_ANNOTATIONS_ID;
+
+SET GENERATOR GEN_ANNOTATIONS_ID TO 0;
+
+CREATE GENERATOR GEN_ANN_TYPES_ID;
+
+SET GENERATOR GEN_ANN_TYPES_ID TO 0;
+
+CREATE GENERATOR GEN_OUTCOMES_ID;
+
+SET GENERATOR GEN_OUTCOMES_ID TO 0;
+
+CREATE GENERATOR GEN_RUNS_ID;
+
+SET GENERATOR GEN_RUNS_ID TO 0;
+
+CREATE GENERATOR GEN_TESTS_ID;
+
+SET GENERATOR GEN_TESTS_ID TO 0;
+
+CREATE TABLE ANN_TYPES (
+    PK    BIGINT NOT NULL,
+    NAME  VARCHAR(70) NOT NULL);
+
+CREATE TABLE ANNOTATIONS (
+    PK          BIGINT NOT NULL,
+    ANN_TYPE_ID BIGINT NOT NULL,
+    OUTCOME_ID  BIGINT NOT NULL,
+    ANNOTATION  BLOB SUB_TYPE 1 SEGMENT SIZE 80);
+
+CREATE TABLE OUTCOMES (
+    PK        BIGINT NOT NULL,
+    RUN_ID    BIGINT NOT NULL,
+    TEST_ID   BIGINT NOT NULL,
+    KIND      CHAR(3) CHARACTER SET ASCII NOT NULL,
+    OUTCOME   CHAR(1) CHARACTER SET ASCII NOT NULL,
+    RUN_TIME  TIME);
+
+CREATE TABLE RUNS (
+    PK           BIGINT NOT NULL,
+    CREATED      TIMESTAMP NOT NULL,
+    VER          VARCHAR(15) CHARACTER SET ASCII NOT NULL,
+    BUILD        BIGINT,
+    ARCH         CHAR(2) CHARACTER SET ASCII NOT NULL,
+    PLANTFORM    CHAR(1) CHARACTER SET ASCII NOT NULL,
+    CPU          VARCHAR(7) CHARACTER SET ASCII NOT NULL,
+    PERSON_ID    CHAR(2) NOT NULL,
+    PERSON       VARCHAR(25) NOT NULL,
+    SEQ          INTEGER NOT NULL,
+    DESCRIPTION  VARCHAR(30));
+
+CREATE TABLE TESTS (
+    PK    BIGINT NOT NULL,
+    NAME  VARCHAR(300) NOT NULL
+);
+
+ALTER TABLE ANNOTATIONS ADD CONSTRAINT PK_ANNOTATIONS PRIMARY KEY (PK);
+
+ALTER TABLE ANN_TYPES ADD CONSTRAINT PK_ANN_TYPES PRIMARY KEY (PK);
+
+ALTER TABLE OUTCOMES ADD CONSTRAINT PK_OUTCOMES PRIMARY KEY (PK);
+
+ALTER TABLE RUNS ADD CONSTRAINT PK_RUNS PRIMARY KEY (PK);
+
+ALTER TABLE TESTS ADD CONSTRAINT PK_TESTS PRIMARY KEY (PK);
+
+ALTER TABLE ANNOTATIONS ADD CONSTRAINT FK_ANNOTATIONS_1 FOREIGN KEY (ANN_TYPE_ID) REFERENCES ANN_TYPES (PK) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE ANNOTATIONS ADD CONSTRAINT FK_ANNOTATIONS_2 FOREIGN KEY (OUTCOME_ID) REFERENCES OUTCOMES (PK) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE OUTCOMES ADD CONSTRAINT FK_OUTCOMES_1 FOREIGN KEY (RUN_ID) REFERENCES RUNS (PK) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE OUTCOMES ADD CONSTRAINT FK_OUTCOMES_2 FOREIGN KEY (TEST_ID) REFERENCES TESTS (PK) ON DELETE CASCADE ON UPDATE CASCADE;
+
+CREATE INDEX RUNS_IDX1 ON RUNS (CREATED);
+
+CREATE INDEX RUNS_IDX2 ON RUNS (VER);
+
+CREATE INDEX RUNS_IDX3 ON RUNS (PLANTFORM);
+
+CREATE INDEX RUNS_IDX4 ON RUNS (CPU);
+
+CREATE INDEX RUNS_IDX5 ON RUNS (ARCH);
+
+CREATE INDEX RUNS_IDX6 ON RUNS (PERSON_ID);
+
+CREATE INDEX RUNS_IDX7 ON RUNS (BUILD);
+
+CREATE TRIGGER ANNOTATIONS_BI FOR ANNOTATIONS
+ACTIVE BEFORE INSERT POSITION 0
+as
+begin
+  if (new.pk is null) then
+    new.pk = gen_id(gen_annotations_id,1);
+end
+
+CREATE TRIGGER ANN_TYPES_BI FOR ANN_TYPES
+ACTIVE BEFORE INSERT POSITION 0
+as
+begin
+  if (new.pk is null) then
+    new.pk = gen_id(gen_ann_types_id,1);
+end
+
+CREATE TRIGGER OUTCOMES_BI FOR OUTCOMES
+ACTIVE BEFORE INSERT POSITION 0
+as
+begin
+  if (new.pk is null) then
+    new.pk = gen_id(gen_outcomes_id,1);
+end
+
+CREATE TRIGGER RUNS_BI FOR RUNS
+ACTIVE BEFORE INSERT POSITION 0
+as
+begin
+  if (new.pk is null) then
+    new.pk = gen_id(gen_runs_id,1);
+end
+
+CREATE TRIGGER TESTS_BI FOR TESTS
+ACTIVE BEFORE INSERT POSITION 0
+as
+begin
+  if (new.pk is null) then
+    new.pk = gen_id(gen_tests_id,1);
+end"""
+
+def archive_db_commands():
+    lines = []
+    for line in archive_db.split('\n'):
+        if line.strip() == '':
+            yield '\n'.join(lines)
+            lines = []
+        else:
+            lines.append(line)
+    yield '\n'.join(lines)
 
 def time2datetime(sec):
     s,ms = str(sec).split('.')
@@ -616,8 +755,17 @@ class TestVersion(object):
                 result["failing_program"] = program
                 #cleanup()
 
+        def create_tmp_file(prefix=None):
+            """Create temporary file that is automatically removed after test run. Returns file object."""
+            filename = os.tempnam(context.tempdir,prefix)
+            cleanup_files.append(filename)
+            return open(filename)
+
         def cleanup():
             """Cleanup after the test run."""
+            for cleanup_file in cleanup_files:
+                if os.path.exists(cleanup_file):
+                    os.remove(cleanup_file)
             if connection:
                 try:
                     if not connection.closed:
@@ -646,6 +794,7 @@ class TestVersion(object):
         isqlsubs= map(re.compile,['(?m)Database:.*\n?', 'SQL>[ \t]*\n?',
                                   'CON>[ \t]*\n?', '-->[ \t]*\n?'])
         cause = 'Unknown cause'
+        cleanup_files = []
         cleanup_db = None
         connection = None
         if self.database_name:
@@ -838,6 +987,7 @@ class TestVersion(object):
                     'fdb'               : fdb,
                     'printData'         : python_data_printer,
                     'runProgram'        : run_program_from_python_test,
+                    'create_tmp_file'   : create_tmp_file,
                     'sys'               : sys,
                     'dsn'               : dsn,
                     'db_filename'       : db_filename,
@@ -1900,11 +2050,6 @@ class RunResults(object):
         f.close()
     def print_summary(self):
         """Print results summary to stdout."""
-        #outcomes = self.get_outcomes()
-        #passes   = 'Passes:   %i' % sum(1 for outcome in outcomes if outcome == Result.PASS)
-        #untested = 'Untested: %i' % sum(1 for outcome in outcomes if outcome == Result.UNTESTED)
-        #errors   = 'Errors:   %i' % sum(1 for outcome in outcomes if outcome == Result.ERROR)
-        #fails    = 'Fails:    %i' % sum(1 for outcome in outcomes if outcome == Result.FAIL)
         print('')
         print ('Passes:   %i' % self.get_pass_count())
         print ('Fails:    %i' % self.get_fail_count())
@@ -2881,6 +3026,126 @@ class ScriptRunner(object):
             repository.result_archive.delete(result)
             filename = repository.result_archive.get_archive_filename(result)
             print (filename,'deleted.')
+    def cmd_db_create(self,options):
+        """Called by :func:`~fbtest.run_database` for command execution.
+        """
+        try:
+            with closing(fdb.create_database(user='SYSDBA', password=options.password,
+                         host=options.host, database=options.database,
+                         charset='UTF8',page_size=16*1024)) as con:
+                pass
+            with closing(fdb.connect(user='SYSDBA', password=options.password,
+                         host=options.host, database=options.database,
+                         charset='UTF8')) as con:
+                c = con.cursor()
+                for cmd in archive_db_commands():
+                    #print (cmd)
+                    c.execute(cmd)
+                    con.commit()
+                print ()
+                print ("Archive database '%s:%s' created." % (options.host,options.database))
+        except Exception as e:
+            print ("FBTest archive database creation failed")
+            print (e.message)
+            print (e.args[0])
+            return
+
+    def cmd_db_import(self,options):
+        """Called by :func:`~fbtest.run_database` for command execution.
+        """
+        kinds = {"resource_setup":'R-S',"resource_cleanup":'R-C',
+                 "test":'TST'}
+        select_test_ids = "SELECT NAME,PK FROM TESTS"
+        select_ann_types = "SELECT NAME,PK FROM ANN_TYPES"
+        insert_run = """INSERT INTO RUNS
+(CREATED,VER,BUILD,ARCH,PLANTFORM,CPU,PERSON_ID,PERSON,SEQ,DESCRIPTION)
+VALUES (?,?,?,?,?,?,?,?,?,?) RETURNING PK"""
+        insert_test = """INSERT INTO TESTS (NAME) VALUES (?)
+RETURNING PK"""
+        insert_outcome = """INSERT INTO OUTCOMES (RUN_ID, TEST_ID, KIND, OUTCOME, RUN_TIME)
+VALUES (?,?,?,?,?) RETURNING PK"""
+        insert_ann_type = """INSERT INTO ANN_TYPES (NAME) VALUES (?)
+RETURNING PK"""
+        insert_annotation = """INSERT INTO ANNOTATIONS (ANN_TYPE_ID, OUTCOME_ID, ANNOTATION)
+VALUES (?,?,?)"""
+        filenames = []
+
+        if options.name:
+            if os.path.isdir(options.name):
+                filenames = self.get_result_filenames(options.name)
+            elif os.path.isfile(options.name):
+                filenames.append(options.name)
+        else:
+            filenames = self.get_result_filenames(os.getcwd())
+        try:
+            with closing(fdb.connect(user='SYSDBA', password=options.password,
+                         host=options.host, database=options.database,
+                         charset='UTF8')) as con:
+                c = con.cursor()
+                #
+                ann_types = dict([(key,val) for key,val in c.execute(select_ann_types).fetchall()])
+                test_ids = dict([(key,val) for key,val in c.execute(select_test_ids).fetchall()])
+                #
+                ps_ins_outcome = c.prep(insert_outcome)
+                ps_ins_annotation = c.prep(insert_annotation)
+
+                for filename in filenames:
+                    print("Importing %s..." % filename)
+
+                    result = RunResults.load(filename)
+                    # RUN
+                    date = datetime.datetime.now()
+                    version = result.version
+                    version, build = version.rsplit('.',1)
+                    build = int(build)
+                    arch = result.arch[:2].upper()
+                    platform = result.platform[0].upper()
+                    cpu = result.cpuarch
+                    person_id = result.person_id
+                    person = result.person_name
+                    sequence = result.sequence
+                    description = result.description
+                    #
+                    run_id = c.execute(insert_run,
+                               [date,version,build,arch,platform,cpu,
+                                person_id,person,
+                                sequence,description]).fetchone()[0]
+                    # TEST OUTCOMES
+                    for outcome in result.results.itervalues():
+                        test_id = outcome.id
+                        kind = kinds[outcome.kind]
+                        outcome_code = outcome.outcome[0]
+                        run_time = outcome.get_run_time()
+                        #
+                        if test_id not in test_ids:
+                            test_id = c.execute(insert_test,[test_id]).fetchone()[0]
+                            test_ids[outcome.id] = test_id
+                        else:
+                            test_id = test_ids[test_id]
+                        #
+                        outcome_id = c.execute(ps_ins_outcome,
+                                               [run_id,test_id,kind,
+                                                outcome_code,
+                                                run_time]).fetchone()[0]
+                        # ANNOTATIONS
+                        for key,ann in outcome.annotations.iteritems():
+                            if key not in [Result.START_TIME,
+                                           Result.END_TIME]:
+                                if key not in ann_types:
+                                    ann_type_id = c.execute(insert_ann_type,[key]).fetchone()[0]
+                                    ann_types[key] = ann_type_id
+                                else:
+                                    ann_type_id = ann_types[key]
+                                c.execute(ps_ins_annotation,[ann_type_id,outcome_id,ann])
+                    #
+                    con.commit()
+                    #
+            print("Import finished.")
+        except Exception as e:
+            print ("Import failed.")
+            print (e.message)
+            print (e.args[0])
+            return
 
 #: :class:`ScriptRunner` instance.
 script_runner = ScriptRunner()
@@ -3314,6 +3579,84 @@ def run_archive():
     args = parser.parse_args()
     args.func(args)
 
+def run_database():
+    """CLI Script function to maintain database archive of Result file(s).
+
+    This is a 'main' function called by :command:`fbt_db` script.
+
+    usage::
+
+        fbt_db [-h] [-w PASSWORD] [-o HOST]
+               [-d DATABASE] {import,create} ...
+
+        optional arguments:
+          -h, --help            show this help message and exit
+          -w PASSWORD, --password PASSWORD
+                                SYSDBA password
+          -o HOST, --host HOST  Firebird host machine identification
+          -d DATABASE, --database DATABASE
+                                Archive database name
+
+        Commands:
+          {import,create}       Use <command> --help for more information about
+                                command.
+            create              Creates archive database.
+            import              Import result(s) to database.
+
+    .. program:: fbt_db
+
+    .. option:: -o <machine>, --host=<machine>
+
+       Firebird machine identification. (`default 'localhost'`)
+
+    .. option:: -d <filename>, --database=<filename> (`default 'fbtarch.fdb'`)
+
+       FBTest archive database name.
+
+    .. option:: -w <password>, --password=<password>
+
+       SYSDBA password. (`default 'masterkey'`)
+
+    Options for `fbt_archive create`:
+
+       None.
+
+    Options for `fbt_archive import`:
+
+    .. option:: name
+
+       Results file.
+
+    """
+    parser = ArgumentParser()
+
+    parser.add_argument('-w','--password',help="SYSDBA password")
+    parser.add_argument('-o','--host',help="Firebird host machine identification")
+    parser.add_argument('-d','--database',required=True,help="Archive database name")
+    parser.set_defaults(host='localhost',password='masterkey',
+                        database='fbtarch.fdb')
+
+    subparsers = parser.add_subparsers(title="Commands",
+                                       help="Use <command> --help for more information about command.")
+
+    parser_list = subparsers.add_parser('create',
+                                        description="Create archive database.",
+                                        help="Creates archive database.")
+    parser_list.set_defaults(func=script_runner.cmd_db_create)
+
+    parser_save = subparsers.add_parser('import',
+                                        description="Import result(s) to database.",
+                                        help="Import result(s) to database.")
+    parser_save.add_argument('name',nargs='?',default=None,help="Results file or directory with result files")
+    parser_save.set_defaults(func=script_runner.cmd_db_import)
+
+    args = parser.parse_args()
+    args.func(args)
+
+
+
 if __name__=='__main__':
     run_tests()
     #run_analyze()
+    #run_view()
+    #run_database()

@@ -63,87 +63,62 @@
 <h1>Usage Guide<a class="headerlink" href="#usage-guide" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="test-repository">
 <span id="id1"></span><h2>Test Repository<a class="headerlink" href="#test-repository" title="Permalink to this headline">¶</a></h2>
-<p>Test Reposotory contains <a class="reference internal" href="writting-new-tests.html#test-definitions"><span>Test definitions</span></a>, <a class="reference internal" href="writting-new-tests.html#resource-definitions"><span>Resource definitions</span></a>, <a class="reference internal" href="writting-new-tests.html#databases"><span>Databases</span></a>,
-<a class="reference internal" href="writting-new-tests.html#database-backups"><span>Database backups</span></a> and <a class="reference internal" href="writting-new-tests.html#other-files"><span>Other files</span></a>. Repository is <a class="reference external" href="http://svn.code.sf.net/p/firebird/code/">stored in our Subversion
-repository</a> at SourceForge. You will need a local copy
-of this repository to run any test. To do that, you can:</p>
+<p>Test Reposotory contains <a class="reference internal" href="writting-new-tests.html#test-definitions"><span>Test definitions</span></a>, <a class="reference internal" href="writting-new-tests.html#resource-definitions"><span>Resource definitions</span></a>, <a class="reference internal" href="writting-new-tests.html#databases"><span>Databases</span></a>, <a class="reference internal" href="writting-new-tests.html#database-backups"><span>Database backups</span></a> and <a class="reference internal" href="writting-new-tests.html#other-files"><span>Other files</span></a>. Repository is <a class="reference external" href="http://svn.code.sf.net/p/firebird/code/">stored in our Subversion repository</a> at SourceForge. You will need a local copy of this repository to run any test. To do that, you can:</p>
 <blockquote>
-<div><p>a) Create directory where you want it stored, open a command prompt, change to this directory and
-run next command:</p>
+<div><ol class="loweralpha">
+<li><p class="first">Create directory where you want it stored, open a command prompt, change to this directory and    run next command:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>fbt_update repository
 </pre></div>
 </div>
+</li>
+</ol>
 <p>b) Use Subversion client to make a checkout from
-<a class="reference external" href="http://svn.code.sf.net/p/firebird/code/qa/fbt-repository/trunk/">trunk</a> at central repository
-into directory where you want it located.</p>
+<a class="reference external" href="http://svn.code.sf.net/p/firebird/code/qa/fbt-repository/trunk/">trunk</a> at central repository into directory where you want it located.</p>
 </div></blockquote>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
-<p class="last">All <cite>fbtest</cite> command-line tools that work with Test Repository must be run from directory where
-repository is located.</p>
+<p class="last">All <cite>fbtest</cite> command-line tools that work with Test Repository must be run from directory where repository is located.</p>
 </div>
 <p>There are several subdirectories in Test repository:</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="file docutils literal"><span class="pre">resources</span></code> : Some tests use special <cite>resources</cite>, for example Firebird user definitions.
-This directory contains definitions for proper initialization and finalizations of these resources.</li>
+<li><code class="file docutils literal"><span class="pre">resources</span></code> : Some tests use special <cite>resources</cite>, for example Firebird user definitions. This directory contains definitions for proper initialization and finalizations of these resources.</li>
 <li><code class="file docutils literal"><span class="pre">fdb</span></code> : Contains special pre-made databases that some tests may require.</li>
 <li><code class="file docutils literal"><span class="pre">fbk</span></code> : Contains backup files that some tests may require.</li>
 <li><code class="file docutils literal"><span class="pre">files</span></code> : Contains other external files (SQL scripts for example) that some tests may require.</li>
 <li><code class="file docutils literal"><span class="pre">tests</span></code> : Contains all test definitions structured into suite subdirectories.</li>
-<li><code class="file docutils literal"><span class="pre">tmp</span></code> : Location for temporary databases. If it does not exists when <strong class="program">fbt_run</strong> or
-<strong class="program">fbt_server</strong> is executed, it&#8217;s automatically created with full access rights for everyone.</li>
+<li><code class="file docutils literal"><span class="pre">tmp</span></code> : Location for temporary databases. If it does not exists when <strong class="program">fbt_run</strong> or <strong class="program">fbt_server</strong> is executed, it&#8217;s automatically created with full access rights for everyone.</li>
 </ul>
 </div></blockquote>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
-<p class="last">Tested Firebird server must be able to access databases in <code class="file docutils literal"><span class="pre">fdb</span></code> directory, otherwise all tests
-that depend on them will fail.</p>
+<p class="last">Tested Firebird server must be able to access databases in <code class="file docutils literal"><span class="pre">fdb</span></code> directory, otherwise all tests that depend on them will fail.</p>
 </div>
 </div>
 <div class="section" id="test-environment">
 <h2>Test Environment<a class="headerlink" href="#test-environment" title="Permalink to this headline">¶</a></h2>
-<p>Test Environment consists from <cite>Test Repository</cite>, Firebird client library and Firebird command-line tools.
-You don&#8217;t need any additional configuration if you want to run tests against current Firebird installation.
-However, if you want to test another Firebird installation (if you have multiple Firebird installations),
-you have to make sure that <cite>fbtest</cite> will use Firebird client library and command-line tools <strong>from tested
-Firebird installation</strong>. Scripts that work with Firebird (<a class="reference internal" href="#fbt-run">fbt_run</a> and <a class="reference internal" href="#fbt-server">fbt_server</a>) have a command-line
-switch to specificy a directory where Firebird command-line tools are located. However, current
-implementation doesn&#8217;t allow to specify alternative Firebird client library, so it&#8217;s your responsibility
-to make sure that correct client library is located on system path.</p>
+<p>Test Environment consists from <cite>Test Repository</cite>, Firebird client library and Firebird command-line tools. You don&#8217;t need any additional configuration if you want to run tests against current Firebird installation. However, if you want to test another Firebird installation (if you have multiple Firebird installations),
+you have to make sure that <cite>fbtest</cite> will use Firebird client library and command-line tools <strong>from tested Firebird installation</strong>. Scripts that work with Firebird (<a class="reference internal" href="#fbt-run">fbt_run</a> and <a class="reference internal" href="#fbt-server">fbt_server</a>) have a command-line switch to specificy a directory where Firebird command-line tools are located. However, current implementation doesn&#8217;t allow to specify alternative Firebird client library, so it&#8217;s your responsibility to make sure that correct client library is located on system path.</p>
 </div>
 <div class="section" id="running-tests">
 <h2>Running tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h2>
-<p>You can run tests against local or remote Firebird installation. However, when you want to run tests
-against remote Firebird server, you still need locally installed (or accessible) Firebird client library
-and command-line tools that match the tested server.</p>
+<p>You can run tests against local or remote Firebird installation. However, when you want to run tests against remote Firebird server, you still need locally installed (or accessible) Firebird client library and command-line tools that match the tested server.</p>
 <div class="section" id="tests-and-test-suites">
 <h3>Tests and test suites<a class="headerlink" href="#tests-and-test-suites" title="Permalink to this headline">¶</a></h3>
-<p>Each test is designed to test only specific Firebird feature or bug fix. Tests are grouped into logical
-groups called <cite>suites</cite>, and these suites could be nested. Each test and suite has a <cite>name</cite>. To identify
-test or suite, you have to use fully qualified name that consists from all parent suite names plus test
-or suite name in a row, separated by dot. For example, fully qualified name for test named &#8220;isql_01&#8221; in
-suite &#8220;isql&#8221; that&#8217;s part of suite &#8220;basic&#8221; which is part of &#8220;functional&#8221; suite is
+<p>Each test is designed to test only specific Firebird feature or bug fix. Tests are grouped into logical groups called <cite>suites</cite>, and these suites could be nested. Each test and suite has a <cite>name</cite>. To identify test or suite, you have to use fully qualified name that consists from all parent suite names plus test or suite name in a row, separated by dot. For example, fully qualified name for test named &#8220;isql_01&#8221; in suite &#8220;isql&#8221; that&#8217;s part of suite &#8220;basic&#8221; which is part of &#8220;functional&#8221; suite is
 &#8220;functional.basic.isql.isql_01&#8221;.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Definition of each test is stored in Test Repository as single text file with &#8221;.fbt&#8221; extension.
-Each suite is represented as directory and directory tree represents the suite nesting structure.</p>
+<p class="last">Definition of each test is stored in Test Repository as single text file with &#8221;.fbt&#8221; extension. Each suite is represented as directory and directory tree represents the suite nesting structure.</p>
 </div>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
-<p class="last">Current implementation doesn&#8217;t allow free test file relocation between directories (suites)
-without adjustments in each moved test definition.</p>
+<p class="last">Current implementation doesn&#8217;t allow free test file relocation between directories (suites) without adjustments in each moved test definition.</p>
 </div>
-<p>Single <cite>test run</cite> may run all tests in Test Repository or single test/suite. Running test suite means
-that all test and sub-suites in it are executed.</p>
+<p>Single <cite>test run</cite> may run all tests in Test Repository or single test/suite. Running test suite means that all test and sub-suites in it are executed.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">All tests are designed to work with specific version(s) of Firebird server. Each test contains
-one or more &#8220;recipes&#8221; - how to execute and evaluate test when run in specific conditions
-(platform and/or Firebird version). If test doesn&#8217;t contain recipe for actual conditions, it&#8217;s
-not executed, which is not considered as bug or problem because it means that test was simply
-not designed to work in these conditions.</p>
+<p class="last">All tests are designed to work with specific version(s) of Firebird server. Each test contains one or more &#8220;recipes&#8221; - how to execute and evaluate test when run in specific conditions (platform and/or Firebird version). If test doesn&#8217;t contain recipe for actual conditions, it&#8217;s not executed, which is not considered as bug or problem because it means that test was simply not designed to work in these conditions.</p>
 </div>
 <p>Tests are run using <strong class="program">fdb_run</strong> script.</p>
 </div>
@@ -190,12 +165,9 @@ optional arguments:
                         Use specified Firebird client library
 </pre></div>
 </div>
-<p>This tool runs all or specified set of tests and collects run result from each test. This result for
-whole run is saved to <code class="file docutils literal"><span class="pre">results.trf</span></code> file in Test Repository for later reference.</p>
-<p>During execution <cite>fbt_run</cite> gives feedback to standard output about progress in usual way for unit test
-programs, including summary report.</p>
-<p>In normal verbosity mode <cite>fbt_run</cite> prints a dot for each passed test, or letter indicating detected
-problem: &#8216;F&#8217; for FAIL, &#8216;E&#8217; for ERROR and &#8216;U&#8217; for UNTESTED.</p>
+<p>This tool runs all or specified set of tests and collects run result from each test. This result for whole run is saved to <code class="file docutils literal"><span class="pre">results.trf</span></code> file in Test Repository for later reference.</p>
+<p>During execution <cite>fbt_run</cite> gives feedback to standard output about progress in usual way for unit test programs, including summary report.</p>
+<p>In normal verbosity mode <cite>fbt_run</cite> prints a dot for each passed test, or letter indicating detected problem: &#8216;F&#8217; for FAIL, &#8216;E&#8217; for ERROR and &#8216;U&#8217; for UNTESTED.</p>
 <p>Examples:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>&gt;fbt_run functional.basic.isql
 ...
@@ -218,8 +190,7 @@ Ran 3 tests in 0.949s
 FAILED (fails=1)
 </pre></div>
 </div>
-<p>You may increase or decrease the amount of information printed using <cite>&#8211;verbose</cite>, <cite>&#8211;quiet</cite> and
-<cite>&#8211;verbosity</cite> options.</p>
+<p>You may increase or decrease the amount of information printed using <cite>&#8211;verbose</cite>, <cite>&#8211;quiet</cite> and <cite>&#8211;verbosity</cite> options.</p>
 <p>Example output for <strong>verbose</strong> mode:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>&gt;fbt_run -v functional.basic.isql
 functional.basic.isql.isql_03 ... ok
@@ -268,102 +239,57 @@ FAILED (fails=1)
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">You may get more detailed information about run results using <strong class="program">fbt_view</strong> and
-<strong class="program">fbt_analyze</strong>.</p>
+<p class="last">You may get more detailed information about run results using <strong class="program">fbt_view</strong> and <strong class="program">fbt_analyze</strong>.</p>
 </div>
-<p>There is no need to use any additional command-line options for quick execution of all or
-selected test(s) against current Firebird installation. However, you would need to specify some
-additional options in other cases:</p>
+<p>There is no need to use any additional command-line options for quick execution of all or selected test(s) against current Firebird installation. However, you would need to specify some additional options in other cases:</p>
 <ul class="simple">
-<li>When SYSDBA password for tested server differs from default &#8216;masterkey&#8217;, you have to use
-<code class="xref std std-option docutils literal"><span class="pre">--password</span></code> option.</li>
-<li>When tested server runs on different machine, you have to use <code class="xref std std-option docutils literal"><span class="pre">--host</span></code>,
-<code class="xref std std-option docutils literal"><span class="pre">--bin-dir</span></code> and <code class="xref std std-option docutils literal"><span class="pre">--db-dir</span></code> options.</li>
-<li>When tested server runs on local machine but on different port than default one, you have to use
-<code class="xref std std-option docutils literal"><span class="pre">--host</span></code> option.</li>
-<li>Temporary databases used by tests are created in <code class="file docutils literal"><span class="pre">tmp</span></code> subdirectory in Test Repository.
-If you want temporary databases in different location, you will need <code class="xref std std-option docutils literal"><span class="pre">--db-dir</span></code> option.</li>
-<li>If you want to compare test run results from several server architectures, you should specify
-server architecture of tested engine using <code class="xref std std-option docutils literal"><span class="pre">--arch</span></code> option.</li>
-<li>If you want that test run results would be also archived, you have to specify <code class="xref std std-option docutils literal"><span class="pre">--archive</span></code>
-option. You should also consider using <code class="xref std std-option docutils literal"><span class="pre">--arch</span></code> and <code class="xref std std-option docutils literal"><span class="pre">--person</span></code> options in this case.</li>
-<li>If you want to exclude some tests from execution, you will need <code class="xref std std-option docutils literal"><span class="pre">--skip</span></code> option. However these
-tests are included into results file with outcome <cite>SKIPPED</cite> which is special kind of <cite>UNTESTED</cite> outcome.</li>
-<li>If you know that some tests will fail, you can either skip them altogether using <code class="xref std std-option docutils literal"><span class="pre">--skip</span></code>
-option, or you can run them but set an expectation using <code class="xref std std-option docutils literal"><span class="pre">--expect</span></code> option and a result file
-from previous run. Test will then PASS if test outcome and its cause will match expected one, otherwise
-it will FAIL. Please note that run details of failure (like content of standard output or error output)
-are NOT compared, only general description of the cause is checked. So test will fail only if cause of
-failure significantly changes it&#8217;s type (for example from difference in standard output to difference
-in error output).</li>
-<li>If you want to run the same set of tests several times and compare their results using <cite>fbt_analyze</cite>,
-you have to specify <code class="xref std std-option docutils literal"><span class="pre">--sequence</span></code> option. Don&#8217;t forget to copy the results.trf file to safe
-location after each series run, or use <code class="xref std std-option docutils literal"><span class="pre">--archive</span></code>.</li>
-<li>If you want to run only tests that didn&#8217;t passed the last run, use <code class="xref std std-option docutils literal"><span class="pre">--rerun</span></code> option, and
-if you want the last run results updated with results from new run, use <code class="xref std std-option docutils literal"><span class="pre">--update</span></code> option.</li>
-<li>Since version 1.0.4 <cite>fbt_run</cite> checks that Firebird engine is running before each test is executed by
-creating a connection to Firebird services. If this attempt fails, test is not executed at all, and
-its outcome is set to <cite>UNTESTED</cite>. When you fix the problem with Firebird engine, you may re-run all
-these tests using <code class="xref std std-option docutils literal"><span class="pre">--untested</span></code> option that works similarly to <code class="xref std std-option docutils literal"><span class="pre">--rerun</span></code> option.</li>
-<li>If you want to send run results to someone, you should specify <code class="xref std std-option docutils literal"><span class="pre">--arch</span></code> and
-<code class="xref std std-option docutils literal"><span class="pre">--person</span></code> options.</li>
+<li>When SYSDBA password for tested server differs from default &#8216;masterkey&#8217;, you have to use <code class="xref std std-option docutils literal"><span class="pre">--password</span></code> option.</li>
+<li>When tested server runs on different machine, you have to use <code class="xref std std-option docutils literal"><span class="pre">--host</span></code>,   <code class="xref std std-option docutils literal"><span class="pre">--bin-dir</span></code> and <code class="xref std std-option docutils literal"><span class="pre">--db-dir</span></code> options.</li>
+<li>When tested server runs on local machine but on different port than default one, you have to use <code class="xref std std-option docutils literal"><span class="pre">--host</span></code> option.</li>
+<li>Temporary databases used by tests are created in <code class="file docutils literal"><span class="pre">tmp</span></code> subdirectory in Test Repository. If you want temporary databases in different location, you will need <code class="xref std std-option docutils literal"><span class="pre">--db-dir</span></code> option.</li>
+<li>If you want to compare test run results from several server architectures, you should specify server architecture of tested engine using <code class="xref std std-option docutils literal"><span class="pre">--arch</span></code> option.</li>
+<li>If you want that test run results would be also archived, you have to specify <code class="xref std std-option docutils literal"><span class="pre">--archive</span></code> option. You should also consider using <code class="xref std std-option docutils literal"><span class="pre">--arch</span></code> and <code class="xref std std-option docutils literal"><span class="pre">--person</span></code> options in this case.</li>
+<li>If you want to exclude some tests from execution, you will need <code class="xref std std-option docutils literal"><span class="pre">--skip</span></code> option. However these tests are included into results file with outcome <cite>SKIPPED</cite> which is special kind of <cite>UNTESTED</cite> outcome.</li>
+<li>If you know that some tests will fail, you can either skip them altogether using <code class="xref std std-option docutils literal"><span class="pre">--skip</span></code> option, or you can run them but set an expectation using <code class="xref std std-option docutils literal"><span class="pre">--expect</span></code> option and a result file from previous run. Test will then PASS if test outcome and its cause will match expected one, otherwise it will FAIL. Please note that run details of failure (like content of standard output or error output) are NOT compared, only general description of the cause is checked. So test will fail only if cause of failure significantly changes it&#8217;s type (for example from difference in standard output to difference in error output).</li>
+<li>If you want to run the same set of tests several times and compare their results using <cite>fbt_analyze</cite>, you have to specify <code class="xref std std-option docutils literal"><span class="pre">--sequence</span></code> option. Don&#8217;t forget to copy the results.trf file to safe location after each series run, or use <code class="xref std std-option docutils literal"><span class="pre">--archive</span></code>.</li>
+<li>If you want to run only tests that didn&#8217;t passed the last run, use <code class="xref std std-option docutils literal"><span class="pre">--rerun</span></code> option, and if you want the last run results updated with results from new run, use <code class="xref std std-option docutils literal"><span class="pre">--update</span></code> option.</li>
+<li>Since version 1.0.4 <cite>fbt_run</cite> checks that Firebird engine is running before each test is executed by creating a connection to Firebird services. If this attempt fails, test is not executed at all, and its outcome is set to <cite>UNTESTED</cite>. When you fix the problem with Firebird engine, you may re-run all these tests using <code class="xref std std-option docutils literal"><span class="pre">--untested</span></code> option that works similarly to <code class="xref std std-option docutils literal"><span class="pre">--rerun</span></code> option.</li>
+<li>If you want to send run results to someone, you should specify <code class="xref std std-option docutils literal"><span class="pre">--arch</span></code> and <code class="xref std std-option docutils literal"><span class="pre">--person</span></code> options.</li>
 <li>If you need run results also in standard XUnit XML format, use <code class="xref std std-option docutils literal"><span class="pre">--xunit</span></code> option.</li>
 </ul>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
-<p class="last">If your test environment is not properly configured, many (if not all) tests would fail or raise
-errors, which would spoil the test run results. For example if Firebird engine wouldn&#8217;t have
-sufficient rights to create/access databases in location for temporary databases, almost every
-test would fail as most of them use temporary databases.</p>
+<p class="last">If your test environment is not properly configured, many (if not all) tests would fail or raise errors, which would spoil the test run results. For example if Firebird engine wouldn&#8217;t have sufficient rights to create/access databases in location for temporary databases, almost every test would fail as most of them use temporary databases.</p>
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">Test Repository contains test named <cite>check</cite> that you could run to verify that your test
-environment is correctly configured before you&#8217;ll run the whole test series.</p>
+<p class="last">Test Repository contains test named <cite>check</cite> that you could run to verify that your test environment is correctly configured before you&#8217;ll run the whole test series.</p>
 </div>
 </div>
 </div>
 <div class="section" id="working-with-remote-test-server">
 <span id="fbt-server"></span><h2>Working with remote test server<a class="headerlink" href="#working-with-remote-test-server" title="Permalink to this headline">¶</a></h2>
-<p>Sometimes you may need to run tests on remote Firebird server, for example to test Firebird on
-different platform than is your primary platform. While you may use local <cite>fbtest</cite> installation
-to run against remote Firebird, it could be better (and easier to configure) to install <cite>fbtest</cite>
-also on remote machine and operate it from your workstation almost like it would be all installed
-locally.</p>
-<p>Before your can connect to remote <cite>fbtest</cite>, you have to run it in &#8220;server&#8221; mode. To do that, run
-<strong class="program">fbt_server</strong> on remote machine.</p>
+<p>Sometimes you may need to run tests on remote Firebird server, for example to test Firebird on different platform than is your primary platform. While you may use local <cite>fbtest</cite> installation to run against remote Firebird, it could be better (and easier to configure) to install <cite>fbtest</cite> also on remote machine and operate it from your workstation almost like it would be all installed locally.</p>
+<p>Before your can connect to remote <cite>fbtest</cite>, you have to run it in &#8220;server&#8221; mode. To do that, run <strong class="program">fbt_server</strong> on remote machine.</p>
 <p><cite>fbt_server</cite> accepts command-line options <code class="xref std std-option docutils literal"><span class="pre">--bin-dir</span></code>, <code class="xref std std-option docutils literal"><span class="pre">--db-dir</span></code>,
-<code class="xref std std-option docutils literal"><span class="pre">--password</span></code>, <code class="xref std std-option docutils literal"><span class="pre">--host</span></code>, <code class="xref std std-option docutils literal"><span class="pre">--arch</span></code> and <code class="xref std std-option docutils literal"><span class="pre">--person</span></code> that have the same
-function like <cite>fbt_run</cite> options with the same name.</p>
-<p>Normally fbtest server listens on port 18861 and clients must know on which host it runs to contact him.
-Alternatively fbtest server could anounce itself on network via <cite>remote service registry</cite>. To use this
-mode you must start it with <code class="xref std std-option docutils literal"><span class="pre">--register</span></code> option.</p>
-<p>Once remote fbtest server is up and running, you may use <cite>fbt_run</cite> to use it as test execution engine,
-i.e. all tests are executed by remote server on server host, but all output is produced on client side
-(console output and <cite>results.trf</cite> file).</p>
-<p>To use remote fbtest, execute <cite>fbt_run</cite> with <code class="xref std std-option docutils literal"><span class="pre">--remote</span></code> option. If fbtest server is NOT started
-with <code class="xref std std-option docutils literal"><span class="pre">--register</span></code>, you must also specify host machine using <code class="xref std std-option docutils literal"><span class="pre">--host</span></code> option.</p>
-<p>When remote fbtest engine is used, <code class="xref std std-option docutils literal"><span class="pre">--bin-dir</span></code>, <code class="xref std std-option docutils literal"><span class="pre">--db-dir</span></code> and <code class="xref std std-option docutils literal"><span class="pre">--password</span></code> options
-are ignored when specified.</p>
+<code class="xref std std-option docutils literal"><span class="pre">--password</span></code>, <code class="xref std std-option docutils literal"><span class="pre">--host</span></code>, <code class="xref std std-option docutils literal"><span class="pre">--arch</span></code> and <code class="xref std std-option docutils literal"><span class="pre">--person</span></code> that have the same function like <cite>fbt_run</cite> options with the same name.</p>
+<p>Normally fbtest server listens on port 18861 and clients must know on which host it runs to contact him. Alternatively fbtest server could anounce itself on network via <cite>remote service registry</cite>. To use this mode you must start it with <code class="xref std std-option docutils literal"><span class="pre">--register</span></code> option.</p>
+<p>Once remote fbtest server is up and running, you may use <cite>fbt_run</cite> to use it as test execution engine, i.e. all tests are executed by remote server on server host, but all output is produced on client side (console output and <cite>results.trf</cite> file).</p>
+<p>To use remote fbtest, execute <cite>fbt_run</cite> with <code class="xref std std-option docutils literal"><span class="pre">--remote</span></code> option. If fbtest server is NOT started with <code class="xref std std-option docutils literal"><span class="pre">--register</span></code>, you must also specify host machine using <code class="xref std std-option docutils literal"><span class="pre">--host</span></code> option.</p>
+<p>When remote fbtest engine is used, <code class="xref std std-option docutils literal"><span class="pre">--bin-dir</span></code>, <code class="xref std std-option docutils literal"><span class="pre">--db-dir</span></code> and <code class="xref std std-option docutils literal"><span class="pre">--password</span></code> options are ignored when specified.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Note that <code class="xref std std-option docutils literal"><span class="pre">--host</span></code> option has different meaning when used together with <cite>&#8211;remote</cite>.</p>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">Do NOT operate fbtest server on open network! Current implementation gives full control to clients
-over it, which is potential security risk.</p>
+<p class="last">Do NOT operate fbtest server on open network! Current implementation gives full control to clients over it, which is potential security risk.</p>
 </div>
 <p>Remote fbtest server is also used by <a class="reference internal" href="writting-new-tests.html#fbtedit"><span>Test editor</span></a> to execute tests on other platforms than Windows.</p>
 </div>
 <div class="section" id="test-run-result-analysis">
 <h2>Test run result analysis<a class="headerlink" href="#test-run-result-analysis" title="Permalink to this headline">¶</a></h2>
-<p>When test execution doesn&#8217;t end with success, you need to investigate why did that happen, because
-<cite>fbt_run</cite> gives only basic information: test run <a class="reference internal" href="#test-outcomes"><span>outcome</span></a> and
-<a class="reference internal" href="#failure-cause"><span>cause</span></a> of failure if test didn&#8217;t passed. However, test run result information
-(stored in <code class="file docutils literal"><span class="pre">results.trf</span></code>) contains all details including analytical information. You may inspect
-these information using <a class="reference internal" href="#fbt-view">fbt_view</a> tool, or generate detailed HTML report using <a class="reference internal" href="#fbt-analyze">fbt_analyze</a> tool,
-which can also compare results from multiple runs.</p>
+<p>When test execution doesn&#8217;t end with success, you need to investigate why did that happen, because <cite>fbt_run</cite> gives only basic information: test run <a class="reference internal" href="#test-outcomes"><span>outcome</span></a> and <a class="reference internal" href="#failure-cause"><span>cause</span></a> of failure if test didn&#8217;t passed. However, test run result information (stored in <code class="file docutils literal"><span class="pre">results.trf</span></code>) contains all details including analytical information. You may inspect these information using <a class="reference internal" href="#fbt-view">fbt_view</a> tool, or generate detailed HTML report using <a class="reference internal" href="#fbt-analyze">fbt_analyze</a> tool, which can also compare results from multiple runs.</p>
 <div class="section" id="test-run-outcome">
 <span id="test-outcomes"></span><h3>Test run outcome<a class="headerlink" href="#test-run-outcome" title="Permalink to this headline">¶</a></h3>
 <p>Test run may end in four different ways:</p>
@@ -377,16 +303,16 @@ which can also compare results from multiple runs.</p>
 </tr>
 <tr class="field-odd field"><th class="field-name">ERROR:</th><td class="field-body">An error (exception) occured during test execution.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">UNTESTED:</th><td class="field-body">Test couldn&#8217;t be executed because some condition wasn&#8217;t met (typically setup of required
-resource failed).</td>
+<tr class="field-even field"><th class="field-name">UNTESTED:</th><td class="field-body">Test couldn&#8217;t be executed because some condition wasn&#8217;t met (typically setup of required resource failed).</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">SKIPPED:</th><td class="field-body">Test execution was suppressed using &#8211;skip switch.</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="failure-cause">
 <span id="id2"></span><h3>Failure cause<a class="headerlink" href="#failure-cause" title="Permalink to this headline">¶</a></h3>
-<p>Failure (or error) cause reported by <cite>fbtest</cite> explains in short why <cite>fbtest</cite> decided about test run
-outcome.</p>
+<p>Failure (or error) cause reported by <cite>fbtest</cite> explains in short why <cite>fbtest</cite> decided about test run outcome.</p>
 <p>Example causes:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>Expected standard output from ISQL does not match actual output.
 </pre></div>
@@ -395,17 +321,12 @@ outcome.</p>
 </pre></div>
 </div>
 <p>Reported cause isn&#8217;t automatically the real reason (problem source).</p>
-<p>FAILure could signal a real problem (functionality was broken) or could be a &#8220;false positive&#8221;
-(change was intentional), and requires further analysis to determine which case it is. The quickest
-way is to examine difference between expectet test output and real output using <a class="reference internal" href="#fbt-view">fbt_view</a> tool.</p>
-<p>ERROR is typically an outcome of bad setup of your test environment, but sometimes it could also
-signal a real problem (functionality was broken). The quickest way to see all details about error
-is using <a class="reference internal" href="#fbt-view">fbt_view</a> tool.</p>
+<p>FAILure could signal a real problem (functionality was broken) or could be a &#8220;false positive&#8221; (change was intentional), and requires further analysis to determine which case it is. The quickest way is to examine difference between expectet test output and real output using <a class="reference internal" href="#fbt-view">fbt_view</a> tool.</p>
+<p>ERROR is typically an outcome of bad setup of your test environment, but sometimes it could also signal a real problem (functionality was broken). The quickest way to see all details about error is using <a class="reference internal" href="#fbt-view">fbt_view</a> tool.</p>
 </div>
 <div class="section" id="using-fbt-view">
 <span id="fbt-view"></span><h3>Using fbt_view<a class="headerlink" href="#using-fbt-view" title="Permalink to this headline">¶</a></h3>
-<p>This tool displays information from run result (<cite>.trf</cite>) files. It can also create XUnit XML run result
-reports.</p>
+<p>This tool displays information from run result (<cite>.trf</cite>) files. It can also create XUnit XML run result reports.</p>
 <p>Usage:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>fbt_view [-h] [-x] [-c] [-d] [name]
 
@@ -425,8 +346,7 @@ optional arguments:
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Without parameters or options <cite>fbt_view</cite> shows summary information for all run results files
-in working directory.</p>
+<p class="last">Without parameters or options <cite>fbt_view</cite> shows summary information for all run results files in working directory.</p>
 </div>
 <p>Example output:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>&gt;fbt_view
@@ -471,8 +391,7 @@ functional.basic.isql.isql_01
    Expected standard output from ISQL does not match actual output.
 </pre></div>
 </div>
-<p>To see details why tests didn&#8217;t passed use <code class="xref std std-option docutils literal"><span class="pre">--details</span></code> option. For FAIL outcome it shows
-difference (in standard diff format) between expected and actual outputs:</p>
+<p>To see details why tests didn&#8217;t passed use <code class="xref std std-option docutils literal"><span class="pre">--details</span></code> option. For FAIL outcome it shows difference (in standard diff format) between expected and actual outputs:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>&gt;fbt_view --details
 
 File:     results.trf
@@ -564,41 +483,32 @@ optional arguments:
   -d, --diffs-only      Show only diffs on detail pages
 </pre></div>
 </div>
-<p>Reports consists from summary page (<code class="file docutils literal"><span class="pre">index.html</span></code>) and detail pages for each test that didn&#8217;t
-passed.</p>
+<p>Reports consists from summary page (<code class="file docutils literal"><span class="pre">index.html</span></code>) and detail pages for each test that didn&#8217;t passed.</p>
 <p>Example summary page:</p>
 <img alt="_images/fbt_analyze_001.png" src="_images/fbt_analyze_001.png" />
-<p>As you can see, summary is presented as table with row for each test and column for each input results
-file. Table cells contain test run outcome for each run. Columns are sorted and grouped by platform,
-CPU, Firebird architecture and test run sequence number.</p>
+<p>As you can see, summary is presented as table with row for each test and column for each input results file. Table cells contain test run outcome for each run. Columns are sorted and grouped by platform, CPU, Firebird architecture and test run sequence number.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Since version 1.0.4 this report contains time performance of tests.</p>
 </div>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
-<p class="last">If you want to compare results from several test runs, you must specify <code class="xref std std-option docutils literal"><span class="pre">--sequence</span></code> option
-to <cite>fbt_run</cite>. Similarly you have to specify <code class="xref std std-option docutils literal"><span class="pre">--arch</span></code> option to compare results from multiple
-Firebird architectures. If you forgot to do so, you can add/change this information to results file
+<p class="last">If you want to compare results from several test runs, you must specify <code class="xref std std-option docutils literal"><span class="pre">--sequence</span></code> option to <cite>fbt_run</cite>. Similarly you have to specify <code class="xref std std-option docutils literal"><span class="pre">--arch</span></code> option to compare results from multiple Firebird architectures. If you forgot to do so, you can add/change this information to results file
 later using <a class="reference internal" href="#fbt-update">fbt_update</a>.</p>
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">You can verify platform, CPU, Firebird architecture and run sequence number values stored in
-result file using <a class="reference internal" href="#fbt-view">fbt_view</a>.</p>
+<p class="last">You can verify platform, CPU, Firebird architecture and run sequence number values stored in result file using <a class="reference internal" href="#fbt-view">fbt_view</a>.</p>
 </div>
-<p>Detail page contains all informations related to test run recorded by <cite>fbtest</cite> from all result files
-where test doesn&#8217;t passed. Information is &#8220;grouped&#8221; by result file so only unique content is included.</p>
-<p>Collected information for failed tests contains expected and actual outputs and their difference (in
-human-readable diff format). If you are interested to see only diffs, use <code class="xref std std-option docutils literal"><span class="pre">--diffs-only</span></code> option.</p>
+<p>Detail page contains all informations related to test run recorded by <cite>fbtest</cite> from all result files where test doesn&#8217;t passed. Information is &#8220;grouped&#8221; by result file so only unique content is included.</p>
+<p>Collected information for failed tests contains expected and actual outputs and their difference (in human-readable diff format). If you are interested to see only diffs, use <code class="xref std std-option docutils literal"><span class="pre">--diffs-only</span></code> option.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last"><cite>fbt_analyze</cite> works with run result files only and thus coud be run from any directory.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Without parameters or options <cite>fbt_analyze</cite> processes all run results files and produces HTML report
-in current working directory.</p>
+<p class="last">Without parameters or options <cite>fbt_analyze</cite> processes all run results files and produces HTML report in current working directory.</p>
 </div>
 </div>
 </div>
@@ -650,10 +560,7 @@ optional arguments:
 </div>
 <div class="section" id="using-fbt-archive">
 <h2>Using fbt_archive<a class="headerlink" href="#using-fbt-archive" title="Permalink to this headline">¶</a></h2>
-<p><cite>fbtest</cite> provides simple archive for test run results files. When you specify <code class="xref std std-option docutils literal"><span class="pre">--archive</span></code> option
-to <strong class="program">fbt_run</strong>, run results file <cite>results.trf</cite> is also <strong>copied</strong> to archive in <cite>Test Repository</cite>
-(stored in subdirectory &#8220;archive&#8221;) in subdirectory named as tested Firebird version number and
-filename that identifies run conditions:</p>
+<p><cite>fbtest</cite> provides simple archive for test run results files. When you specify <code class="xref std std-option docutils literal"><span class="pre">--archive</span></code> option to <strong class="program">fbt_run</strong>, run results file <cite>results.trf</cite> is also <strong>copied</strong> to archive in <cite>Test Repository</cite> (stored in subdirectory &#8220;archive&#8221;) in subdirectory named as tested Firebird version number and filename that identifies run conditions:</p>
 <ul class="simple">
 <li>Number of tests executed</li>
 <li>Platform</li>
@@ -662,15 +569,12 @@ filename that identifies run conditions:</p>
 <li>QA person</li>
 <li>Run sequence number</li>
 </ul>
-<p>For example 3 tests run on 64-bit Linux Firebird v2.5.2.26540 SuperServer by pcisar without sequence
-number will be stored in <cite>2.5.2.26540/0003-Linux64-SS-PC1.trf</cite>.</p>
+<p>For example 3 tests run on 64-bit Linux Firebird v2.5.2.26540 SuperServer by pcisar without sequence number will be stored in <cite>2.5.2.26540/0003-Linux64-SS-PC1.trf</cite>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">If filename already exists in archive, it&#8217;s replaced with new one.</p>
 </div>
-<p>While you can work with archived results files directly, <cite>fbtest</cite> also provides separate tool
-<strong class="program">fbt_archive</strong> to <cite>list</cite>, <cite>save</cite>, <cite>retrieve</cite> or <cite>delete</cite> archived results. This is
-particularly useful when you&#8217;re working with remote <cite>fbtest</cite> installation.</p>
+<p>While you can work with archived results files directly, <cite>fbtest</cite> also provides separate tool <strong class="program">fbt_archive</strong> to <cite>list</cite>, <cite>save</cite>, <cite>retrieve</cite> or <cite>delete</cite> archived results. This is particularly useful when you&#8217;re working with remote <cite>fbtest</cite> installation.</p>
 <p>Usage:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>fbt_archive [-h] [--remote] [-o HOST] {list,save,retrieve,delete} ...
 
@@ -765,10 +669,7 @@ optional arguments:
                         Run sequence number
 </pre></div>
 </div>
-<p>This command copies all archived results files for specified or currently tested Firebird version
-(either <code class="xref std std-option docutils literal"><span class="pre">--version</span></code> or <code class="xref std std-option docutils literal"><span class="pre">--current</span></code> option is required) from archive to specified or
-current working directory. It&#8217;s possible to specify additional conditions for Firebird architecture,
-QA person or run sequence number that must be met.</p>
+<p>This command copies all archived results files for specified or currently tested Firebird version (either <code class="xref std std-option docutils literal"><span class="pre">--version</span></code> or <code class="xref std std-option docutils literal"><span class="pre">--current</span></code> option is required) from archive to specified or current working directory. It&#8217;s possible to specify additional conditions for Firebird architecture, QA person or run sequence number that must be met.</p>
 <p>Examples:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>&gt;fbt_archive retrieve --current
 Current version: 2.5.2.26540
@@ -788,10 +689,7 @@ Current version: 2.5.2.26540
 </div>
 <div class="section" id="delete">
 <h3>Delete<a class="headerlink" href="#delete" title="Permalink to this headline">¶</a></h3>
-<p>This command deletes all archived results files for specified or currently tested Firebird version
-(either <code class="xref std std-option docutils literal"><span class="pre">--version</span></code> or <code class="xref std std-option docutils literal"><span class="pre">--current</span></code> option is required) from archive. It&#8217;s possible
-to specify additional conditions for Firebird architecture, QA person or run sequence number that
-must be met.</p>
+<p>This command deletes all archived results files for specified or currently tested Firebird version (either <code class="xref std std-option docutils literal"><span class="pre">--version</span></code> or <code class="xref std std-option docutils literal"><span class="pre">--current</span></code> option is required) from archive. It&#8217;s possible to specify additional conditions for Firebird architecture, QA person or run sequence number that must be met.</p>
 <p>Usage:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>fbt_archive delete [-h] [-v VERSION] [-c] [-a ARCH] [-p PERSON] [-s SEQUENCE]
 
@@ -817,6 +715,264 @@ Current version: 2.5.2.26540
 &gt;fbt_archive --remote delete --version=2.1.5.18497 -a SS
 0681-Linux64-SS-PC1.trf deleted.
 0681-Linux64-SS-PC2.trf deleted.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="using-fbt-db">
+<h2>Using fbt_db<a class="headerlink" href="#using-fbt-db" title="Permalink to this headline">¶</a></h2>
+<p>Beside simple results archive <cite>fbtest</cite> also supports archival of results in Firebird database(s).</p>
+<p>Archive database must have next structure:</p>
+<table border="1" class="docutils" id="id3">
+<caption><span class="caption-text">Table RUNS - Information about suite run</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="20%" />
+<col width="25%" />
+<col width="55%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Column Name</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>PK</td>
+<td>BIGINT</td>
+<td>Primary key (autoincrement)</td>
+</tr>
+<tr class="row-odd"><td>CREATED</td>
+<td>TIMESTAMP</td>
+<td>Date and time when result file was imported.</td>
+</tr>
+<tr class="row-even"><td>VER</td>
+<td>VARCHAR(15)</td>
+<td>Firebird version (format: x.x.x)</td>
+</tr>
+<tr class="row-odd"><td>BUILD</td>
+<td>BIGINT</td>
+<td>Firebird build number</td>
+</tr>
+<tr class="row-even"><td>ARCH</td>
+<td>CHAR(2)</td>
+<td>Firebird architecture (SS, CS, SC)</td>
+</tr>
+<tr class="row-odd"><td>PLATFORM</td>
+<td>CHAR(1)</td>
+<td>Firebird platform code (L=Linux,W=Windows,F=FreeBSD,S=Solaris,H=HP-UX)</td>
+</tr>
+<tr class="row-even"><td>CPU</td>
+<td>VARCHAR(7)</td>
+<td>CPU architecture (32 or 64)</td>
+</tr>
+<tr class="row-odd"><td>PERSON_ID</td>
+<td>CHAR(2)</td>
+<td>QA person ID</td>
+</tr>
+<tr class="row-even"><td>PERSON</td>
+<td>VARCHAR(25)</td>
+<td>QA person name</td>
+</tr>
+<tr class="row-odd"><td>SEQ</td>
+<td>INTEGER</td>
+<td>Run sequential number</td>
+</tr>
+<tr class="row-even"><td>DESCRIPTION</td>
+<td>VARCHAR(30)</td>
+<td>Run description</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<table border="1" class="docutils" id="id4">
+<caption><span class="caption-text">Table TESTS - Information about tests</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="20%" />
+<col width="25%" />
+<col width="55%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Column Name</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>PK</td>
+<td>BIGINT</td>
+<td>Primary key (autoincrement)</td>
+</tr>
+<tr class="row-odd"><td>NAME</td>
+<td>VARCHAR(300)</td>
+<td>Test ID</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<table border="1" class="docutils" id="id5">
+<caption><span class="caption-text">Table ANN_TYPES - Information about annotation types</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="20%" />
+<col width="25%" />
+<col width="55%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Column Name</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>PK</td>
+<td>BIGINT</td>
+<td>Primary key (autoincrement)</td>
+</tr>
+<tr class="row-odd"><td>NAME</td>
+<td>VARCHAR(300)</td>
+<td>Annotation type name</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<table border="1" class="docutils" id="id6">
+<caption><span class="caption-text">Table TESTS - Information about tests</span><a class="headerlink" href="#id6" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="20%" />
+<col width="25%" />
+<col width="55%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Column Name</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>PK</td>
+<td>BIGINT</td>
+<td>Primary key (autoincrement)</td>
+</tr>
+<tr class="row-odd"><td>RUN_ID</td>
+<td>BIGINT</td>
+<td>FK to RUNS</td>
+</tr>
+<tr class="row-even"><td>TEST_ID</td>
+<td>BIGINT</td>
+<td>FK to TESTS</td>
+</tr>
+<tr class="row-odd"><td>KIND</td>
+<td>CHAR(3)</td>
+<td>Outcome type (TST=Test run, Resource setup=R-S, resource cleanup=R-C)</td>
+</tr>
+<tr class="row-even"><td>OUTCOME</td>
+<td>CHAR(1)</td>
+<td>Outcome (P=PASS, F=FAIL, E=ERROR, U=UNTESTED, S=SKIPPED)</td>
+</tr>
+<tr class="row-odd"><td>RUN_TIME</td>
+<td>TIME</td>
+<td>Run time</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<table border="1" class="docutils" id="id7">
+<caption><span class="caption-text">Table TESTS - Information about tests</span><a class="headerlink" href="#id7" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="20%" />
+<col width="25%" />
+<col width="55%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Column Name</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>PK</td>
+<td>BIGINT</td>
+<td>Primary key (autoincrement)</td>
+</tr>
+<tr class="row-odd"><td>ANN_TYPE_ID</td>
+<td>BIGINT</td>
+<td>FK to ANN_TYPES</td>
+</tr>
+<tr class="row-even"><td>OUTCOME_ID</td>
+<td>BIGINT</td>
+<td>FK to OUTCOMES</td>
+</tr>
+<tr class="row-odd"><td>ANNOTATION</td>
+<td>BLOB sub_type text</td>
+<td>Annotation value</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>To create such archive database you can use the <cite>fbt_db</cite> utility. This utility can also import result files into database.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>fbt_db [-h] [-w PASSWORD] [-o HOST] -d DATABASE {import,create} ...
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -w PASSWORD, --password PASSWORD
+                        SYSDBA password
+  -o HOST, --host HOST  Firebird host machine identification
+  -d DATABASE, --database DATABASE
+                        Archive database name
+
+Commands:
+  {import,create}       Use &lt;command&gt; --help for more information about
+                        command.
+    create              Creates archive database.
+    import              Import result(s) to database.
+</pre></div>
+</div>
+<div class="section" id="create">
+<h3>Create<a class="headerlink" href="#create" title="Permalink to this headline">¶</a></h3>
+<p>This command creates empty archive database. This operation fails if specified database already exists.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>fbt_db [-w PASSWORD] [-o HOST] -d DATABASE create [-h]
+
+Create archive database.
+
+optional arguments:
+  -w PASSWORD, --password PASSWORD
+                        SYSDBA password
+  -o HOST, --host HOST  Firebird host machine identification
+  -d DATABASE, --database DATABASE
+                        Archive database name
+  -h, --help  show this help message and exit
+</pre></div>
+</div>
+</div>
+<div class="section" id="import">
+<h3>Import<a class="headerlink" href="#import" title="Permalink to this headline">¶</a></h3>
+<p>This command imports resul file(s) into archive database.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>fbt_db [-w PASSWORD] [-o HOST] -d DATABASE import [-h] [name]
+
+Import result(s) to database.
+
+positional arguments:
+  name        Results file or directory with result files
+
+optional arguments:
+  -w PASSWORD, --password PASSWORD
+                        SYSDBA password
+  -o HOST, --host HOST  Firebird host machine identification
+  -d DATABASE, --database DATABASE
+                        Archive database name
+  -h, --help  show this help message and exit
 </pre></div>
 </div>
 </div>
@@ -853,6 +1009,11 @@ Current version: 2.5.2.26540
 <li><a class="reference internal" href="#save">Save</a></li>
 <li><a class="reference internal" href="#retrieve">Retrieve</a></li>
 <li><a class="reference internal" href="#delete">Delete</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#using-fbt-db">Using fbt_db</a><ul>
+<li><a class="reference internal" href="#create">Create</a></li>
+<li><a class="reference internal" href="#import">Import</a></li>
 </ul>
 </li>
 </ul>

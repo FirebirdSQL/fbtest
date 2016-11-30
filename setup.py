@@ -15,7 +15,7 @@ classifiers = [
 ]
 
 setup(name='fbtest',
-      version='1.0.4',
+      version='1.0.5',
       description = 'Firebird QA tools.',
       url='http://www.firebirdsql.org/en/quality-assurance-status/',
       classifiers=classifiers,
@@ -44,6 +44,7 @@ setup(name='fbtest',
             'fbt_update = fbtest:run_update',
             'fbt_view = fbtest:run_view',
             'fbt_archive = fbtest:run_archive',
+            'fbt_db = fbtest:run_database',
         ],
     },
 )

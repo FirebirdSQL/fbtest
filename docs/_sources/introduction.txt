@@ -45,20 +45,16 @@ Installation
 
       pip install fdb
 
-   to install FDB from PyPI (Python Package Index). Otherwise you have to download FDB, unpack 
-   it and run::
+   to install FDB from PyPI (Python Package Index). Otherwise you have to download FDB, unpack it and run::
 
       python setup.py install
 
    from directory where you unpacked it.
 5. Install `PySVN` module.
 
-   On Linux you should find it in your distribution repository (as `python-svn` or `pysvn`).
-   On Windows and MacOS you need to download and install appropriate installation kit for PySVN_.
+   On Linux you should find it in your distribution repository (as `python-svn` or `pysvn`). On Windows and MacOS you need to download and install appropriate installation kit for PySVN_.
 
-   Although fbtest uses Subversion to access Firebird project's repository, you shouldn't need to 
-   install it, as it's part of pysvn installation kit for Windows/MacOS and should be installed 
-   automatically on Linux (as dependency to pysvn).
+   Although fbtest uses Subversion to access Firebird project's repository, you shouldn't need to install it, as it's part of pysvn installation kit for Windows/MacOS and should be installed automatically on Linux (as dependency to pysvn).
 6. Install `fbtest`. 
 
    a) If you want to run Firebird test suite, but do not develop new tests, use next method.
@@ -67,14 +63,11 @@ Installation
 
          pip install fbtest
 
-      to install it from PyPI. Otherwise you have to download it from Firebird website, unpack 
-      it and run::
+      to install it from PyPI. Otherwise you have to download it from Firebird website, unpack it and run::
 
          python setup.py install
 
-   b) If you want to run tests and also create new ones (or develop fbtest itself), make a checkout of 
-      `this path <http://svn.code.sf.net/p/firebird/code/qa/fbtest/trunk/>`_ from Firebird Subversion 
-      repository, and then run::
+   b) If you want to run tests and also create new ones (or develop fbtest itself), make a checkout of `this path <http://svn.code.sf.net/p/firebird/code/qa/fbtest/trunk/>`_ from Firebird Subversion repository, and then run::
 
          python setup.py develop
 
