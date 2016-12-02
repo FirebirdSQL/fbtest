@@ -796,12 +796,12 @@ Archive database must have next structure:
      - BIGINT
      - Primary key (autoincrement)
    * - NAME
-     - VARCHAR(300)
+     - VARCHAR(70)
      - Annotation type name
 
 |
 
-.. list-table:: Table TESTS - Information about tests
+.. list-table:: Table OUTCOMES - Information about test run outcomes
    :widths: 20 25 55
    :header-rows: 1
 
@@ -829,7 +829,7 @@ Archive database must have next structure:
 
 |
 
-.. list-table:: Table TESTS - Information about tests
+.. list-table:: Table ANNOTATIONS - Information about outcome annotations
    :widths: 20 25 55
    :header-rows: 1
 
@@ -865,6 +865,8 @@ Usage::
      -o HOST, --host HOST  Firebird host machine identification
      -d DATABASE, --database DATABASE
                            Archive database name
+     -c CLIENT, --client CLIENT
+                           Use specified Firebird client library
 
    Commands:
      {import,create}       Use <command> --help for more information about
@@ -890,6 +892,8 @@ Usage::
      -o HOST, --host HOST  Firebird host machine identification
      -d DATABASE, --database DATABASE
                            Archive database name
+     -c CLIENT, --client CLIENT
+                           Use specified Firebird client library
      -h, --help  show this help message and exit
 
 Import
@@ -912,5 +916,7 @@ Usage::
      -o HOST, --host HOST  Firebird host machine identification
      -d DATABASE, --database DATABASE
                            Archive database name
+     -c CLIENT, --client CLIENT
+                           Use specified Firebird client library
      -h, --help  show this help message and exit
 

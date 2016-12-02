@@ -2,9 +2,22 @@
 Changelog
 #########
 
+* `Version 1.0.7`_ (2.12.2016)
+* `Version 1.0.6`_ (2.12.2016)
 * `Version 1.0.5`_ (30.11.2016)
 * `Version 1.0.4`_ (29.4.2016)
 * `Version 1.0.3`_ (31.3.2016)
+
+Version 1.0.7
+=============
+
+- Fixed issues with documentation.
+- Added CLI option -c, --client to fbt_db utility.
+
+Version 1.0.6
+=============
+
+- Broken release, deleted.
 
 Version 1.0.5
 =============

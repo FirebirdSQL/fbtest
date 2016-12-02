@@ -51,7 +51,7 @@ from xml.sax import saxutils
 import datetime
 from contextlib import closing
 
-__version__ = "1.0.5"
+__version__ = "1.0.7"
 
 try:
     from subprocess import Popen, PIPE
@@ -3030,6 +3030,8 @@ class ScriptRunner(object):
         """Called by :func:`~fbtest.run_database` for command execution.
         """
         try:
+            if options.client is not None:
+                fdb.load_api(options.client)
             with closing(fdb.create_database(user='SYSDBA', password=options.password,
                          host=options.host, database=options.database,
                          charset='UTF8',page_size=16*1024)) as con:
@@ -3053,6 +3055,9 @@ class ScriptRunner(object):
     def cmd_db_import(self,options):
         """Called by :func:`~fbtest.run_database` for command execution.
         """
+        if options.client is not None:
+            fdb.load_api(options.client)
+
         kinds = {"resource_setup":'R-S',"resource_cleanup":'R-C',
                  "test":'TST'}
         select_test_ids = "SELECT NAME,PK FROM TESTS"
@@ -3633,6 +3638,7 @@ def run_database():
     parser.add_argument('-w','--password',help="SYSDBA password")
     parser.add_argument('-o','--host',help="Firebird host machine identification")
     parser.add_argument('-d','--database',required=True,help="Archive database name")
+    parser.add_argument('-c','--client',help="Use specified Firebird client library")
     parser.set_defaults(host='localhost',password='masterkey',
                         database='fbtarch.fdb')
 
