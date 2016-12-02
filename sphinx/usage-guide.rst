@@ -37,7 +37,7 @@ Test Environment
 ================
 
 Test Environment consists from `Test Repository`, Firebird client library and Firebird command-line tools. You don't need any additional configuration if you want to run tests against current Firebird installation. However, if you want to test another Firebird installation (if you have multiple Firebird installations),
-you have to make sure that `fbtest` will use Firebird client library and command-line tools **from tested Firebird installation**. Scripts that work with Firebird (fbt_run_ and fbt_server_) have a command-line switch to specificy a directory where Firebird command-line tools are located. However, current implementation doesn't allow to specify alternative Firebird client library, so it's your responsibility to make sure that correct client library is located on system path.
+you have to make sure that `fbtest` will use Firebird client library and command-line tools **from tested Firebird installation**. Scripts that work with Firebird (fbt_run_ and fbt_server_) have a command-line switch to specificy a directory where Firebird command-line tools are located, and a swicth to specify Firebird client library to be used. 
 
 
 Running tests
