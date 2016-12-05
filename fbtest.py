@@ -2334,7 +2334,10 @@ class Runner(object):
                                     skip = True
 
                     if verbosity == 2:
-                        print ('%s ... ' % test.id,end='')
+                        test_count = len(test_list)
+                        index = test_list.index(test)+1
+                        fmt = "%" + str(len(str(test_count))) + "d/%d %s ... "
+                        print (fmt % (index,test_count,test.id),end='')
                         sys.stdout.flush()
                     if not skip:
                         expect = None
