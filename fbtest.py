@@ -2486,7 +2486,7 @@ class ScriptRunner(object):
             skip_names = []
             if os.path.isfile(options.skip):
                 skip_file = open(options.skip,'rU')
-                skip_names.extend(line.rstrip() for line in skip_file.readlines())
+                skip_names.extend(line.rstrip() for line in skip_file.readlines() if line.strip() != '')
                 skip_file.close()
             else:
                 skip_names.append(options.skip)
