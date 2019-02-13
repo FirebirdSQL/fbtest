@@ -1011,7 +1011,14 @@ class TestVersion(object):
                 try:
                     sys.stdout = StringIO()
                     sys.stderr = StringIO()
-                    exec substitute_macros(self.test_script) in global_ns, local_ns
+                    # put Python code into temporary file to allow easy debugging
+                    test_src = substitute_macros(self.test_script)
+                    temp_src_file = tempfile.NamedTemporaryFile(dir=context.environment['temp_directory'], delete=False, suffix='.py')
+                    temp_src_file.write(test_src)
+                    temp_src_file.close()
+                    test_code_block = compile(test_src, temp_src_file.name, 'exec')
+                    exec test_code_block in global_ns, local_ns
+                    os.unlink(temp_src_file.name)
                 except KeyboardInterrupt:
                     raise
                 except:
