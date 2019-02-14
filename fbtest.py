@@ -1015,6 +1015,8 @@ class TestVersion(object):
                     test_src = substitute_macros(self.test_script)
                     temp_src_file = tempfile.NamedTemporaryFile(dir=context.environment['temp_directory'], delete=False,
                                                                 suffix='.py')
+                    if isinstance(test_src, types.UnicodeType):
+                        test_src = test_src.encode('utf-8')
                     temp_src_file.write(test_src)
                     temp_src_file.close()
                     try:
