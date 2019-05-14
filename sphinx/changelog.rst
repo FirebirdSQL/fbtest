@@ -2,12 +2,18 @@
 Changelog
 #########
 
+* `Version 1.0.7.2`_ (14.5.2019)
 * `Version 1.0.7.1`_ (14.5.2019)
 * `Version 1.0.7`_ (2.12.2016)
 * `Version 1.0.6`_ (2.12.2016)
 * `Version 1.0.5`_ (30.11.2016)
 * `Version 1.0.4`_ (29.4.2016)
 * `Version 1.0.3`_ (31.3.2016)
+
+Version 1.0.7.2
+===============
+
+- Added pull request from Artyom Smirnov (better support for Python test debugging).
 
 Version 1.0.7.1
 ===============

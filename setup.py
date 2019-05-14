@@ -15,7 +15,7 @@ classifiers = [
 ]
 
 setup(name='fbtest',
-      version='1.0.7.1',
+      version='1.0.7.2',
       description = 'Firebird QA tools.',
       url='https://firebirdsql.org/en/devel-qa/',
       classifiers=classifiers,
