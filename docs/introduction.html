@@ -1,29 +1,28 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Introduction &mdash; fbtest 1.0.7 documentation</title>
-    
+    <title>Introduction &#8212; fbtest 1.0.7.1 documentation</title>
     <link rel="stylesheet" href="_static/fdbtheme.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.0.7',
+        VERSION:     '1.0.7.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="fbtest 1.0.7 documentation" href="index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Usage Guide" href="usage-guide.html" />
     <link rel="prev" title="Welcome to fbtest’s documentation!" href="index.html" />
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
@@ -33,7 +32,7 @@
 <![endif]-->
 
   </head>
-  <body role="document">
+  <body>
 
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -50,7 +49,7 @@
         <li class="right" >
           <a href="index.html" title="Welcome to fbtest’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">fbtest 1.0.7 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">fbtest 1.0.7.1 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -66,12 +65,12 @@
 <ul class="simple">
 <li><a class="reference external" href="http://www.python.org">Python</a> version 2.7. If you have Python 3.x already installed, you may try it as FBTest should work
 with it, but it was not tested with Python 3 yet.<ul>
-<li><cite>Linux:</cite> If you don&#8217;t have Python already installed you can get it from your distribution&#8217;s repository.</li>
+<li><cite>Linux:</cite> If you don’t have Python already installed you can get it from your distribution’s repository.</li>
 <li><cite>Windows &amp; MacOS:</cite> You may download Python installation package from <a class="reference external" href="http://www.python.org/download/">python.org</a>, or from <a class="reference external" href="http://www.activestate.com/activepython/downloads">ActiveState</a> (recommended).</li>
 </ul>
 </li>
 <li><a class="reference external" href="https://pypi.python.org/pypi/distribute">Distribute</a> module.</li>
-<li><a class="reference external" href="http://pypi.python.org/pypi/pip">PIP</a> installer. It&#8217;s not strictly necessary, but it makes you life with Python much easier.</li>
+<li><a class="reference external" href="http://pypi.python.org/pypi/pip">PIP</a> installer. It’s not strictly necessary, but it makes you life with Python much easier.</li>
 <li><a class="reference external" href="http://pypi.python.org/pypi/fdb">FDB</a> Firebird driver for Python.</li>
 <li><a class="reference external" href="http://pysvn.tigris.org/project_downloads.html">PySVN</a> module (optional but recommended).</li>
 </ul>
@@ -87,7 +86,7 @@ with it, but it was not tested with Python 3 yet.<ul>
 </li>
 <li><p class="first">Install <cite>Distribute</cite>. On Windows and MacOS (or Linux if its not in your repository) download
 <a class="reference external" href="http://python-distribute.org/distribute_setup.py">distribute_setup.py</a> and run next command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>python distribute_setup.py
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">distribute_setup</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 <p>You can find detailed installation instructions for Distribute
@@ -95,40 +94,40 @@ with it, but it was not tested with Python 3 yet.<ul>
 </li>
 <li><p class="first">Install <cite>pip</cite>. On Windows and MacOS (or Linux if its not in your repository) download
 <a class="reference external" href="https://raw.github.com/pypa/pip/master/contrib/get-pip.py">get-pip.py</a> and run next command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>python get-pip.py
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">get</span><span class="o">-</span><span class="n">pip</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 <p>You can find detailed installation instructions for PIP
 <a class="reference external" href="http://www.pip-installer.org/en/latest/installing.html">here</a>.</p>
 </li>
 <li><p class="first">Install <cite>FDB</cite>. If you have installed <cite>PIP</cite>, you can simply run next command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>pip install fdb
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">fdb</span>
 </pre></div>
 </div>
 <p>to install FDB from PyPI (Python Package Index). Otherwise you have to download FDB, unpack it and run:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>python setup.py install
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
 </pre></div>
 </div>
 <p>from directory where you unpacked it.</p>
 </li>
 <li><p class="first">Install <cite>PySVN</cite> module.</p>
 <p>On Linux you should find it in your distribution repository (as <cite>python-svn</cite> or <cite>pysvn</cite>). On Windows and MacOS you need to download and install appropriate installation kit for <a class="reference external" href="http://pysvn.tigris.org/project_downloads.html">PySVN</a>.</p>
-<p>Although fbtest uses Subversion to access Firebird project&#8217;s repository, you shouldn&#8217;t need to install it, as it&#8217;s part of pysvn installation kit for Windows/MacOS and should be installed automatically on Linux (as dependency to pysvn).</p>
+<p>Although fbtest uses Subversion to access Firebird project’s repository, you shouldn’t need to install it, as it’s part of pysvn installation kit for Windows/MacOS and should be installed automatically on Linux (as dependency to pysvn).</p>
 </li>
 <li><p class="first">Install <cite>fbtest</cite>.</p>
 <ol class="loweralpha">
 <li><p class="first">If you want to run Firebird test suite, but do not develop new tests, use next method.</p>
 <p>If you have installed <cite>PIP</cite>, you can simply run next command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>pip install fbtest
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">fbtest</span>
 </pre></div>
 </div>
 <p>to install it from PyPI. Otherwise you have to download it from Firebird website, unpack it and run:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>python setup.py install
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">If you want to run tests and also create new ones (or develop fbtest itself), make a checkout of <a class="reference external" href="http://svn.code.sf.net/p/firebird/code/qa/fbtest/trunk/">this path</a> from Firebird Subversion repository, and then run:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>python setup.py develop
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">develop</span>
 </pre></div>
 </div>
 <p>You should also download fbtedit - GUI Test editor for Windows.</p>
@@ -140,13 +139,13 @@ with it, but it was not tested with Python 3 yet.<ul>
 <div class="section" id="test-repository-initialization">
 <h2>Test Repository Initialization<a class="headerlink" href="#test-repository-initialization" title="Permalink to this headline">¶</a></h2>
 <p>Create directory where you want it stored and run next command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>fbt_update repository
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">fbt_update</span> <span class="n">repository</span>
 </pre></div>
 </div>
 <p>It will fetch tests and all other necessary files directly from Firebird project subversion repository.</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
-<p class="last">If you don&#8217;t have <a class="reference external" href="http://pysvn.tigris.org/project_downloads.html">PySVN</a> module installed, you have to checkout <a class="reference internal" href="usage-guide.html#test-repository"><span>Test Repository</span></a> manually.</p>
+<p class="last">If you don’t have <a class="reference external" href="http://pysvn.tigris.org/project_downloads.html">PySVN</a> module installed, you have to checkout <a class="reference internal" href="usage-guide.html#test-repository"><span class="std std-ref">Test Repository</span></a> manually.</p>
 </div>
 </div>
 </div>
@@ -169,21 +168,18 @@ with it, but it was not tested with Python 3 yet.<ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="index.html"
-                        title="previous chapter">Welcome to fbtest&#8217;s documentation!</a></p>
+                        title="previous chapter">Welcome to fbtest’s documentation!</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="usage-guide.html"
                         title="next chapter">Usage Guide</a></p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -205,12 +201,12 @@ with it, but it was not tested with Python 3 yet.<ul>
         <li class="right" >
           <a href="index.html" title="Welcome to fbtest’s documentation!"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">fbtest 1.0.7 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">fbtest 1.0.7.1 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2012, Pavel Císař.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+        &#169; Copyright 2012-2019, Pavel Císař.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
     </div>
   </body>
 </html>

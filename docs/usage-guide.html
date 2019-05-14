@@ -1,29 +1,28 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Usage Guide &mdash; fbtest 1.0.7 documentation</title>
-    
+    <title>Usage Guide &#8212; fbtest 1.0.7.1 documentation</title>
     <link rel="stylesheet" href="_static/fdbtheme.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.0.7',
+        VERSION:     '1.0.7.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="fbtest 1.0.7 documentation" href="index.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="How to design new tests" href="new-test-design.html" />
     <link rel="prev" title="Introduction" href="introduction.html" />
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
@@ -33,7 +32,7 @@
 <![endif]-->
 
   </head>
-  <body role="document">
+  <body>
 
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -50,7 +49,7 @@
         <li class="right" >
           <a href="introduction.html" title="Introduction"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">fbtest 1.0.7 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">fbtest 1.0.7.1 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -63,11 +62,11 @@
 <h1>Usage Guide<a class="headerlink" href="#usage-guide" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="test-repository">
 <span id="id1"></span><h2>Test Repository<a class="headerlink" href="#test-repository" title="Permalink to this headline">¶</a></h2>
-<p>Test Reposotory contains <a class="reference internal" href="writting-new-tests.html#test-definitions"><span>Test definitions</span></a>, <a class="reference internal" href="writting-new-tests.html#resource-definitions"><span>Resource definitions</span></a>, <a class="reference internal" href="writting-new-tests.html#databases"><span>Databases</span></a>, <a class="reference internal" href="writting-new-tests.html#database-backups"><span>Database backups</span></a> and <a class="reference internal" href="writting-new-tests.html#other-files"><span>Other files</span></a>. Repository is <a class="reference external" href="http://svn.code.sf.net/p/firebird/code/">stored in our Subversion repository</a> at SourceForge. You will need a local copy of this repository to run any test. To do that, you can:</p>
+<p>Test Reposotory contains <a class="reference internal" href="writting-new-tests.html#test-definitions"><span class="std std-ref">Test definitions</span></a>, <a class="reference internal" href="writting-new-tests.html#resource-definitions"><span class="std std-ref">Resource definitions</span></a>, <a class="reference internal" href="writting-new-tests.html#databases"><span class="std std-ref">Databases</span></a>, <a class="reference internal" href="writting-new-tests.html#database-backups"><span class="std std-ref">Database backups</span></a> and <a class="reference internal" href="writting-new-tests.html#other-files"><span class="std std-ref">Other files</span></a>. Repository is <a class="reference external" href="http://svn.code.sf.net/p/firebird/code/">stored in our Subversion repository</a> at SourceForge. You will need a local copy of this repository to run any test. To do that, you can:</p>
 <blockquote>
 <div><ol class="loweralpha">
 <li><p class="first">Create directory where you want it stored, open a command prompt, change to this directory and    run next command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>fbt_update repository
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">fbt_update</span> <span class="n">repository</span>
 </pre></div>
 </div>
 </li>
@@ -87,7 +86,7 @@
 <li><code class="file docutils literal"><span class="pre">fbk</span></code> : Contains backup files that some tests may require.</li>
 <li><code class="file docutils literal"><span class="pre">files</span></code> : Contains other external files (SQL scripts for example) that some tests may require.</li>
 <li><code class="file docutils literal"><span class="pre">tests</span></code> : Contains all test definitions structured into suite subdirectories.</li>
-<li><code class="file docutils literal"><span class="pre">tmp</span></code> : Location for temporary databases. If it does not exists when <strong class="program">fbt_run</strong> or <strong class="program">fbt_server</strong> is executed, it&#8217;s automatically created with full access rights for everyone.</li>
+<li><code class="file docutils literal"><span class="pre">tmp</span></code> : Location for temporary databases. If it does not exists when <strong class="program">fbt_run</strong> or <strong class="program">fbt_server</strong> is executed, it’s automatically created with full access rights for everyone.</li>
 </ul>
 </div></blockquote>
 <div class="admonition important">
@@ -97,144 +96,144 @@
 </div>
 <div class="section" id="test-environment">
 <h2>Test Environment<a class="headerlink" href="#test-environment" title="Permalink to this headline">¶</a></h2>
-<p>Test Environment consists from <cite>Test Repository</cite>, Firebird client library and Firebird command-line tools. You don&#8217;t need any additional configuration if you want to run tests against current Firebird installation. However, if you want to test another Firebird installation (if you have multiple Firebird installations),
-you have to make sure that <cite>fbtest</cite> will use Firebird client library and command-line tools <strong>from tested Firebird installation</strong>. Scripts that work with Firebird (<a class="reference internal" href="#fbt-run">fbt_run</a> and <a class="reference internal" href="#fbt-server">fbt_server</a>) have a command-line switch to specificy a directory where Firebird command-line tools are located. However, current implementation doesn&#8217;t allow to specify alternative Firebird client library, so it&#8217;s your responsibility to make sure that correct client library is located on system path.</p>
+<p>Test Environment consists from <cite>Test Repository</cite>, Firebird client library and Firebird command-line tools. You don’t need any additional configuration if you want to run tests against current Firebird installation. However, if you want to test another Firebird installation (if you have multiple Firebird installations),
+you have to make sure that <cite>fbtest</cite> will use Firebird client library and command-line tools <strong>from tested Firebird installation</strong>. Scripts that work with Firebird (<a class="reference internal" href="#fbt-run">fbt_run</a> and <a class="reference internal" href="#fbt-server">fbt_server</a>) have a command-line switch to specificy a directory where Firebird command-line tools are located, and a swicth to specify Firebird client library to be used.</p>
 </div>
 <div class="section" id="running-tests">
 <h2>Running tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h2>
 <p>You can run tests against local or remote Firebird installation. However, when you want to run tests against remote Firebird server, you still need locally installed (or accessible) Firebird client library and command-line tools that match the tested server.</p>
 <div class="section" id="tests-and-test-suites">
 <h3>Tests and test suites<a class="headerlink" href="#tests-and-test-suites" title="Permalink to this headline">¶</a></h3>
-<p>Each test is designed to test only specific Firebird feature or bug fix. Tests are grouped into logical groups called <cite>suites</cite>, and these suites could be nested. Each test and suite has a <cite>name</cite>. To identify test or suite, you have to use fully qualified name that consists from all parent suite names plus test or suite name in a row, separated by dot. For example, fully qualified name for test named &#8220;isql_01&#8221; in suite &#8220;isql&#8221; that&#8217;s part of suite &#8220;basic&#8221; which is part of &#8220;functional&#8221; suite is
-&#8220;functional.basic.isql.isql_01&#8221;.</p>
+<p>Each test is designed to test only specific Firebird feature or bug fix. Tests are grouped into logical groups called <cite>suites</cite>, and these suites could be nested. Each test and suite has a <cite>name</cite>. To identify test or suite, you have to use fully qualified name that consists from all parent suite names plus test or suite name in a row, separated by dot. For example, fully qualified name for test named “isql_01” in suite “isql” that’s part of suite “basic” which is part of “functional” suite is
+“functional.basic.isql.isql_01”.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Definition of each test is stored in Test Repository as single text file with &#8221;.fbt&#8221; extension. Each suite is represented as directory and directory tree represents the suite nesting structure.</p>
+<p class="last">Definition of each test is stored in Test Repository as single text file with “.fbt” extension. Each suite is represented as directory and directory tree represents the suite nesting structure.</p>
 </div>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
-<p class="last">Current implementation doesn&#8217;t allow free test file relocation between directories (suites) without adjustments in each moved test definition.</p>
+<p class="last">Current implementation doesn’t allow free test file relocation between directories (suites) without adjustments in each moved test definition.</p>
 </div>
 <p>Single <cite>test run</cite> may run all tests in Test Repository or single test/suite. Running test suite means that all test and sub-suites in it are executed.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">All tests are designed to work with specific version(s) of Firebird server. Each test contains one or more &#8220;recipes&#8221; - how to execute and evaluate test when run in specific conditions (platform and/or Firebird version). If test doesn&#8217;t contain recipe for actual conditions, it&#8217;s not executed, which is not considered as bug or problem because it means that test was simply not designed to work in these conditions.</p>
+<p class="last">All tests are designed to work with specific version(s) of Firebird server. Each test contains one or more “recipes” - how to execute and evaluate test when run in specific conditions (platform and/or Firebird version). If test doesn’t contain recipe for actual conditions, it’s not executed, which is not considered as bug or problem because it means that test was simply not designed to work in these conditions.</p>
 </div>
 <p>Tests are run using <strong class="program">fdb_run</strong> script.</p>
 </div>
 <div class="section" id="using-fbt-run">
 <span id="fbt-run"></span><h3>Using fbt_run<a class="headerlink" href="#using-fbt-run" title="Permalink to this headline">¶</a></h3>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>fbt_run [-h] [-b BIN_DIR] [-d DB_DIR] [--archive] [--rerun] [-v]
-        [--verbosity {0,1,2}] [-q] [-x] [--remote] [-u] [-w PASSWORD]
-        [-o HOST] [-p PERSON] [-a ARCH] [-s SEQUENCE] [-k SKIP] [-c CLIENT]
-        [name]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">fbt_run</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">b</span> <span class="n">BIN_DIR</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">d</span> <span class="n">DB_DIR</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">archive</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">rerun</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">v</span><span class="p">]</span>
+        <span class="p">[</span><span class="o">--</span><span class="n">verbosity</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">}]</span> <span class="p">[</span><span class="o">-</span><span class="n">q</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">x</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">remote</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">u</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">w</span> <span class="n">PASSWORD</span><span class="p">]</span>
+        <span class="p">[</span><span class="o">-</span><span class="n">o</span> <span class="n">HOST</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">p</span> <span class="n">PERSON</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">a</span> <span class="n">ARCH</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">s</span> <span class="n">SEQUENCE</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">k</span> <span class="n">SKIP</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">c</span> <span class="n">CLIENT</span><span class="p">]</span>
+        <span class="p">[</span><span class="n">name</span><span class="p">]</span>
 
-positional arguments:
-  name                  Suite or test name
+<span class="n">positional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="n">name</span>                  <span class="n">Suite</span> <span class="ow">or</span> <span class="n">test</span> <span class="n">name</span>
 
-optional arguments:
-  -h, --help            show this help message and exit
-  -b BIN_DIR, --bin-dir BIN_DIR
-                        Directory where Firebird binaries tools are
-  -d DB_DIR, --db-dir DB_DIR
-                        Directory to use for test databases
-  --archive             Save last run results to archive
-  --rerun               Run only tests that don&#39;t PASSed in last run
-  --untested            Run only tests that were UNTESTED in last run
-  -v, --verbose         Be more verbose
-  --verbosity {0,1,2}   Set verbosity; --verbosity=2 is the same as -v
-  -q, --quiet           Be less verbose
-  -x, --xunit           Provides test results also in the standard XUnit XML
-                        format
-  -e FILENAME, --expect FILENAME
-                        Test results file to be used as expeted outcomes
-  --remote              Connect to remote fbtest server
-  -u, --update          Update last run results with re-run results
-  -w PASSWORD, --password PASSWORD
-                        SYSDBA password
-  -o HOST, --host HOST  Remote Firebird or fbtest host machine identification
-  -p PERSON, --person PERSON
-                        QA person name
-  -a ARCH, --arch ARCH  Firebird architecture: SS, CS, SC
-  -s SEQUENCE, --sequence SEQUENCE
-                        Run sequence number for this target
-  -k SKIP, --skip SKIP  Suite or test name or name of file with suite/test
-                        names to skip
-  -c CLIENT, --client CLIENT
-                        Use specified Firebird client library
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">-</span><span class="n">b</span> <span class="n">BIN_DIR</span><span class="p">,</span> <span class="o">--</span><span class="nb">bin</span><span class="o">-</span><span class="nb">dir</span> <span class="n">BIN_DIR</span>
+                        <span class="n">Directory</span> <span class="n">where</span> <span class="n">Firebird</span> <span class="n">binaries</span> <span class="n">tools</span> <span class="n">are</span>
+  <span class="o">-</span><span class="n">d</span> <span class="n">DB_DIR</span><span class="p">,</span> <span class="o">--</span><span class="n">db</span><span class="o">-</span><span class="nb">dir</span> <span class="n">DB_DIR</span>
+                        <span class="n">Directory</span> <span class="n">to</span> <span class="n">use</span> <span class="k">for</span> <span class="n">test</span> <span class="n">databases</span>
+  <span class="o">--</span><span class="n">archive</span>             <span class="n">Save</span> <span class="n">last</span> <span class="n">run</span> <span class="n">results</span> <span class="n">to</span> <span class="n">archive</span>
+  <span class="o">--</span><span class="n">rerun</span>               <span class="n">Run</span> <span class="n">only</span> <span class="n">tests</span> <span class="n">that</span> <span class="n">don</span><span class="s1">&#39;t PASSed in last run</span>
+  <span class="o">--</span><span class="n">untested</span>            <span class="n">Run</span> <span class="n">only</span> <span class="n">tests</span> <span class="n">that</span> <span class="n">were</span> <span class="n">UNTESTED</span> <span class="ow">in</span> <span class="n">last</span> <span class="n">run</span>
+  <span class="o">-</span><span class="n">v</span><span class="p">,</span> <span class="o">--</span><span class="n">verbose</span>         <span class="n">Be</span> <span class="n">more</span> <span class="n">verbose</span>
+  <span class="o">--</span><span class="n">verbosity</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">}</span>   <span class="n">Set</span> <span class="n">verbosity</span><span class="p">;</span> <span class="o">--</span><span class="n">verbosity</span><span class="o">=</span><span class="mi">2</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">same</span> <span class="k">as</span> <span class="o">-</span><span class="n">v</span>
+  <span class="o">-</span><span class="n">q</span><span class="p">,</span> <span class="o">--</span><span class="n">quiet</span>           <span class="n">Be</span> <span class="n">less</span> <span class="n">verbose</span>
+  <span class="o">-</span><span class="n">x</span><span class="p">,</span> <span class="o">--</span><span class="n">xunit</span>           <span class="n">Provides</span> <span class="n">test</span> <span class="n">results</span> <span class="n">also</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">standard</span> <span class="n">XUnit</span> <span class="n">XML</span>
+                        <span class="nb">format</span>
+  <span class="o">-</span><span class="n">e</span> <span class="n">FILENAME</span><span class="p">,</span> <span class="o">--</span><span class="n">expect</span> <span class="n">FILENAME</span>
+                        <span class="n">Test</span> <span class="n">results</span> <span class="n">file</span> <span class="n">to</span> <span class="n">be</span> <span class="n">used</span> <span class="k">as</span> <span class="n">expeted</span> <span class="n">outcomes</span>
+  <span class="o">--</span><span class="n">remote</span>              <span class="n">Connect</span> <span class="n">to</span> <span class="n">remote</span> <span class="n">fbtest</span> <span class="n">server</span>
+  <span class="o">-</span><span class="n">u</span><span class="p">,</span> <span class="o">--</span><span class="n">update</span>          <span class="n">Update</span> <span class="n">last</span> <span class="n">run</span> <span class="n">results</span> <span class="k">with</span> <span class="n">re</span><span class="o">-</span><span class="n">run</span> <span class="n">results</span>
+  <span class="o">-</span><span class="n">w</span> <span class="n">PASSWORD</span><span class="p">,</span> <span class="o">--</span><span class="n">password</span> <span class="n">PASSWORD</span>
+                        <span class="n">SYSDBA</span> <span class="n">password</span>
+  <span class="o">-</span><span class="n">o</span> <span class="n">HOST</span><span class="p">,</span> <span class="o">--</span><span class="n">host</span> <span class="n">HOST</span>  <span class="n">Remote</span> <span class="n">Firebird</span> <span class="ow">or</span> <span class="n">fbtest</span> <span class="n">host</span> <span class="n">machine</span> <span class="n">identification</span>
+  <span class="o">-</span><span class="n">p</span> <span class="n">PERSON</span><span class="p">,</span> <span class="o">--</span><span class="n">person</span> <span class="n">PERSON</span>
+                        <span class="n">QA</span> <span class="n">person</span> <span class="n">name</span>
+  <span class="o">-</span><span class="n">a</span> <span class="n">ARCH</span><span class="p">,</span> <span class="o">--</span><span class="n">arch</span> <span class="n">ARCH</span>  <span class="n">Firebird</span> <span class="n">architecture</span><span class="p">:</span> <span class="n">SS</span><span class="p">,</span> <span class="n">CS</span><span class="p">,</span> <span class="n">SC</span>
+  <span class="o">-</span><span class="n">s</span> <span class="n">SEQUENCE</span><span class="p">,</span> <span class="o">--</span><span class="n">sequence</span> <span class="n">SEQUENCE</span>
+                        <span class="n">Run</span> <span class="n">sequence</span> <span class="n">number</span> <span class="k">for</span> <span class="n">this</span> <span class="n">target</span>
+  <span class="o">-</span><span class="n">k</span> <span class="n">SKIP</span><span class="p">,</span> <span class="o">--</span><span class="n">skip</span> <span class="n">SKIP</span>  <span class="n">Suite</span> <span class="ow">or</span> <span class="n">test</span> <span class="n">name</span> <span class="ow">or</span> <span class="n">name</span> <span class="n">of</span> <span class="n">file</span> <span class="k">with</span> <span class="n">suite</span><span class="o">/</span><span class="n">test</span>
+                        <span class="n">names</span> <span class="n">to</span> <span class="n">skip</span>
+  <span class="o">-</span><span class="n">c</span> <span class="n">CLIENT</span><span class="p">,</span> <span class="o">--</span><span class="n">client</span> <span class="n">CLIENT</span>
+                        <span class="n">Use</span> <span class="n">specified</span> <span class="n">Firebird</span> <span class="n">client</span> <span class="n">library</span>
 </pre></div>
 </div>
 <p>This tool runs all or specified set of tests and collects run result from each test. This result for whole run is saved to <code class="file docutils literal"><span class="pre">results.trf</span></code> file in Test Repository for later reference.</p>
 <p>During execution <cite>fbt_run</cite> gives feedback to standard output about progress in usual way for unit test programs, including summary report.</p>
-<p>In normal verbosity mode <cite>fbt_run</cite> prints a dot for each passed test, or letter indicating detected problem: &#8216;F&#8217; for FAIL, &#8216;E&#8217; for ERROR and &#8216;U&#8217; for UNTESTED.</p>
+<p>In normal verbosity mode <cite>fbt_run</cite> prints a dot for each passed test, or letter indicating detected problem: ‘F’ for FAIL, ‘E’ for ERROR and ‘U’ for UNTESTED.</p>
 <p>Examples:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>&gt;fbt_run functional.basic.isql
-...
-----------------------------------------------------------------------
-Ran 3 tests in 0.918s
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">fbt_run</span> <span class="n">functional</span><span class="o">.</span><span class="n">basic</span><span class="o">.</span><span class="n">isql</span>
+<span class="o">...</span>
+<span class="o">----------------------------------------------------------------------</span>
+<span class="n">Ran</span> <span class="mi">3</span> <span class="n">tests</span> <span class="ow">in</span> <span class="mf">0.918</span><span class="n">s</span>
 
-OK
+<span class="n">OK</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span>&gt;fbt_run functional.basic.isql
-.F.
-======================================================================
-FAIL: functional.basic.isql.isql_01
-----------------------------------------------------------------------
-Expected standard output from ISQL does not match actual output.
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">fbt_run</span> <span class="n">functional</span><span class="o">.</span><span class="n">basic</span><span class="o">.</span><span class="n">isql</span>
+<span class="o">.</span><span class="n">F</span><span class="o">.</span>
+<span class="o">======================================================================</span>
+<span class="n">FAIL</span><span class="p">:</span> <span class="n">functional</span><span class="o">.</span><span class="n">basic</span><span class="o">.</span><span class="n">isql</span><span class="o">.</span><span class="n">isql_01</span>
+<span class="o">----------------------------------------------------------------------</span>
+<span class="n">Expected</span> <span class="n">standard</span> <span class="n">output</span> <span class="kn">from</span> <span class="nn">ISQL</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">match</span> <span class="n">actual</span> <span class="n">output</span><span class="o">.</span>
 
-----------------------------------------------------------------------
-Ran 3 tests in 0.949s
+<span class="o">----------------------------------------------------------------------</span>
+<span class="n">Ran</span> <span class="mi">3</span> <span class="n">tests</span> <span class="ow">in</span> <span class="mf">0.949</span><span class="n">s</span>
 
-FAILED (fails=1)
+<span class="n">FAILED</span> <span class="p">(</span><span class="n">fails</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>You may increase or decrease the amount of information printed using <cite>&#8211;verbose</cite>, <cite>&#8211;quiet</cite> and <cite>&#8211;verbosity</cite> options.</p>
+<p>You may increase or decrease the amount of information printed using <cite>–verbose</cite>, <cite>–quiet</cite> and <cite>–verbosity</cite> options.</p>
 <p>Example output for <strong>verbose</strong> mode:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>&gt;fbt_run -v functional.basic.isql
-functional.basic.isql.isql_03 ... ok
-functional.basic.isql.isql_01 ... ok
-functional.basic.isql.isql_02 ... ok
-----------------------------------------------------------------------
-Ran 3 tests in 0.939s
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">fbt_run</span> <span class="o">-</span><span class="n">v</span> <span class="n">functional</span><span class="o">.</span><span class="n">basic</span><span class="o">.</span><span class="n">isql</span>
+<span class="n">functional</span><span class="o">.</span><span class="n">basic</span><span class="o">.</span><span class="n">isql</span><span class="o">.</span><span class="n">isql_03</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">functional</span><span class="o">.</span><span class="n">basic</span><span class="o">.</span><span class="n">isql</span><span class="o">.</span><span class="n">isql_01</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">functional</span><span class="o">.</span><span class="n">basic</span><span class="o">.</span><span class="n">isql</span><span class="o">.</span><span class="n">isql_02</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="o">----------------------------------------------------------------------</span>
+<span class="n">Ran</span> <span class="mi">3</span> <span class="n">tests</span> <span class="ow">in</span> <span class="mf">0.939</span><span class="n">s</span>
 
-OK
+<span class="n">OK</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span>&gt;fbt_run -v functional.basic.isql
-functional.basic.isql.isql_03 ... ok
-functional.basic.isql.isql_01 ... FAIL
-functional.basic.isql.isql_02 ... ok
-======================================================================
-FAIL: functional.basic.isql.isql_01
-----------------------------------------------------------------------
-Expected standard output from ISQL does not match actual output.
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">fbt_run</span> <span class="o">-</span><span class="n">v</span> <span class="n">functional</span><span class="o">.</span><span class="n">basic</span><span class="o">.</span><span class="n">isql</span>
+<span class="n">functional</span><span class="o">.</span><span class="n">basic</span><span class="o">.</span><span class="n">isql</span><span class="o">.</span><span class="n">isql_03</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="n">functional</span><span class="o">.</span><span class="n">basic</span><span class="o">.</span><span class="n">isql</span><span class="o">.</span><span class="n">isql_01</span> <span class="o">...</span> <span class="n">FAIL</span>
+<span class="n">functional</span><span class="o">.</span><span class="n">basic</span><span class="o">.</span><span class="n">isql</span><span class="o">.</span><span class="n">isql_02</span> <span class="o">...</span> <span class="n">ok</span>
+<span class="o">======================================================================</span>
+<span class="n">FAIL</span><span class="p">:</span> <span class="n">functional</span><span class="o">.</span><span class="n">basic</span><span class="o">.</span><span class="n">isql</span><span class="o">.</span><span class="n">isql_01</span>
+<span class="o">----------------------------------------------------------------------</span>
+<span class="n">Expected</span> <span class="n">standard</span> <span class="n">output</span> <span class="kn">from</span> <span class="nn">ISQL</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">match</span> <span class="n">actual</span> <span class="n">output</span><span class="o">.</span>
 
-----------------------------------------------------------------------
-Ran 3 tests in 0.922s
+<span class="o">----------------------------------------------------------------------</span>
+<span class="n">Ran</span> <span class="mi">3</span> <span class="n">tests</span> <span class="ow">in</span> <span class="mf">0.922</span><span class="n">s</span>
 
-FAILED (fails=1)
+<span class="n">FAILED</span> <span class="p">(</span><span class="n">fails</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Example output for <strong>quiet</strong> mode:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>&gt;fbt_run -q functional.basic.isql
-----------------------------------------------------------------------
-Ran 3 tests in 0.925s
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">fbt_run</span> <span class="o">-</span><span class="n">q</span> <span class="n">functional</span><span class="o">.</span><span class="n">basic</span><span class="o">.</span><span class="n">isql</span>
+<span class="o">----------------------------------------------------------------------</span>
+<span class="n">Ran</span> <span class="mi">3</span> <span class="n">tests</span> <span class="ow">in</span> <span class="mf">0.925</span><span class="n">s</span>
 
-OK
+<span class="n">OK</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span>&gt;fbt_run -q functional.basic.isql
-======================================================================
-FAIL: functional.basic.isql.isql_01
-----------------------------------------------------------------------
-Expected standard output from ISQL does not match actual output.
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">fbt_run</span> <span class="o">-</span><span class="n">q</span> <span class="n">functional</span><span class="o">.</span><span class="n">basic</span><span class="o">.</span><span class="n">isql</span>
+<span class="o">======================================================================</span>
+<span class="n">FAIL</span><span class="p">:</span> <span class="n">functional</span><span class="o">.</span><span class="n">basic</span><span class="o">.</span><span class="n">isql</span><span class="o">.</span><span class="n">isql_01</span>
+<span class="o">----------------------------------------------------------------------</span>
+<span class="n">Expected</span> <span class="n">standard</span> <span class="n">output</span> <span class="kn">from</span> <span class="nn">ISQL</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">match</span> <span class="n">actual</span> <span class="n">output</span><span class="o">.</span>
 
-----------------------------------------------------------------------
-Ran 3 tests in 0.933s
+<span class="o">----------------------------------------------------------------------</span>
+<span class="n">Ran</span> <span class="mi">3</span> <span class="n">tests</span> <span class="ow">in</span> <span class="mf">0.933</span><span class="n">s</span>
 
-FAILED (fails=1)
+<span class="n">FAILED</span> <span class="p">(</span><span class="n">fails</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition tip">
@@ -243,34 +242,34 @@ FAILED (fails=1)
 </div>
 <p>There is no need to use any additional command-line options for quick execution of all or selected test(s) against current Firebird installation. However, you would need to specify some additional options in other cases:</p>
 <ul class="simple">
-<li>When SYSDBA password for tested server differs from default &#8216;masterkey&#8217;, you have to use <code class="xref std std-option docutils literal"><span class="pre">--password</span></code> option.</li>
+<li>When SYSDBA password for tested server differs from default ‘masterkey’, you have to use <code class="xref std std-option docutils literal"><span class="pre">--password</span></code> option.</li>
 <li>When tested server runs on different machine, you have to use <code class="xref std std-option docutils literal"><span class="pre">--host</span></code>,   <code class="xref std std-option docutils literal"><span class="pre">--bin-dir</span></code> and <code class="xref std std-option docutils literal"><span class="pre">--db-dir</span></code> options.</li>
 <li>When tested server runs on local machine but on different port than default one, you have to use <code class="xref std std-option docutils literal"><span class="pre">--host</span></code> option.</li>
 <li>Temporary databases used by tests are created in <code class="file docutils literal"><span class="pre">tmp</span></code> subdirectory in Test Repository. If you want temporary databases in different location, you will need <code class="xref std std-option docutils literal"><span class="pre">--db-dir</span></code> option.</li>
 <li>If you want to compare test run results from several server architectures, you should specify server architecture of tested engine using <code class="xref std std-option docutils literal"><span class="pre">--arch</span></code> option.</li>
 <li>If you want that test run results would be also archived, you have to specify <code class="xref std std-option docutils literal"><span class="pre">--archive</span></code> option. You should also consider using <code class="xref std std-option docutils literal"><span class="pre">--arch</span></code> and <code class="xref std std-option docutils literal"><span class="pre">--person</span></code> options in this case.</li>
 <li>If you want to exclude some tests from execution, you will need <code class="xref std std-option docutils literal"><span class="pre">--skip</span></code> option. However these tests are included into results file with outcome <cite>SKIPPED</cite> which is special kind of <cite>UNTESTED</cite> outcome.</li>
-<li>If you know that some tests will fail, you can either skip them altogether using <code class="xref std std-option docutils literal"><span class="pre">--skip</span></code> option, or you can run them but set an expectation using <code class="xref std std-option docutils literal"><span class="pre">--expect</span></code> option and a result file from previous run. Test will then PASS if test outcome and its cause will match expected one, otherwise it will FAIL. Please note that run details of failure (like content of standard output or error output) are NOT compared, only general description of the cause is checked. So test will fail only if cause of failure significantly changes it&#8217;s type (for example from difference in standard output to difference in error output).</li>
-<li>If you want to run the same set of tests several times and compare their results using <cite>fbt_analyze</cite>, you have to specify <code class="xref std std-option docutils literal"><span class="pre">--sequence</span></code> option. Don&#8217;t forget to copy the results.trf file to safe location after each series run, or use <code class="xref std std-option docutils literal"><span class="pre">--archive</span></code>.</li>
-<li>If you want to run only tests that didn&#8217;t passed the last run, use <code class="xref std std-option docutils literal"><span class="pre">--rerun</span></code> option, and if you want the last run results updated with results from new run, use <code class="xref std std-option docutils literal"><span class="pre">--update</span></code> option.</li>
+<li>If you know that some tests will fail, you can either skip them altogether using <code class="xref std std-option docutils literal"><span class="pre">--skip</span></code> option, or you can run them but set an expectation using <code class="xref std std-option docutils literal"><span class="pre">--expect</span></code> option and a result file from previous run. Test will then PASS if test outcome and its cause will match expected one, otherwise it will FAIL. Please note that run details of failure (like content of standard output or error output) are NOT compared, only general description of the cause is checked. So test will fail only if cause of failure significantly changes it’s type (for example from difference in standard output to difference in error output).</li>
+<li>If you want to run the same set of tests several times and compare their results using <cite>fbt_analyze</cite>, you have to specify <code class="xref std std-option docutils literal"><span class="pre">--sequence</span></code> option. Don’t forget to copy the results.trf file to safe location after each series run, or use <code class="xref std std-option docutils literal"><span class="pre">--archive</span></code>.</li>
+<li>If you want to run only tests that didn’t passed the last run, use <code class="xref std std-option docutils literal"><span class="pre">--rerun</span></code> option, and if you want the last run results updated with results from new run, use <code class="xref std std-option docutils literal"><span class="pre">--update</span></code> option.</li>
 <li>Since version 1.0.4 <cite>fbt_run</cite> checks that Firebird engine is running before each test is executed by creating a connection to Firebird services. If this attempt fails, test is not executed at all, and its outcome is set to <cite>UNTESTED</cite>. When you fix the problem with Firebird engine, you may re-run all these tests using <code class="xref std std-option docutils literal"><span class="pre">--untested</span></code> option that works similarly to <code class="xref std std-option docutils literal"><span class="pre">--rerun</span></code> option.</li>
 <li>If you want to send run results to someone, you should specify <code class="xref std std-option docutils literal"><span class="pre">--arch</span></code> and <code class="xref std std-option docutils literal"><span class="pre">--person</span></code> options.</li>
 <li>If you need run results also in standard XUnit XML format, use <code class="xref std std-option docutils literal"><span class="pre">--xunit</span></code> option.</li>
 </ul>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
-<p class="last">If your test environment is not properly configured, many (if not all) tests would fail or raise errors, which would spoil the test run results. For example if Firebird engine wouldn&#8217;t have sufficient rights to create/access databases in location for temporary databases, almost every test would fail as most of them use temporary databases.</p>
+<p class="last">If your test environment is not properly configured, many (if not all) tests would fail or raise errors, which would spoil the test run results. For example if Firebird engine wouldn’t have sufficient rights to create/access databases in location for temporary databases, almost every test would fail as most of them use temporary databases.</p>
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">Test Repository contains test named <cite>check</cite> that you could run to verify that your test environment is correctly configured before you&#8217;ll run the whole test series.</p>
+<p class="last">Test Repository contains test named <cite>check</cite> that you could run to verify that your test environment is correctly configured before you’ll run the whole test series.</p>
 </div>
 </div>
 </div>
 <div class="section" id="working-with-remote-test-server">
 <span id="fbt-server"></span><h2>Working with remote test server<a class="headerlink" href="#working-with-remote-test-server" title="Permalink to this headline">¶</a></h2>
 <p>Sometimes you may need to run tests on remote Firebird server, for example to test Firebird on different platform than is your primary platform. While you may use local <cite>fbtest</cite> installation to run against remote Firebird, it could be better (and easier to configure) to install <cite>fbtest</cite> also on remote machine and operate it from your workstation almost like it would be all installed locally.</p>
-<p>Before your can connect to remote <cite>fbtest</cite>, you have to run it in &#8220;server&#8221; mode. To do that, run <strong class="program">fbt_server</strong> on remote machine.</p>
+<p>Before your can connect to remote <cite>fbtest</cite>, you have to run it in “server” mode. To do that, run <strong class="program">fbt_server</strong> on remote machine.</p>
 <p><cite>fbt_server</cite> accepts command-line options <code class="xref std std-option docutils literal"><span class="pre">--bin-dir</span></code>, <code class="xref std std-option docutils literal"><span class="pre">--db-dir</span></code>,
 <code class="xref std std-option docutils literal"><span class="pre">--password</span></code>, <code class="xref std std-option docutils literal"><span class="pre">--host</span></code>, <code class="xref std std-option docutils literal"><span class="pre">--arch</span></code> and <code class="xref std std-option docutils literal"><span class="pre">--person</span></code> that have the same function like <cite>fbt_run</cite> options with the same name.</p>
 <p>Normally fbtest server listens on port 18861 and clients must know on which host it runs to contact him. Alternatively fbtest server could anounce itself on network via <cite>remote service registry</cite>. To use this mode you must start it with <code class="xref std std-option docutils literal"><span class="pre">--register</span></code> option.</p>
@@ -279,17 +278,17 @@ FAILED (fails=1)
 <p>When remote fbtest engine is used, <code class="xref std std-option docutils literal"><span class="pre">--bin-dir</span></code>, <code class="xref std std-option docutils literal"><span class="pre">--db-dir</span></code> and <code class="xref std std-option docutils literal"><span class="pre">--password</span></code> options are ignored when specified.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Note that <code class="xref std std-option docutils literal"><span class="pre">--host</span></code> option has different meaning when used together with <cite>&#8211;remote</cite>.</p>
+<p class="last">Note that <code class="xref std std-option docutils literal"><span class="pre">--host</span></code> option has different meaning when used together with <cite>–remote</cite>.</p>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">Do NOT operate fbtest server on open network! Current implementation gives full control to clients over it, which is potential security risk.</p>
 </div>
-<p>Remote fbtest server is also used by <a class="reference internal" href="writting-new-tests.html#fbtedit"><span>Test editor</span></a> to execute tests on other platforms than Windows.</p>
+<p>Remote fbtest server is also used by <a class="reference internal" href="writting-new-tests.html#fbtedit"><span class="std std-ref">Test editor</span></a> to execute tests on other platforms than Windows.</p>
 </div>
 <div class="section" id="test-run-result-analysis">
 <h2>Test run result analysis<a class="headerlink" href="#test-run-result-analysis" title="Permalink to this headline">¶</a></h2>
-<p>When test execution doesn&#8217;t end with success, you need to investigate why did that happen, because <cite>fbt_run</cite> gives only basic information: test run <a class="reference internal" href="#test-outcomes"><span>outcome</span></a> and <a class="reference internal" href="#failure-cause"><span>cause</span></a> of failure if test didn&#8217;t passed. However, test run result information (stored in <code class="file docutils literal"><span class="pre">results.trf</span></code>) contains all details including analytical information. You may inspect these information using <a class="reference internal" href="#fbt-view">fbt_view</a> tool, or generate detailed HTML report using <a class="reference internal" href="#fbt-analyze">fbt_analyze</a> tool, which can also compare results from multiple runs.</p>
+<p>When test execution doesn’t end with success, you need to investigate why did that happen, because <cite>fbt_run</cite> gives only basic information: test run <a class="reference internal" href="#test-outcomes"><span class="std std-ref">outcome</span></a> and <a class="reference internal" href="#failure-cause"><span class="std std-ref">cause</span></a> of failure if test didn’t passed. However, test run result information (stored in <code class="file docutils literal"><span class="pre">results.trf</span></code>) contains all details including analytical information. You may inspect these information using <a class="reference internal" href="#fbt-view">fbt_view</a> tool, or generate detailed HTML report using <a class="reference internal" href="#fbt-analyze">fbt_analyze</a> tool, which can also compare results from multiple runs.</p>
 <div class="section" id="test-run-outcome">
 <span id="test-outcomes"></span><h3>Test run outcome<a class="headerlink" href="#test-run-outcome" title="Permalink to this headline">¶</a></h3>
 <p>Test run may end in four different ways:</p>
@@ -303,9 +302,9 @@ FAILED (fails=1)
 </tr>
 <tr class="field-odd field"><th class="field-name">ERROR:</th><td class="field-body">An error (exception) occured during test execution.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">UNTESTED:</th><td class="field-body">Test couldn&#8217;t be executed because some condition wasn&#8217;t met (typically setup of required resource failed).</td>
+<tr class="field-even field"><th class="field-name">UNTESTED:</th><td class="field-body">Test couldn’t be executed because some condition wasn’t met (typically setup of required resource failed).</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">SKIPPED:</th><td class="field-body">Test execution was suppressed using &#8211;skip switch.</td>
+<tr class="field-odd field"><th class="field-name">SKIPPED:</th><td class="field-body">Test execution was suppressed using –skip switch.</td>
 </tr>
 </tbody>
 </table>
@@ -314,30 +313,30 @@ FAILED (fails=1)
 <span id="id2"></span><h3>Failure cause<a class="headerlink" href="#failure-cause" title="Permalink to this headline">¶</a></h3>
 <p>Failure (or error) cause reported by <cite>fbtest</cite> explains in short why <cite>fbtest</cite> decided about test run outcome.</p>
 <p>Example causes:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>Expected standard output from ISQL does not match actual output.
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Expected</span> <span class="n">standard</span> <span class="n">output</span> <span class="kn">from</span> <span class="nn">ISQL</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">match</span> <span class="n">actual</span> <span class="n">output</span><span class="o">.</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span>Test setup: Exception raised while creating database.
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Test</span> <span class="n">setup</span><span class="p">:</span> <span class="ne">Exception</span> <span class="n">raised</span> <span class="k">while</span> <span class="n">creating</span> <span class="n">database</span><span class="o">.</span>
 </pre></div>
 </div>
-<p>Reported cause isn&#8217;t automatically the real reason (problem source).</p>
-<p>FAILure could signal a real problem (functionality was broken) or could be a &#8220;false positive&#8221; (change was intentional), and requires further analysis to determine which case it is. The quickest way is to examine difference between expectet test output and real output using <a class="reference internal" href="#fbt-view">fbt_view</a> tool.</p>
+<p>Reported cause isn’t automatically the real reason (problem source).</p>
+<p>FAILure could signal a real problem (functionality was broken) or could be a “false positive” (change was intentional), and requires further analysis to determine which case it is. The quickest way is to examine difference between expectet test output and real output using <a class="reference internal" href="#fbt-view">fbt_view</a> tool.</p>
 <p>ERROR is typically an outcome of bad setup of your test environment, but sometimes it could also signal a real problem (functionality was broken). The quickest way to see all details about error is using <a class="reference internal" href="#fbt-view">fbt_view</a> tool.</p>
 </div>
 <div class="section" id="using-fbt-view">
 <span id="fbt-view"></span><h3>Using fbt_view<a class="headerlink" href="#using-fbt-view" title="Permalink to this headline">¶</a></h3>
 <p>This tool displays information from run result (<cite>.trf</cite>) files. It can also create XUnit XML run result reports.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>fbt_view [-h] [-x] [-c] [-d] [name]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">fbt_view</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">x</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">c</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">d</span><span class="p">]</span> <span class="p">[</span><span class="n">name</span><span class="p">]</span>
 
-positional arguments:
-  name           Results file or directory with result files
+<span class="n">positional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="n">name</span>           <span class="n">Results</span> <span class="n">file</span> <span class="ow">or</span> <span class="n">directory</span> <span class="k">with</span> <span class="n">result</span> <span class="n">files</span>
 
-optional arguments:
-  -h, --help     show this help message and exit
-  -x, --xunit    Save test results in the standard XUnit XML format
-  -c, --cause    Print cause of fails and errors.
-  -d, --details  Print details for fails and errors.
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>     <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">-</span><span class="n">x</span><span class="p">,</span> <span class="o">--</span><span class="n">xunit</span>    <span class="n">Save</span> <span class="n">test</span> <span class="n">results</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">standard</span> <span class="n">XUnit</span> <span class="n">XML</span> <span class="nb">format</span>
+  <span class="o">-</span><span class="n">c</span><span class="p">,</span> <span class="o">--</span><span class="n">cause</span>    <span class="n">Print</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">fails</span> <span class="ow">and</span> <span class="n">errors</span><span class="o">.</span>
+  <span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="o">--</span><span class="n">details</span>  <span class="n">Print</span> <span class="n">details</span> <span class="k">for</span> <span class="n">fails</span> <span class="ow">and</span> <span class="n">errors</span><span class="o">.</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -349,50 +348,50 @@ optional arguments:
 <p class="last">Without parameters or options <cite>fbt_view</cite> shows summary information for all run results files in working directory.</p>
 </div>
 <p>Example output:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>&gt;fbt_view
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">fbt_view</span>
 
-File:     results.trf
-Desc:     Linux64 SS
-Version:  2.5.2.26540
-Arch:     SS
-Platform: Linux
-CPU:      64
-Sequence: 1
-Person:   pcisar (PC)
+<span class="n">File</span><span class="p">:</span>     <span class="n">results</span><span class="o">.</span><span class="n">trf</span>
+<span class="n">Desc</span><span class="p">:</span>     <span class="n">Linux64</span> <span class="n">SS</span>
+<span class="n">Version</span><span class="p">:</span>  <span class="mf">2.5</span><span class="o">.</span><span class="mf">2.26540</span>
+<span class="n">Arch</span><span class="p">:</span>     <span class="n">SS</span>
+<span class="n">Platform</span><span class="p">:</span> <span class="n">Linux</span>
+<span class="n">CPU</span><span class="p">:</span>      <span class="mi">64</span>
+<span class="n">Sequence</span><span class="p">:</span> <span class="mi">1</span>
+<span class="n">Person</span><span class="p">:</span>   <span class="n">pcisar</span> <span class="p">(</span><span class="n">PC</span><span class="p">)</span>
 
-Passes:   2
-Fails:    1
-Errors:   0
-Untested: 0
+<span class="n">Passes</span><span class="p">:</span>   <span class="mi">2</span>
+<span class="n">Fails</span><span class="p">:</span>    <span class="mi">1</span>
+<span class="n">Errors</span><span class="p">:</span>   <span class="mi">0</span>
+<span class="n">Untested</span><span class="p">:</span> <span class="mi">0</span>
 
-=== FAILS ============================================================
-functional.basic.isql.isql_01
+<span class="o">===</span> <span class="n">FAILS</span> <span class="o">============================================================</span>
+<span class="n">functional</span><span class="o">.</span><span class="n">basic</span><span class="o">.</span><span class="n">isql</span><span class="o">.</span><span class="n">isql_01</span>
 </pre></div>
 </div>
 <p>To see also causes use <code class="xref std std-option docutils literal"><span class="pre">--cause</span></code> option:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>&gt;fbt_view --cause
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">fbt_view</span> <span class="o">--</span><span class="n">cause</span>
 
-File:     results.trf
-Desc:     Linux64 SS
-Version:  2.5.2.26540
-Arch:     SS
-Platform: Linux
-CPU:      64
-Sequence: 1
-Person:   pcisar (PC)
+<span class="n">File</span><span class="p">:</span>     <span class="n">results</span><span class="o">.</span><span class="n">trf</span>
+<span class="n">Desc</span><span class="p">:</span>     <span class="n">Linux64</span> <span class="n">SS</span>
+<span class="n">Version</span><span class="p">:</span>  <span class="mf">2.5</span><span class="o">.</span><span class="mf">2.26540</span>
+<span class="n">Arch</span><span class="p">:</span>     <span class="n">SS</span>
+<span class="n">Platform</span><span class="p">:</span> <span class="n">Linux</span>
+<span class="n">CPU</span><span class="p">:</span>      <span class="mi">64</span>
+<span class="n">Sequence</span><span class="p">:</span> <span class="mi">1</span>
+<span class="n">Person</span><span class="p">:</span>   <span class="n">pcisar</span> <span class="p">(</span><span class="n">PC</span><span class="p">)</span>
 
-Passes:   2
-Fails:    1
-Errors:   0
-Untested: 0
+<span class="n">Passes</span><span class="p">:</span>   <span class="mi">2</span>
+<span class="n">Fails</span><span class="p">:</span>    <span class="mi">1</span>
+<span class="n">Errors</span><span class="p">:</span>   <span class="mi">0</span>
+<span class="n">Untested</span><span class="p">:</span> <span class="mi">0</span>
 
-=== FAILS ============================================================
-functional.basic.isql.isql_01
-   Expected standard output from ISQL does not match actual output.
+<span class="o">===</span> <span class="n">FAILS</span> <span class="o">============================================================</span>
+<span class="n">functional</span><span class="o">.</span><span class="n">basic</span><span class="o">.</span><span class="n">isql</span><span class="o">.</span><span class="n">isql_01</span>
+   <span class="n">Expected</span> <span class="n">standard</span> <span class="n">output</span> <span class="kn">from</span> <span class="nn">ISQL</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">match</span> <span class="n">actual</span> <span class="n">output</span><span class="o">.</span>
 </pre></div>
 </div>
-<p>To see details why tests didn&#8217;t passed use <code class="xref std std-option docutils literal"><span class="pre">--details</span></code> option. For FAIL outcome it shows difference (in standard diff format) between expected and actual outputs:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>&gt;fbt_view --details
+<p>To see details why tests didn’t passed use <code class="xref std std-option docutils literal"><span class="pre">--details</span></code> option. For FAIL outcome it shows difference (in standard diff format) between expected and actual outputs:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>&gt;fbt_view --details
 
 File:     results.trf
 Desc:     Linux64 SS
@@ -425,45 +424,45 @@ ISQL_stripped_diff:
 </pre></div>
 </div>
 <p>For ERROR it shows detailed error information:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>&gt;fbt_view --details
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">fbt_view</span> <span class="o">--</span><span class="n">details</span>
 
-File:     results.trf
-Desc:     Linux64 SS
-Version:  2.5.2.26540
-Arch:     SS
-Platform: Linux
-CPU:      64
-Sequence: 1
-Person:   pcisar (PC)
+<span class="n">File</span><span class="p">:</span>     <span class="n">results</span><span class="o">.</span><span class="n">trf</span>
+<span class="n">Desc</span><span class="p">:</span>     <span class="n">Linux64</span> <span class="n">SS</span>
+<span class="n">Version</span><span class="p">:</span>  <span class="mf">2.5</span><span class="o">.</span><span class="mf">2.26540</span>
+<span class="n">Arch</span><span class="p">:</span>     <span class="n">SS</span>
+<span class="n">Platform</span><span class="p">:</span> <span class="n">Linux</span>
+<span class="n">CPU</span><span class="p">:</span>      <span class="mi">64</span>
+<span class="n">Sequence</span><span class="p">:</span> <span class="mi">1</span>
+<span class="n">Person</span><span class="p">:</span>   <span class="n">pcisar</span> <span class="p">(</span><span class="n">PC</span><span class="p">)</span>
 
-Passes:   0
-Fails:    0
-Errors:   1
-Untested: 0
+<span class="n">Passes</span><span class="p">:</span>   <span class="mi">0</span>
+<span class="n">Fails</span><span class="p">:</span>    <span class="mi">0</span>
+<span class="n">Errors</span><span class="p">:</span>   <span class="mi">1</span>
+<span class="n">Untested</span><span class="p">:</span> <span class="mi">0</span>
 
-=== ERRORS ===========================================================
-functional.basic.isql.isql_01
-----------------------------------------------------------------------
-exception:
-ProgrammingError:
-Error while creating database:
-- SQLCODE: -902
-- I/O error during &quot;open O_CREAT&quot; operation for file &quot;/home/job/fbtrepo/tmp/functional.basic.isql.isql_02.fdb&quot;
-- Error while trying to create file
-- Permission denied
--902
-335544344
+<span class="o">===</span> <span class="n">ERRORS</span> <span class="o">===========================================================</span>
+<span class="n">functional</span><span class="o">.</span><span class="n">basic</span><span class="o">.</span><span class="n">isql</span><span class="o">.</span><span class="n">isql_01</span>
+<span class="o">----------------------------------------------------------------------</span>
+<span class="n">exception</span><span class="p">:</span>
+<span class="n">ProgrammingError</span><span class="p">:</span>
+<span class="n">Error</span> <span class="k">while</span> <span class="n">creating</span> <span class="n">database</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">SQLCODE</span><span class="p">:</span> <span class="o">-</span><span class="mi">902</span>
+<span class="o">-</span> <span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="n">error</span> <span class="n">during</span> <span class="s2">&quot;open O_CREAT&quot;</span> <span class="n">operation</span> <span class="k">for</span> <span class="n">file</span> <span class="s2">&quot;/home/job/fbtrepo/tmp/functional.basic.isql.isql_02.fdb&quot;</span>
+<span class="o">-</span> <span class="n">Error</span> <span class="k">while</span> <span class="n">trying</span> <span class="n">to</span> <span class="n">create</span> <span class="n">file</span>
+<span class="o">-</span> <span class="n">Permission</span> <span class="n">denied</span>
+<span class="o">-</span><span class="mi">902</span>
+<span class="mi">335544344</span>
 
-----------------------------------------------------------------------
-db_unable_to_create:
-localhost:/home/job/fbtrepo/tmp/functional.basic.isql.isql_01.fdb
-----------------------------------------------------------------------
-traceback:
-  File &quot;/home/job/python/envs/pyfirebird/fbtest/fbtest.py&quot;, line 635, in run
-    conn = kdb.create_database(createCommand, self.sql_dialect)
+<span class="o">----------------------------------------------------------------------</span>
+<span class="n">db_unable_to_create</span><span class="p">:</span>
+<span class="n">localhost</span><span class="p">:</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">job</span><span class="o">/</span><span class="n">fbtrepo</span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">functional</span><span class="o">.</span><span class="n">basic</span><span class="o">.</span><span class="n">isql</span><span class="o">.</span><span class="n">isql_01</span><span class="o">.</span><span class="n">fdb</span>
+<span class="o">----------------------------------------------------------------------</span>
+<span class="n">traceback</span><span class="p">:</span>
+  <span class="n">File</span> <span class="s2">&quot;/home/job/python/envs/pyfirebird/fbtest/fbtest.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">635</span><span class="p">,</span> <span class="ow">in</span> <span class="n">run</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">kdb</span><span class="o">.</span><span class="n">create_database</span><span class="p">(</span><span class="n">createCommand</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sql_dialect</span><span class="p">)</span>
 
-  File &quot;/home/job/python/envs/pyfirebird/fdb/fdb/fbcore.py&quot;, line 704, in create_database
-    &quot;Error while creating database:&quot;)
+  <span class="n">File</span> <span class="s2">&quot;/home/job/python/envs/pyfirebird/fdb/fdb/fbcore.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">704</span><span class="p">,</span> <span class="ow">in</span> <span class="n">create_database</span>
+    <span class="s2">&quot;Error while creating database:&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -471,19 +470,19 @@ traceback:
 <span id="fbt-analyze"></span><h3>Using fbt_analyze<a class="headerlink" href="#using-fbt-analyze" title="Permalink to this headline">¶</a></h3>
 <p>This tool analyzes run results file(s) and produces colored HTML report.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>fbt_analyze [-h] [-o OUTPUT] [name]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">fbt_analyze</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">o</span> <span class="n">OUTPUT</span><span class="p">]</span> <span class="p">[</span><span class="n">name</span><span class="p">]</span>
 
-positional arguments:
-  name                  Results file or directory with result files
+<span class="n">positional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="n">name</span>                  <span class="n">Results</span> <span class="n">file</span> <span class="ow">or</span> <span class="n">directory</span> <span class="k">with</span> <span class="n">result</span> <span class="n">files</span>
 
-optional arguments:
-  -h, --help            show this help message and exit
-  -o OUTPUT, --output OUTPUT
-                        Analysis output directory
-  -d, --diffs-only      Show only diffs on detail pages
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">-</span><span class="n">o</span> <span class="n">OUTPUT</span><span class="p">,</span> <span class="o">--</span><span class="n">output</span> <span class="n">OUTPUT</span>
+                        <span class="n">Analysis</span> <span class="n">output</span> <span class="n">directory</span>
+  <span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="o">--</span><span class="n">diffs</span><span class="o">-</span><span class="n">only</span>      <span class="n">Show</span> <span class="n">only</span> <span class="n">diffs</span> <span class="n">on</span> <span class="n">detail</span> <span class="n">pages</span>
 </pre></div>
 </div>
-<p>Reports consists from summary page (<code class="file docutils literal"><span class="pre">index.html</span></code>) and detail pages for each test that didn&#8217;t passed.</p>
+<p>Reports consists from summary page (<code class="file docutils literal"><span class="pre">index.html</span></code>) and detail pages for each test that didn’t passed.</p>
 <p>Example summary page:</p>
 <img alt="_images/fbt_analyze_001.png" src="_images/fbt_analyze_001.png" />
 <p>As you can see, summary is presented as table with row for each test and column for each input results file. Table cells contain test run outcome for each run. Columns are sorted and grouped by platform, CPU, Firebird architecture and test run sequence number.</p>
@@ -500,7 +499,7 @@ later using <a class="reference internal" href="#fbt-update">fbt_update</a>.</p>
 <p class="first admonition-title">Tip</p>
 <p class="last">You can verify platform, CPU, Firebird architecture and run sequence number values stored in result file using <a class="reference internal" href="#fbt-view">fbt_view</a>.</p>
 </div>
-<p>Detail page contains all informations related to test run recorded by <cite>fbtest</cite> from all result files where test doesn&#8217;t passed. Information is &#8220;grouped&#8221; by result file so only unique content is included.</p>
+<p>Detail page contains all informations related to test run recorded by <cite>fbtest</cite> from all result files where test doesn’t passed. Information is “grouped” by result file so only unique content is included.</p>
 <p>Collected information for failed tests contains expected and actual outputs and their difference (in human-readable diff format). If you are interested to see only diffs, use <code class="xref std std-option docutils literal"><span class="pre">--diffs-only</span></code> option.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -522,45 +521,45 @@ later using <a class="reference internal" href="#fbt-update">fbt_update</a>.</p>
 </ul>
 </div></blockquote>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>fbt_update [-h] {result,repository} ...
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">fbt_update</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">{</span><span class="n">result</span><span class="p">,</span><span class="n">repository</span><span class="p">}</span> <span class="o">...</span>
 
-optional arguments:
-  -h, --help           show this help message and exit
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>           <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
 
-Commands:
-  {result,repository}  Use &lt;command&gt; --help for more information about command.
-    result             Change result file metadata.
-    repository         Update test repository.
+<span class="n">Commands</span><span class="p">:</span>
+  <span class="p">{</span><span class="n">result</span><span class="p">,</span><span class="n">repository</span><span class="p">}</span>  <span class="n">Use</span> <span class="o">&lt;</span><span class="n">command</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">help</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span> <span class="n">about</span> <span class="n">command</span><span class="o">.</span>
+    <span class="n">result</span>             <span class="n">Change</span> <span class="n">result</span> <span class="n">file</span> <span class="n">metadata</span><span class="o">.</span>
+    <span class="n">repository</span>         <span class="n">Update</span> <span class="n">test</span> <span class="n">repository</span><span class="o">.</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span>fbt_update repository [-h]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">fbt_update</span> <span class="n">repository</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span>
 
-Update local test repository from Firebird project Subversion repository.
+<span class="n">Update</span> <span class="n">local</span> <span class="n">test</span> <span class="n">repository</span> <span class="kn">from</span> <span class="nn">Firebird</span> <span class="n">project</span> <span class="n">Subversion</span> <span class="n">repository</span><span class="o">.</span>
 
-optional arguments:
-  -h, --help  show this help message and exit
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>  <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span>fbt_update result [-h] [-a ARCH] [-p PERSON] [-s SEQUENCE] [name]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">fbt_update</span> <span class="n">result</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">a</span> <span class="n">ARCH</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">p</span> <span class="n">PERSON</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">s</span> <span class="n">SEQUENCE</span><span class="p">]</span> <span class="p">[</span><span class="n">name</span><span class="p">]</span>
 
-Changes metadata of result file(s).
+<span class="n">Changes</span> <span class="n">metadata</span> <span class="n">of</span> <span class="n">result</span> <span class="n">file</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span>
 
-positional arguments:
-  name                  Results file or directory with result files
+<span class="n">positional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="n">name</span>                  <span class="n">Results</span> <span class="n">file</span> <span class="ow">or</span> <span class="n">directory</span> <span class="k">with</span> <span class="n">result</span> <span class="n">files</span>
 
-optional arguments:
-  -h, --help            show this help message and exit
-  -a ARCH, --arch ARCH  Update result(s): set ARCH
-  -p PERSON, --person PERSON
-                        Update result(s): set PERSON
-  -s SEQUENCE, --sequence SEQUENCE
-                        Update result(s): set SEQUENCE NUMBER
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">-</span><span class="n">a</span> <span class="n">ARCH</span><span class="p">,</span> <span class="o">--</span><span class="n">arch</span> <span class="n">ARCH</span>  <span class="n">Update</span> <span class="n">result</span><span class="p">(</span><span class="n">s</span><span class="p">):</span> <span class="nb">set</span> <span class="n">ARCH</span>
+  <span class="o">-</span><span class="n">p</span> <span class="n">PERSON</span><span class="p">,</span> <span class="o">--</span><span class="n">person</span> <span class="n">PERSON</span>
+                        <span class="n">Update</span> <span class="n">result</span><span class="p">(</span><span class="n">s</span><span class="p">):</span> <span class="nb">set</span> <span class="n">PERSON</span>
+  <span class="o">-</span><span class="n">s</span> <span class="n">SEQUENCE</span><span class="p">,</span> <span class="o">--</span><span class="n">sequence</span> <span class="n">SEQUENCE</span>
+                        <span class="n">Update</span> <span class="n">result</span><span class="p">(</span><span class="n">s</span><span class="p">):</span> <span class="nb">set</span> <span class="n">SEQUENCE</span> <span class="n">NUMBER</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="using-fbt-archive">
 <h2>Using fbt_archive<a class="headerlink" href="#using-fbt-archive" title="Permalink to this headline">¶</a></h2>
-<p><cite>fbtest</cite> provides simple archive for test run results files. When you specify <code class="xref std std-option docutils literal"><span class="pre">--archive</span></code> option to <strong class="program">fbt_run</strong>, run results file <cite>results.trf</cite> is also <strong>copied</strong> to archive in <cite>Test Repository</cite> (stored in subdirectory &#8220;archive&#8221;) in subdirectory named as tested Firebird version number and filename that identifies run conditions:</p>
+<p><cite>fbtest</cite> provides simple archive for test run results files. When you specify <code class="xref std std-option docutils literal"><span class="pre">--archive</span></code> option to <strong class="program">fbt_run</strong>, run results file <cite>results.trf</cite> is also <strong>copied</strong> to archive in <cite>Test Repository</cite> (stored in subdirectory “archive”) in subdirectory named as tested Firebird version number and filename that identifies run conditions:</p>
 <ul class="simple">
 <li>Number of tests executed</li>
 <li>Platform</li>
@@ -572,149 +571,149 @@ optional arguments:
 <p>For example 3 tests run on 64-bit Linux Firebird v2.5.2.26540 SuperServer by pcisar without sequence number will be stored in <cite>2.5.2.26540/0003-Linux64-SS-PC1.trf</cite>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">If filename already exists in archive, it&#8217;s replaced with new one.</p>
+<p class="last">If filename already exists in archive, it’s replaced with new one.</p>
 </div>
-<p>While you can work with archived results files directly, <cite>fbtest</cite> also provides separate tool <strong class="program">fbt_archive</strong> to <cite>list</cite>, <cite>save</cite>, <cite>retrieve</cite> or <cite>delete</cite> archived results. This is particularly useful when you&#8217;re working with remote <cite>fbtest</cite> installation.</p>
+<p>While you can work with archived results files directly, <cite>fbtest</cite> also provides separate tool <strong class="program">fbt_archive</strong> to <cite>list</cite>, <cite>save</cite>, <cite>retrieve</cite> or <cite>delete</cite> archived results. This is particularly useful when you’re working with remote <cite>fbtest</cite> installation.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>fbt_archive [-h] [--remote] [-o HOST] {list,save,retrieve,delete} ...
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">fbt_archive</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">remote</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">o</span> <span class="n">HOST</span><span class="p">]</span> <span class="p">{</span><span class="nb">list</span><span class="p">,</span><span class="n">save</span><span class="p">,</span><span class="n">retrieve</span><span class="p">,</span><span class="n">delete</span><span class="p">}</span> <span class="o">...</span>
 
-optional arguments:
-  -h, --help            show this help message and exit
-  --remote              Connect to remote fbtest server
-  -o HOST, --host HOST  Remote fbtest host machine identification
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">--</span><span class="n">remote</span>              <span class="n">Connect</span> <span class="n">to</span> <span class="n">remote</span> <span class="n">fbtest</span> <span class="n">server</span>
+  <span class="o">-</span><span class="n">o</span> <span class="n">HOST</span><span class="p">,</span> <span class="o">--</span><span class="n">host</span> <span class="n">HOST</span>  <span class="n">Remote</span> <span class="n">fbtest</span> <span class="n">host</span> <span class="n">machine</span> <span class="n">identification</span>
 
-Commands:
-  {list,save,retrieve,delete}
-                        Use &lt;command&gt; --help for more information about command.
-    list                List result(s) in archive.
-    save                Save result(s) to archive.
-    retrieve            Retrieve result(s) from archive.
-    delete              Delete result(s) from archive.
+<span class="n">Commands</span><span class="p">:</span>
+  <span class="p">{</span><span class="nb">list</span><span class="p">,</span><span class="n">save</span><span class="p">,</span><span class="n">retrieve</span><span class="p">,</span><span class="n">delete</span><span class="p">}</span>
+                        <span class="n">Use</span> <span class="o">&lt;</span><span class="n">command</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">help</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span> <span class="n">about</span> <span class="n">command</span><span class="o">.</span>
+    <span class="nb">list</span>                <span class="n">List</span> <span class="n">result</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="ow">in</span> <span class="n">archive</span><span class="o">.</span>
+    <span class="n">save</span>                <span class="n">Save</span> <span class="n">result</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">to</span> <span class="n">archive</span><span class="o">.</span>
+    <span class="n">retrieve</span>            <span class="n">Retrieve</span> <span class="n">result</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">archive.</span>
+    <span class="n">delete</span>              <span class="n">Delete</span> <span class="n">result</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">archive.</span>
 </pre></div>
 </div>
 <div class="section" id="list">
 <h3>List<a class="headerlink" href="#list" title="Permalink to this headline">¶</a></h3>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>fbt_archive list [-h]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">fbt_archive</span> <span class="nb">list</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span>
 
-List result(s) in archive.
+<span class="n">List</span> <span class="n">result</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="ow">in</span> <span class="n">archive</span><span class="o">.</span>
 
-optional arguments:
-  -h, --help  show this help message and exit
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>  <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
 </pre></div>
 </div>
 <p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>&gt;fbt_archive list
-Files in archive:
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">fbt_archive</span> <span class="nb">list</span>
+<span class="n">Files</span> <span class="ow">in</span> <span class="n">archive</span><span class="p">:</span>
 
-2.1.5.18497:
-   0681-Linux64-CS-PC1.trf
-   0681-Linux64-CS-PC2.trf
-   0681-Linux64-SS-PC1.trf
-   0681-Linux64-SS-PC2.trf
-2.5.2.26539:
-   0003-Linux64-SS-XX1.trf
-   0003-Linux64-SS-XX2.trf
-   0824-Linux64-SS-PC1.trf
-2.5.2.26540:
-   0003-Linux64-SS-XX1.trf
-   0823-Linux64-SC-PC2.trf
-   0824-Linux64-CS-PC1.trf
-   0824-Linux64-CS-PC2.trf
-   0824-Linux64-SC-PC1.trf
-   0824-Linux64-SS-PC1.trf
-   0824-Linux64-SS-PC2.trf
+<span class="mf">2.1</span><span class="o">.</span><span class="mf">5.18497</span><span class="p">:</span>
+   <span class="mi">0681</span><span class="o">-</span><span class="n">Linux64</span><span class="o">-</span><span class="n">CS</span><span class="o">-</span><span class="n">PC1</span><span class="o">.</span><span class="n">trf</span>
+   <span class="mi">0681</span><span class="o">-</span><span class="n">Linux64</span><span class="o">-</span><span class="n">CS</span><span class="o">-</span><span class="n">PC2</span><span class="o">.</span><span class="n">trf</span>
+   <span class="mi">0681</span><span class="o">-</span><span class="n">Linux64</span><span class="o">-</span><span class="n">SS</span><span class="o">-</span><span class="n">PC1</span><span class="o">.</span><span class="n">trf</span>
+   <span class="mi">0681</span><span class="o">-</span><span class="n">Linux64</span><span class="o">-</span><span class="n">SS</span><span class="o">-</span><span class="n">PC2</span><span class="o">.</span><span class="n">trf</span>
+<span class="mf">2.5</span><span class="o">.</span><span class="mf">2.26539</span><span class="p">:</span>
+   <span class="mi">0003</span><span class="o">-</span><span class="n">Linux64</span><span class="o">-</span><span class="n">SS</span><span class="o">-</span><span class="n">XX1</span><span class="o">.</span><span class="n">trf</span>
+   <span class="mi">0003</span><span class="o">-</span><span class="n">Linux64</span><span class="o">-</span><span class="n">SS</span><span class="o">-</span><span class="n">XX2</span><span class="o">.</span><span class="n">trf</span>
+   <span class="mi">0824</span><span class="o">-</span><span class="n">Linux64</span><span class="o">-</span><span class="n">SS</span><span class="o">-</span><span class="n">PC1</span><span class="o">.</span><span class="n">trf</span>
+<span class="mf">2.5</span><span class="o">.</span><span class="mf">2.26540</span><span class="p">:</span>
+   <span class="mi">0003</span><span class="o">-</span><span class="n">Linux64</span><span class="o">-</span><span class="n">SS</span><span class="o">-</span><span class="n">XX1</span><span class="o">.</span><span class="n">trf</span>
+   <span class="mi">0823</span><span class="o">-</span><span class="n">Linux64</span><span class="o">-</span><span class="n">SC</span><span class="o">-</span><span class="n">PC2</span><span class="o">.</span><span class="n">trf</span>
+   <span class="mi">0824</span><span class="o">-</span><span class="n">Linux64</span><span class="o">-</span><span class="n">CS</span><span class="o">-</span><span class="n">PC1</span><span class="o">.</span><span class="n">trf</span>
+   <span class="mi">0824</span><span class="o">-</span><span class="n">Linux64</span><span class="o">-</span><span class="n">CS</span><span class="o">-</span><span class="n">PC2</span><span class="o">.</span><span class="n">trf</span>
+   <span class="mi">0824</span><span class="o">-</span><span class="n">Linux64</span><span class="o">-</span><span class="n">SC</span><span class="o">-</span><span class="n">PC1</span><span class="o">.</span><span class="n">trf</span>
+   <span class="mi">0824</span><span class="o">-</span><span class="n">Linux64</span><span class="o">-</span><span class="n">SS</span><span class="o">-</span><span class="n">PC1</span><span class="o">.</span><span class="n">trf</span>
+   <span class="mi">0824</span><span class="o">-</span><span class="n">Linux64</span><span class="o">-</span><span class="n">SS</span><span class="o">-</span><span class="n">PC2</span><span class="o">.</span><span class="n">trf</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="save">
 <h3>Save<a class="headerlink" href="#save" title="Permalink to this headline">¶</a></h3>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>fbt_archive save [-h] [name]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">fbt_archive</span> <span class="n">save</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="n">name</span><span class="p">]</span>
 
-Save result(s) to archive.
+<span class="n">Save</span> <span class="n">result</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">to</span> <span class="n">archive</span><span class="o">.</span>
 
-positional arguments:
-  name        Results file
+<span class="n">positional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="n">name</span>        <span class="n">Results</span> <span class="n">file</span>
 
-optional arguments:
-  -h, --help  show this help message and exit
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>  <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
 </pre></div>
 </div>
 <p>When filename is not specified, file <cite>results.trf</cite> in current directory is copied.</p>
 <p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>&gt;fbt_archive save
-Results file &#39;results.trf&#39; stored into archive as &#39;2.5.2.26540/0003-Linux64-SS-XX1.trf&#39;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">fbt_archive</span> <span class="n">save</span>
+<span class="n">Results</span> <span class="n">file</span> <span class="s1">&#39;results.trf&#39;</span> <span class="n">stored</span> <span class="n">into</span> <span class="n">archive</span> <span class="k">as</span> <span class="s1">&#39;2.5.2.26540/0003-Linux64-SS-XX1.trf&#39;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="retrieve">
 <h3>Retrieve<a class="headerlink" href="#retrieve" title="Permalink to this headline">¶</a></h3>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>fbt_archive retrieve [-h] [-v VERSION] [-c] [-o OUTPUT] [-a ARCH] [-p PERSON] [-s SEQUENCE]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">fbt_archive</span> <span class="n">retrieve</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">v</span> <span class="n">VERSION</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">c</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">o</span> <span class="n">OUTPUT</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">a</span> <span class="n">ARCH</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">p</span> <span class="n">PERSON</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">s</span> <span class="n">SEQUENCE</span><span class="p">]</span>
 
-Retrieve result(s) from archive.
+<span class="n">Retrieve</span> <span class="n">result</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">archive.</span>
 
-optional arguments:
-  -h, --help            show this help message and exit
-  -v VERSION, --version VERSION
-                        Only specified Firebird version
-  -c, --current         Only currently tested Firebird version
-  -o OUTPUT, --output OUTPUT
-                        Output directory
-  -a ARCH, --arch ARCH  Firebird architecture: SS, CS, SC
-  -p PERSON, --person PERSON
-                        QA person name
-  -s SEQUENCE, --sequence SEQUENCE
-                        Run sequence number
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">-</span><span class="n">v</span> <span class="n">VERSION</span><span class="p">,</span> <span class="o">--</span><span class="n">version</span> <span class="n">VERSION</span>
+                        <span class="n">Only</span> <span class="n">specified</span> <span class="n">Firebird</span> <span class="n">version</span>
+  <span class="o">-</span><span class="n">c</span><span class="p">,</span> <span class="o">--</span><span class="n">current</span>         <span class="n">Only</span> <span class="n">currently</span> <span class="n">tested</span> <span class="n">Firebird</span> <span class="n">version</span>
+  <span class="o">-</span><span class="n">o</span> <span class="n">OUTPUT</span><span class="p">,</span> <span class="o">--</span><span class="n">output</span> <span class="n">OUTPUT</span>
+                        <span class="n">Output</span> <span class="n">directory</span>
+  <span class="o">-</span><span class="n">a</span> <span class="n">ARCH</span><span class="p">,</span> <span class="o">--</span><span class="n">arch</span> <span class="n">ARCH</span>  <span class="n">Firebird</span> <span class="n">architecture</span><span class="p">:</span> <span class="n">SS</span><span class="p">,</span> <span class="n">CS</span><span class="p">,</span> <span class="n">SC</span>
+  <span class="o">-</span><span class="n">p</span> <span class="n">PERSON</span><span class="p">,</span> <span class="o">--</span><span class="n">person</span> <span class="n">PERSON</span>
+                        <span class="n">QA</span> <span class="n">person</span> <span class="n">name</span>
+  <span class="o">-</span><span class="n">s</span> <span class="n">SEQUENCE</span><span class="p">,</span> <span class="o">--</span><span class="n">sequence</span> <span class="n">SEQUENCE</span>
+                        <span class="n">Run</span> <span class="n">sequence</span> <span class="n">number</span>
 </pre></div>
 </div>
-<p>This command copies all archived results files for specified or currently tested Firebird version (either <code class="xref std std-option docutils literal"><span class="pre">--version</span></code> or <code class="xref std std-option docutils literal"><span class="pre">--current</span></code> option is required) from archive to specified or current working directory. It&#8217;s possible to specify additional conditions for Firebird architecture, QA person or run sequence number that must be met.</p>
+<p>This command copies all archived results files for specified or currently tested Firebird version (either <a class="reference external" href="https://docs.python.org/3/using/cmdline.html#cmdoption-version" title="(in Python v3.7)"><code class="xref std std-option docutils literal"><span class="pre">--version</span></code></a> or <code class="xref std std-option docutils literal"><span class="pre">--current</span></code> option is required) from archive to specified or current working directory. It’s possible to specify additional conditions for Firebird architecture, QA person or run sequence number that must be met.</p>
 <p>Examples:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>&gt;fbt_archive retrieve --current
-Current version: 2.5.2.26540
-0003-Linux64-SS-XX1.trf retrieved.
-0823-Linux64-SC-PC2.trf retrieved.
-0824-Linux64-CS-PC1.trf retrieved.
-0824-Linux64-CS-PC2.trf retrieved.
-0824-Linux64-SC-PC1.trf retrieved.
-0824-Linux64-SS-PC1.trf retrieved.
-0824-Linux64-SS-PC2.trf retrieved.
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">fbt_archive</span> <span class="n">retrieve</span> <span class="o">--</span><span class="n">current</span>
+<span class="n">Current</span> <span class="n">version</span><span class="p">:</span> <span class="mf">2.5</span><span class="o">.</span><span class="mf">2.26540</span>
+<span class="mi">0003</span><span class="o">-</span><span class="n">Linux64</span><span class="o">-</span><span class="n">SS</span><span class="o">-</span><span class="n">XX1</span><span class="o">.</span><span class="n">trf</span> <span class="n">retrieved</span><span class="o">.</span>
+<span class="mi">0823</span><span class="o">-</span><span class="n">Linux64</span><span class="o">-</span><span class="n">SC</span><span class="o">-</span><span class="n">PC2</span><span class="o">.</span><span class="n">trf</span> <span class="n">retrieved</span><span class="o">.</span>
+<span class="mi">0824</span><span class="o">-</span><span class="n">Linux64</span><span class="o">-</span><span class="n">CS</span><span class="o">-</span><span class="n">PC1</span><span class="o">.</span><span class="n">trf</span> <span class="n">retrieved</span><span class="o">.</span>
+<span class="mi">0824</span><span class="o">-</span><span class="n">Linux64</span><span class="o">-</span><span class="n">CS</span><span class="o">-</span><span class="n">PC2</span><span class="o">.</span><span class="n">trf</span> <span class="n">retrieved</span><span class="o">.</span>
+<span class="mi">0824</span><span class="o">-</span><span class="n">Linux64</span><span class="o">-</span><span class="n">SC</span><span class="o">-</span><span class="n">PC1</span><span class="o">.</span><span class="n">trf</span> <span class="n">retrieved</span><span class="o">.</span>
+<span class="mi">0824</span><span class="o">-</span><span class="n">Linux64</span><span class="o">-</span><span class="n">SS</span><span class="o">-</span><span class="n">PC1</span><span class="o">.</span><span class="n">trf</span> <span class="n">retrieved</span><span class="o">.</span>
+<span class="mi">0824</span><span class="o">-</span><span class="n">Linux64</span><span class="o">-</span><span class="n">SS</span><span class="o">-</span><span class="n">PC2</span><span class="o">.</span><span class="n">trf</span> <span class="n">retrieved</span><span class="o">.</span>
 
-&gt;fbt_archive --remote retrieve --version=2.1.5.18497 -a SS
-0681-Linux64-SS-PC1.trf retrieved.
-0681-Linux64-SS-PC2.trf retrieved.
+<span class="o">&gt;</span><span class="n">fbt_archive</span> <span class="o">--</span><span class="n">remote</span> <span class="n">retrieve</span> <span class="o">--</span><span class="n">version</span><span class="o">=</span><span class="mf">2.1</span><span class="o">.</span><span class="mf">5.18497</span> <span class="o">-</span><span class="n">a</span> <span class="n">SS</span>
+<span class="mi">0681</span><span class="o">-</span><span class="n">Linux64</span><span class="o">-</span><span class="n">SS</span><span class="o">-</span><span class="n">PC1</span><span class="o">.</span><span class="n">trf</span> <span class="n">retrieved</span><span class="o">.</span>
+<span class="mi">0681</span><span class="o">-</span><span class="n">Linux64</span><span class="o">-</span><span class="n">SS</span><span class="o">-</span><span class="n">PC2</span><span class="o">.</span><span class="n">trf</span> <span class="n">retrieved</span><span class="o">.</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="delete">
 <h3>Delete<a class="headerlink" href="#delete" title="Permalink to this headline">¶</a></h3>
-<p>This command deletes all archived results files for specified or currently tested Firebird version (either <code class="xref std std-option docutils literal"><span class="pre">--version</span></code> or <code class="xref std std-option docutils literal"><span class="pre">--current</span></code> option is required) from archive. It&#8217;s possible to specify additional conditions for Firebird architecture, QA person or run sequence number that must be met.</p>
+<p>This command deletes all archived results files for specified or currently tested Firebird version (either <a class="reference external" href="https://docs.python.org/3/using/cmdline.html#cmdoption-version" title="(in Python v3.7)"><code class="xref std std-option docutils literal"><span class="pre">--version</span></code></a> or <code class="xref std std-option docutils literal"><span class="pre">--current</span></code> option is required) from archive. It’s possible to specify additional conditions for Firebird architecture, QA person or run sequence number that must be met.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>fbt_archive delete [-h] [-v VERSION] [-c] [-a ARCH] [-p PERSON] [-s SEQUENCE]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">fbt_archive</span> <span class="n">delete</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">v</span> <span class="n">VERSION</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">c</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">a</span> <span class="n">ARCH</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">p</span> <span class="n">PERSON</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">s</span> <span class="n">SEQUENCE</span><span class="p">]</span>
 
-Delete result(s) from archive.
+<span class="n">Delete</span> <span class="n">result</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">archive.</span>
 
-optional arguments:
-  -h, --help            show this help message and exit
-  -v VERSION, --version VERSION
-                        Only specified Firebird version
-  -c, --current         Only currently tested Firebird version
-  -a ARCH, --arch ARCH  Firebird architecture: SS, CS, SC
-  -p PERSON, --person PERSON
-                        QA person name
-  -s SEQUENCE, --sequence SEQUENCE
-                        Run sequence number
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">-</span><span class="n">v</span> <span class="n">VERSION</span><span class="p">,</span> <span class="o">--</span><span class="n">version</span> <span class="n">VERSION</span>
+                        <span class="n">Only</span> <span class="n">specified</span> <span class="n">Firebird</span> <span class="n">version</span>
+  <span class="o">-</span><span class="n">c</span><span class="p">,</span> <span class="o">--</span><span class="n">current</span>         <span class="n">Only</span> <span class="n">currently</span> <span class="n">tested</span> <span class="n">Firebird</span> <span class="n">version</span>
+  <span class="o">-</span><span class="n">a</span> <span class="n">ARCH</span><span class="p">,</span> <span class="o">--</span><span class="n">arch</span> <span class="n">ARCH</span>  <span class="n">Firebird</span> <span class="n">architecture</span><span class="p">:</span> <span class="n">SS</span><span class="p">,</span> <span class="n">CS</span><span class="p">,</span> <span class="n">SC</span>
+  <span class="o">-</span><span class="n">p</span> <span class="n">PERSON</span><span class="p">,</span> <span class="o">--</span><span class="n">person</span> <span class="n">PERSON</span>
+                        <span class="n">QA</span> <span class="n">person</span> <span class="n">name</span>
+  <span class="o">-</span><span class="n">s</span> <span class="n">SEQUENCE</span><span class="p">,</span> <span class="o">--</span><span class="n">sequence</span> <span class="n">SEQUENCE</span>
+                        <span class="n">Run</span> <span class="n">sequence</span> <span class="n">number</span>
 </pre></div>
 </div>
 <p>Examples:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>&gt;fbt_archive delete --current -a SS -s 2
-Current version: 2.5.2.26540
-0824-Linux64-SS-PC2.trf deleted.
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">fbt_archive</span> <span class="n">delete</span> <span class="o">--</span><span class="n">current</span> <span class="o">-</span><span class="n">a</span> <span class="n">SS</span> <span class="o">-</span><span class="n">s</span> <span class="mi">2</span>
+<span class="n">Current</span> <span class="n">version</span><span class="p">:</span> <span class="mf">2.5</span><span class="o">.</span><span class="mf">2.26540</span>
+<span class="mi">0824</span><span class="o">-</span><span class="n">Linux64</span><span class="o">-</span><span class="n">SS</span><span class="o">-</span><span class="n">PC2</span><span class="o">.</span><span class="n">trf</span> <span class="n">deleted</span><span class="o">.</span>
 
-&gt;fbt_archive --remote delete --version=2.1.5.18497 -a SS
-0681-Linux64-SS-PC1.trf deleted.
-0681-Linux64-SS-PC2.trf deleted.
+<span class="o">&gt;</span><span class="n">fbt_archive</span> <span class="o">--</span><span class="n">remote</span> <span class="n">delete</span> <span class="o">--</span><span class="n">version</span><span class="o">=</span><span class="mf">2.1</span><span class="o">.</span><span class="mf">5.18497</span> <span class="o">-</span><span class="n">a</span> <span class="n">SS</span>
+<span class="mi">0681</span><span class="o">-</span><span class="n">Linux64</span><span class="o">-</span><span class="n">SS</span><span class="o">-</span><span class="n">PC1</span><span class="o">.</span><span class="n">trf</span> <span class="n">deleted</span><span class="o">.</span>
+<span class="mi">0681</span><span class="o">-</span><span class="n">Linux64</span><span class="o">-</span><span class="n">SS</span><span class="o">-</span><span class="n">PC2</span><span class="o">.</span><span class="n">trf</span> <span class="n">deleted</span><span class="o">.</span>
 </pre></div>
 </div>
 </div>
@@ -723,7 +722,7 @@ Current version: 2.5.2.26540
 <h2>Using fbt_db<a class="headerlink" href="#using-fbt-db" title="Permalink to this headline">¶</a></h2>
 <p>Beside simple results archive <cite>fbtest</cite> also supports archival of results in Firebird database(s).</p>
 <p>Archive database must have next structure:</p>
-<table border="1" class="docutils" id="id3">
+<table border="1" class="colwidths-given docutils" id="id3">
 <caption><span class="caption-text">Table RUNS - Information about suite run</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="20%" />
@@ -786,7 +785,7 @@ Current version: 2.5.2.26540
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<table border="1" class="docutils" id="id4">
+<table border="1" class="colwidths-given docutils" id="id4">
 <caption><span class="caption-text">Table TESTS - Information about tests</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="20%" />
@@ -813,7 +812,7 @@ Current version: 2.5.2.26540
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<table border="1" class="docutils" id="id5">
+<table border="1" class="colwidths-given docutils" id="id5">
 <caption><span class="caption-text">Table ANN_TYPES - Information about annotation types</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="20%" />
@@ -840,7 +839,7 @@ Current version: 2.5.2.26540
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<table border="1" class="docutils" id="id6">
+<table border="1" class="colwidths-given docutils" id="id6">
 <caption><span class="caption-text">Table OUTCOMES - Information about test run outcomes</span><a class="headerlink" href="#id6" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="20%" />
@@ -883,7 +882,7 @@ Current version: 2.5.2.26540
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<table border="1" class="docutils" id="id7">
+<table border="1" class="colwidths-given docutils" id="id7">
 <caption><span class="caption-text">Table ANNOTATIONS - Information about outcome annotations</span><a class="headerlink" href="#id7" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="20%" />
@@ -920,42 +919,42 @@ Current version: 2.5.2.26540
 </div>
 <p>To create such archive database you can use the <cite>fbt_db</cite> utility. This utility can also import result files into database.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>fbt_db [-h] [-w PASSWORD] [-o HOST] -d DATABASE {import,create} ...
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">fbt_db</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">w</span> <span class="n">PASSWORD</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">o</span> <span class="n">HOST</span><span class="p">]</span> <span class="o">-</span><span class="n">d</span> <span class="n">DATABASE</span> <span class="p">{</span><span class="n">import</span><span class="p">,</span><span class="n">create</span><span class="p">}</span> <span class="o">...</span>
 
-optional arguments:
-  -h, --help            show this help message and exit
-  -w PASSWORD, --password PASSWORD
-                        SYSDBA password
-  -o HOST, --host HOST  Firebird host machine identification
-  -d DATABASE, --database DATABASE
-                        Archive database name
-  -c CLIENT, --client CLIENT
-                        Use specified Firebird client library
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+  <span class="o">-</span><span class="n">w</span> <span class="n">PASSWORD</span><span class="p">,</span> <span class="o">--</span><span class="n">password</span> <span class="n">PASSWORD</span>
+                        <span class="n">SYSDBA</span> <span class="n">password</span>
+  <span class="o">-</span><span class="n">o</span> <span class="n">HOST</span><span class="p">,</span> <span class="o">--</span><span class="n">host</span> <span class="n">HOST</span>  <span class="n">Firebird</span> <span class="n">host</span> <span class="n">machine</span> <span class="n">identification</span>
+  <span class="o">-</span><span class="n">d</span> <span class="n">DATABASE</span><span class="p">,</span> <span class="o">--</span><span class="n">database</span> <span class="n">DATABASE</span>
+                        <span class="n">Archive</span> <span class="n">database</span> <span class="n">name</span>
+  <span class="o">-</span><span class="n">c</span> <span class="n">CLIENT</span><span class="p">,</span> <span class="o">--</span><span class="n">client</span> <span class="n">CLIENT</span>
+                        <span class="n">Use</span> <span class="n">specified</span> <span class="n">Firebird</span> <span class="n">client</span> <span class="n">library</span>
 
-Commands:
-  {import,create}       Use &lt;command&gt; --help for more information about
-                        command.
-    create              Creates archive database.
-    import              Import result(s) to database.
+<span class="n">Commands</span><span class="p">:</span>
+  <span class="p">{</span><span class="n">import</span><span class="p">,</span><span class="n">create</span><span class="p">}</span>       <span class="n">Use</span> <span class="o">&lt;</span><span class="n">command</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">help</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span> <span class="n">about</span>
+                        <span class="n">command</span><span class="o">.</span>
+    <span class="n">create</span>              <span class="n">Creates</span> <span class="n">archive</span> <span class="n">database</span><span class="o">.</span>
+    <span class="kn">import</span>              <span class="nn">Import</span> <span class="n">result</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">to</span> <span class="n">database</span><span class="o">.</span>
 </pre></div>
 </div>
 <div class="section" id="create">
 <h3>Create<a class="headerlink" href="#create" title="Permalink to this headline">¶</a></h3>
 <p>This command creates empty archive database. This operation fails if specified database already exists.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>fbt_db [-w PASSWORD] [-o HOST] -d DATABASE create [-h]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">fbt_db</span> <span class="p">[</span><span class="o">-</span><span class="n">w</span> <span class="n">PASSWORD</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">o</span> <span class="n">HOST</span><span class="p">]</span> <span class="o">-</span><span class="n">d</span> <span class="n">DATABASE</span> <span class="n">create</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span>
 
-Create archive database.
+<span class="n">Create</span> <span class="n">archive</span> <span class="n">database</span><span class="o">.</span>
 
-optional arguments:
-  -w PASSWORD, --password PASSWORD
-                        SYSDBA password
-  -o HOST, --host HOST  Firebird host machine identification
-  -d DATABASE, --database DATABASE
-                        Archive database name
-  -c CLIENT, --client CLIENT
-                        Use specified Firebird client library
-  -h, --help  show this help message and exit
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">w</span> <span class="n">PASSWORD</span><span class="p">,</span> <span class="o">--</span><span class="n">password</span> <span class="n">PASSWORD</span>
+                        <span class="n">SYSDBA</span> <span class="n">password</span>
+  <span class="o">-</span><span class="n">o</span> <span class="n">HOST</span><span class="p">,</span> <span class="o">--</span><span class="n">host</span> <span class="n">HOST</span>  <span class="n">Firebird</span> <span class="n">host</span> <span class="n">machine</span> <span class="n">identification</span>
+  <span class="o">-</span><span class="n">d</span> <span class="n">DATABASE</span><span class="p">,</span> <span class="o">--</span><span class="n">database</span> <span class="n">DATABASE</span>
+                        <span class="n">Archive</span> <span class="n">database</span> <span class="n">name</span>
+  <span class="o">-</span><span class="n">c</span> <span class="n">CLIENT</span><span class="p">,</span> <span class="o">--</span><span class="n">client</span> <span class="n">CLIENT</span>
+                        <span class="n">Use</span> <span class="n">specified</span> <span class="n">Firebird</span> <span class="n">client</span> <span class="n">library</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>  <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
 </pre></div>
 </div>
 </div>
@@ -963,22 +962,22 @@ optional arguments:
 <h3>Import<a class="headerlink" href="#import" title="Permalink to this headline">¶</a></h3>
 <p>This command imports resul file(s) into archive database.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>fbt_db [-w PASSWORD] [-o HOST] -d DATABASE import [-h] [name]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">fbt_db</span> <span class="p">[</span><span class="o">-</span><span class="n">w</span> <span class="n">PASSWORD</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">o</span> <span class="n">HOST</span><span class="p">]</span> <span class="o">-</span><span class="n">d</span> <span class="n">DATABASE</span> <span class="kn">import</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="n">name</span><span class="p">]</span>
 
-Import result(s) to database.
+<span class="n">Import</span> <span class="n">result</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">to</span> <span class="n">database</span><span class="o">.</span>
 
-positional arguments:
-  name        Results file or directory with result files
+<span class="n">positional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="n">name</span>        <span class="n">Results</span> <span class="n">file</span> <span class="ow">or</span> <span class="n">directory</span> <span class="k">with</span> <span class="n">result</span> <span class="n">files</span>
 
-optional arguments:
-  -w PASSWORD, --password PASSWORD
-                        SYSDBA password
-  -o HOST, --host HOST  Firebird host machine identification
-  -d DATABASE, --database DATABASE
-                        Archive database name
-  -c CLIENT, --client CLIENT
-                        Use specified Firebird client library
-  -h, --help  show this help message and exit
+<span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+  <span class="o">-</span><span class="n">w</span> <span class="n">PASSWORD</span><span class="p">,</span> <span class="o">--</span><span class="n">password</span> <span class="n">PASSWORD</span>
+                        <span class="n">SYSDBA</span> <span class="n">password</span>
+  <span class="o">-</span><span class="n">o</span> <span class="n">HOST</span><span class="p">,</span> <span class="o">--</span><span class="n">host</span> <span class="n">HOST</span>  <span class="n">Firebird</span> <span class="n">host</span> <span class="n">machine</span> <span class="n">identification</span>
+  <span class="o">-</span><span class="n">d</span> <span class="n">DATABASE</span><span class="p">,</span> <span class="o">--</span><span class="n">database</span> <span class="n">DATABASE</span>
+                        <span class="n">Archive</span> <span class="n">database</span> <span class="n">name</span>
+  <span class="o">-</span><span class="n">c</span> <span class="n">CLIENT</span><span class="p">,</span> <span class="o">--</span><span class="n">client</span> <span class="n">CLIENT</span>
+                        <span class="n">Use</span> <span class="n">specified</span> <span class="n">Firebird</span> <span class="n">client</span> <span class="n">library</span>
+  <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>  <span class="n">show</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
 </pre></div>
 </div>
 </div>
@@ -1035,14 +1034,11 @@ optional arguments:
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -1064,12 +1060,12 @@ optional arguments:
         <li class="right" >
           <a href="introduction.html" title="Introduction"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">fbtest 1.0.7 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">fbtest 1.0.7.1 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2012, Pavel Císař.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+        &#169; Copyright 2012-2019, Pavel Císař.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
     </div>
   </body>
 </html>

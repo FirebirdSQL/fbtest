@@ -243,6 +243,7 @@ totals = [0 for x in tests[test_order[0]]]
 %for run,span in runs:
   <th colspan=${span}>${run}</th>
 %endfor
+<td class='total'>Test ID</td><td class='total'>Title</td>
 </tr>
 %for test_id in test_order:
 <% test_results = tests[test_id]  %>
@@ -265,10 +266,13 @@ ${result.outcome[:1]} &nbsp; ${result.get_run_time().strftime('%M:%S:%f')}
 </td>
 %endfor
 %if test_id in test_details:
-<td class="test_id"><a href="${test_id}.html">${test_id}</a></td></tr>
+<td class="test_id"><a href="${test_id}.html">${test_id}</a></td>
 %else:
-<td class="test_id">${test_id}</td></tr>
+<td class="test_id">${test_id}</td>
 %endif
+<% test = repository.get_test(test_id)%>
+<td class="test_id">${test.title}</td>
+</tr>
 %endfor
 <tr>
 %for total in totals:
@@ -2441,7 +2445,7 @@ class ScriptRunner(object):
         :param options: Command-line options.
         :returns: :class:`Repository` instance.
         """
-        if options.remote:
+        if 'remote' in options and options.remote:
             try:
                 self.remote_fbtest = rpyc.connect_by_service('fbtest',
                                                         service=rpyc.SlaveService)
@@ -2687,7 +2691,7 @@ class ScriptRunner(object):
             if cause:
                 print ('  ',u.get_cause())
 
-    def print_analysis(self,version,results,tests,test_details,test_order,
+    def print_analysis(self,repository,version,results,tests,test_details,test_order,
                        output_dir,diffs_only):
         """Create HTML files with test run analysis.
 
@@ -2709,7 +2713,7 @@ class ScriptRunner(object):
         try:
             f.write(main_template.render(version=version,results=results,tests=tests,
                                    test_details=test_details,test_order=test_order,
-                                   time2datetime=time2datetime))
+                                   time2datetime=time2datetime, repository=repository))
         finally:
             f.close()
 
@@ -2761,7 +2765,7 @@ class ScriptRunner(object):
                 if os.path.isfile(os.path.join(directory,name)) and
                 os.path.splitext(name)[1].lower() == '.trf']
 
-    def analyze(self,filenames,output_dir,diffs_only=False):
+    def analyze(self,repository,filenames,output_dir,diffs_only=False):
         """Analyze test run results and produce HTML output.
 
         :param list filenames: List of result file filenames.
@@ -2821,7 +2825,7 @@ class ScriptRunner(object):
         test_order.sort(key=okey)
 
         # pass 4: Generate report
-        self.print_analysis(version,results,tests,test_details,test_order,
+        self.print_analysis(repository,version,results,tests,test_details,test_order,
                             output_dir, diffs_only)
     def get_svn_login(self,realm, username, may_save):
         """Get Subversion login credentials from user.
@@ -2901,6 +2905,7 @@ class ScriptRunner(object):
         """Called by :func:`~fbtest.run_analyze` for command execution.
         """
         filenames = []
+        repository = self.get_repository(options)
 
         if options.name:
             output_dir = os.getcwd()
@@ -2915,7 +2920,7 @@ class ScriptRunner(object):
         if options.output:
             output_dir = options.output
 
-        self.analyze(filenames,output_dir,options.diffs_only)
+        self.analyze(repository,filenames,output_dir,options.diffs_only)
     def run_view(self,options):
         """Called by :func:`~fbtest.run_view` for command execution.
         """
